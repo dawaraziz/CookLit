@@ -17,7 +17,7 @@ public class MyKitchen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_kitchen);
 
-        Button button = (Button) findViewById(R.id.);
+        Button button = (Button) findViewById(R.id.AddMoreFood);
 
         button.setOnClickListener(new View.OnClickListener() {
 
