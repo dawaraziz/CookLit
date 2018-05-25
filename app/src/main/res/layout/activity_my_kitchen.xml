@@ -61,11 +61,11 @@
             android:text="My Recipes" />
 
         <Button
-            android:id="@+id/MyMealPlan"
+            android:id="@+id/AddMoreFood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Meal Plans" />
+            android:text="Add more food" />
 
     </LinearLayout>
 
