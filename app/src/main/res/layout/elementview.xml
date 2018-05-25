@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                >
+
+
+    <ImageView
+        android:adjustViewBounds="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/thumbnail"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:maxWidth="50dp"
+        android:minHeight="50dp"
+        android:scaleType="fitXY"
+        android:maxHeight="50dp"
+        android:minWidth="50dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_alignParentStart="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/thumbnaildescription"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toEndOf="@+id/thumbnail"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
+        android:maxHeight="30dp"
+        android:minHeight="30dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:textSize="20dp"/>
+
+
+</RelativeLayout>
