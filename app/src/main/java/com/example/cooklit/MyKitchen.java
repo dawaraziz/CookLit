@@ -1,42 +1,66 @@
 package com.example.cooklit;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.List;
 
 public class MyKitchen extends AppCompatActivity {
+    private IngredientViewModel mIngredientViewModel;
+    public static final int NEW_INGREDIENT_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_kitchen);
 
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        final IngredientListAdapter adapter = new IngredientListAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mIngredientViewModel = ViewModelProviders.of(this).get(IngredientViewModel.class);
+        mIngredientViewModel.getAllIngredients().observe(this, new Observer<List<Ingredient>>() {
+            @Override
+            public void onChanged(@Nullable List<Ingredient> ingredients) {
+                adapter.setIngredients(ingredients);
+            }
+        });
+
+        // We might want to delete it at the end.
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyKitchen.this, AddItem.class);
+                startActivityForResult(intent, NEW_INGREDIENT_ACTIVITY_REQUEST_CODE);
+            }
+        });
+
+        /// Dawar Edithing (BOTTOM)
         Button button = (Button) findViewById(R.id.AddMoreFood);
 
         button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddItem.class);
-                startActivity(intent);
+                startActivityForResult(intent, NEW_INGREDIENT_ACTIVITY_REQUEST_CODE);
             }
 
         });
 
+        // Qian Editing (TOP)
         Button cooklit_button = (Button) findViewById(R.id.cooklit_button);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         cooklit_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,25 +74,16 @@ public class MyKitchen extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_my_kitchen, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == NEW_INGREDIENT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            Ingredient ingredient = new Ingredient(data.getStringExtra(AddItem.EXTRA_REPLY));
+            mIngredientViewModel.insert(ingredient);
+        } else {
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.empty_field,
+                    Toast.LENGTH_LONG).show();
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }

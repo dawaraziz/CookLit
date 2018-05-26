@@ -23,7 +23,6 @@
             </intent-filter>
         </activity>
         <activity android:name="AddItem"></activity>
-
         <activity android:name=".RecipeResultListActivity" />
         <activity android:name=".RecipeActivity">
 
