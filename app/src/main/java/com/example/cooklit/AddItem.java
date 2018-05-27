@@ -12,8 +12,8 @@ import com.example.cooklit.R;
 
 public class AddItem extends AppCompatActivity {
 
-    public static final String Name = "com.example.android.wordlistsql.REPLY";
-    public static final String Quantity = "com.example.android.wordlistsql.REPLY";
+    public static final String Name = "com.example.cooklit.NAME";
+    public static final String Quantity = "com.example.cooklit.QUANTITY";
 
 
     private EditText mEditNameView;

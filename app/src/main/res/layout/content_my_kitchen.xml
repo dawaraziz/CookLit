@@ -8,10 +8,14 @@
     tools:context=".MyKitchen"
     tools:showIn="@layout/activity_my_kitchen">
 
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="390dp"
+        android:layout_height="322dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-6dp"
+        tools:layout_editor_absoluteY="57dp"
         tools:listitem="@layout/recyclerview_item" />
 
 </android.support.constraint.ConstraintLayout>
