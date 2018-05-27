@@ -12,17 +12,23 @@ import com.example.cooklit.R;
 
 public class AddItem extends AppCompatActivity {
 
-    public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
+    public static final String Name = "com.example.android.wordlistsql.REPLY";
+    public static final String Quantity = "com.example.android.wordlistsql.REPLY";
+
 
     private EditText mEditNameView;
+    private EditText mEditQuantityView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_additem);
 
         mEditNameView = findViewById(R.id.name);
+        mEditQuantityView = findViewById(R.id.quantity);
 
         final Button add_button = findViewById(R.id.add);
+
         add_button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 Intent replyIntent = new Intent();
@@ -30,7 +36,9 @@ public class AddItem extends AppCompatActivity {
                     setResult(RESULT_CANCELED, replyIntent);
                 } else {
                     String name = mEditNameView.getText().toString();
-                    replyIntent.putExtra(EXTRA_REPLY, name);
+                    String quantity = mEditQuantityView.getText().toString();
+                    replyIntent.putExtra(Name, name);
+                    replyIntent.putExtra(Quantity, quantity);
                     setResult(RESULT_OK, replyIntent);
                 }
                 finish();

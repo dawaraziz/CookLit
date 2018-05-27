@@ -12,11 +12,13 @@ import java.util.List;
 public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.IngredientViewHolder> {
 
     class IngredientViewHolder extends RecyclerView.ViewHolder {
-        private final TextView ingredientItemView;
+        private final TextView ingredientNameView;
+        private final TextView ingredientQtyView;
 
         private IngredientViewHolder(View itemView) {
             super(itemView);
-            ingredientItemView = itemView.findViewById(R.id.textView);
+            ingredientNameView = itemView.findViewById(R.id.nameView);
+            ingredientQtyView = itemView.findViewById(R.id.quantityView);
         }
     }
 
@@ -34,10 +36,12 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
     public void onBindViewHolder(IngredientViewHolder holder, int position) {
         if (mIngredients != null) {
             com.example.cooklit.Ingredient current = mIngredients.get(position);
-            holder.ingredientItemView.setText(current.getName());
+            holder.ingredientNameView.setText(current.getName());
+            holder.ingredientQtyView.setText(current.getQuantity());
         } else {
             // Covers the case of data not being ready yet.
-            holder.ingredientItemView.setText("No Ingredient");
+            holder.ingredientNameView.setText("No Ingredient");
+            holder.ingredientNameView.setText("0");
         }
     }
 

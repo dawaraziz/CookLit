@@ -48,13 +48,11 @@ public abstract class IngredientDatabase extends RoomDatabase {
         protected Void doInBackground(final Void... params) {
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
-            /* mDao.deleteAll();
-            com.example.cooklit.Ingredient ingredient = new com.example.cooklit.Ingredient("Hello");
+            mDao.deleteAll();
+            com.example.cooklit.Ingredient ingredient = new com.example.cooklit.Ingredient("Hello", "3");
             mDao.insert(ingredient);
-            ingredient = new com.example.cooklit.Ingredient("World");
+            ingredient = new com.example.cooklit.Ingredient("World", "2");
             mDao.insert(ingredient);
-            */
-
             return null;
         }
 

@@ -11,6 +11,19 @@ public class Ingredient {
     @NonNull
     @ColumnInfo(name = "name")
     private String mName;
-    public Ingredient (@NonNull String name) {this.mName=name;}
+
+    @NonNull
+    @ColumnInfo(name = "quantity")
+    private String mQuantity;
+
+
+    public Ingredient (@NonNull String name, @NonNull String quantity) {
+        this.mName=name;
+        this.mQuantity=quantity;
+    }
+
     public String getName(){return this.mName;}
+    public void setName(String name) {this.mName=name;}
+    public String getQuantity() {return this.mQuantity;}
+    public void setQuantity(String quantity) {this.mQuantity=quantity;}
 }
