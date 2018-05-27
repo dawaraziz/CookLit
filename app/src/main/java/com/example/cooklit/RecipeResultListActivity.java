@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,7 +41,6 @@ public class RecipeResultListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_recipe_result);
         RecipeView1 = (ListView)findViewById(R.id.listView1);
-        //RecipeView2 = (ListView)findViewById(R.id.listView2);
         listViewAdapter recipeAdapter = new listViewAdapter(RecipeResultListActivity.this,R.layout.elementview,imageuris,urilinks);
         RecipeView1.setAdapter(recipeAdapter);
 
@@ -50,13 +50,13 @@ public class RecipeResultListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(isNetworkAvailable() == true){
 
-                    Intent i2 = new Intent(RecipeResultListActivity.this, RecipeActivity.class);
+                    Intent i2 = new Intent(RecipeResultListActivity.this, RecipeDetailActivity.class);
                     i2.putExtra("uri",linkToRecipes.get(i));
                     startActivity(i2);
                 }
                 else{
-                    //Snackbar.make(view, "Internet is not available, please retry", Snackbar.LENGTH_LONG)
-                      //      .setAction("Action", null).show();
+                    Snackbar.make(view, "Internet is not available, please retry", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
 
                 }
             }

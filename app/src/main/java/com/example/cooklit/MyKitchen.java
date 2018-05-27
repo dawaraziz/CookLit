@@ -17,7 +17,7 @@ public class MyKitchen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_kitchen);
 
-        Button button = (Button) findViewById(R.id.AddMoreFood);
+        Button button = findViewById(R.id.AddMoreFood);
 
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -28,7 +28,7 @@ public class MyKitchen extends AppCompatActivity {
 
         });
 
-        Button cooklit_button = (Button) findViewById(R.id.cooklit_button);
+        Button cooklit_button = findViewById(R.id.cooklit_button);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
