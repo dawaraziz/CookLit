@@ -2,4 +2,6 @@
     <string name="app_name">CookLit</string>
     <string name="action_settings">Settings</string>
     <string name="empty_field">Some fileds are empty</string>
+    <string name="title_activity_recipe_and_nutrition">RecipeAndNutritionActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

@@ -1,0 +1,150 @@
+package com.example.cooklit;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+public class RecipeDetailActivity extends AppCompatActivity {
+
+    ImageView titleImage;
+    TextView title;
+    ScrollView scrollView;
+    TextView ingrediantsText;
+    Button gotoRecipeButton;
+    JSONObject mJSONObject;
+    Handler mHandler;
+    String imageUri,titletxt,ingrediants,link;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_recipe_detail);
+        titleImage = findViewById(R.id.recipeImage);
+        title = findViewById(R.id.recipeTitle);
+        scrollView = findViewById(R.id.scrollView);
+        ingrediantsText = findViewById(R.id.recipeDetailTextview);
+        gotoRecipeButton = findViewById(R.id.gotoRecipe);
+        mHandler = new Handler();
+        new Thread(mMessageSender).start();
+        ingrediants = "";
+        ingrediantsText.setText("Loading...");
+
+        gotoRecipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i2 = new Intent(RecipeDetailActivity.this, RecipeActivity.class);
+                i2.putExtra("uri",link);
+                startActivity(i2);
+            }
+        });
+
+    }
+    private Handler messageHandler = new Handler() {
+
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            //progressDialog.dismiss();
+            //ingrediantsText.setText();
+            if(msg.what == 0){
+                ingrediantsText.setText(mJSONObject.toString());
+                title.setText(titletxt);
+                ingrediantsText.setText(ingrediants);
+                Picasso.with(RecipeDetailActivity.this).load(imageUri).into(titleImage);
+            }
+            else{
+                ingrediantsText.setText("error");
+            }
+        }
+    };
+
+    private final Runnable mMessageSender = new Runnable() {
+        public void run() {
+            request("https://api.edamam.com/search?q=chicken%20potato&app_id=30a51b67&app_key=4fac35f9506d8806f8cda87646dca06e");
+
+            while(mJSONObject == null){
+
+            }
+            try{
+                imageUri = mJSONObject.getJSONArray("hits").getJSONObject(0).getJSONObject("recipe").getString("image");
+                titletxt = mJSONObject.getJSONArray("hits").getJSONObject(0).getJSONObject("recipe").getString("label");
+                for(int i = 0; i < mJSONObject.getJSONArray("hits").getJSONObject(0).
+                        getJSONObject("recipe").getJSONArray("ingredientLines").length();++i){
+
+                    ingrediants += mJSONObject.getJSONArray("hits").getJSONObject(0).
+                            getJSONObject("recipe").getJSONArray("ingredientLines").getString(i) + "\n\n";
+                    link = mJSONObject.getJSONArray("hits").getJSONObject(0).getJSONObject("recipe").getString("url");
+                }
+            }
+            catch (Exception e){
+
+            }
+            messageHandler.sendEmptyMessage(0);
+            //mHandler.notify();
+        }
+    };
+
+    public void request(String type){
+
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder().url(type).build();
+
+        okhttp3.Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                Log.d("FAIL","TRUE");
+
+            }
+            @Override
+            public void onResponse(okhttp3.Call call, Response response) throws IOException {
+
+                try {
+                    String jsonData = response.body().string();
+                    //Response response = call.execute();
+                    if (response.isSuccessful()) {
+                        try{
+                            Log.d("jsonData is",jsonData);
+                            mJSONObject = new JSONObject(jsonData);
+                        }
+                        catch (Exception e){
+                            Log.d("exception caught","1");
+                        }
+                    }
+                    else{
+                        Log.d("jsonData is","not successful");
+                    }
+                }
+                catch (IOException e) {
+
+                    Log.d("exception caught","2");
+                }
+
+            }
+        });
+
+
+    }
+
+
+}
