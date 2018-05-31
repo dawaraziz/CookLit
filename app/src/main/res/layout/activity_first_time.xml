@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="81dp"
+    tools:context="com.macrohard.cooklit.model.activities.FirstTimeActivity">
+
+    <Button
+        android:id="@+id/button_startUpCookLit"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        android:enabled="true"
+        android:text="Let's CookLit!"
+        android:textAlignment="center"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="131dp"
+        tools:layout_editor_absoluteY="374dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="178dp"
+        android:layout_height="51dp"
+        android:fontFamily="cursive"
+        android:text="Greetings From"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="118dp"
+        tools:layout_editor_absoluteY="151dp" />
+</android.support.v4.widget.DrawerLayout>
