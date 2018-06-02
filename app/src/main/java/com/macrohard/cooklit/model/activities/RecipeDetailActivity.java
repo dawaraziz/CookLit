@@ -31,11 +31,11 @@ public class RecipeDetailActivity extends AppCompatActivity {
     ImageView titleImage;
     TextView title;
     ScrollView scrollView;
-    TextView ingrediantsText;
+    TextView ingredientsText;
     Button gotoRecipeButton;
     JSONObject mJSONObject;
     Handler mHandler;
-    String imageUri,titletxt,ingrediants,link;
+    String imageUri,titletxt,ingredients,link;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +45,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
         titleImage = findViewById(R.id.recipeImage);
         title = findViewById(R.id.recipeTitle);
         scrollView = findViewById(R.id.scrollView);
-        ingrediantsText = findViewById(R.id.recipeDetailTextview);
+        ingredientsText = findViewById(R.id.recipeDetailTextview);
         gotoRecipeButton = findViewById(R.id.gotoRecipe);
         mHandler = new Handler();
         new Thread(mMessageSender).start();
-        ingrediants = "";
-        ingrediantsText.setText("Loading...");
+        ingredients = "";
+        ingredientsText.setText("Loading...");
 
         gotoRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,15 +67,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             //progressDialog.dismiss();
-            //ingrediantsText.setText();
+            //ingredientsText.setText();
             if(msg.what == 0){
-                ingrediantsText.setText(mJSONObject.toString());
+                ingredientsText.setText(mJSONObject.toString());
                 title.setText(titletxt);
-                ingrediantsText.setText(ingrediants);
+                ingredientsText.setText(ingredients);
                 Picasso.with(RecipeDetailActivity.this).load(imageUri).into(titleImage);
             }
             else{
-                ingrediantsText.setText("error");
+                ingredientsText.setText("error");
             }
         }
     };
@@ -93,7 +93,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 for(int i = 0; i < mJSONObject.getJSONArray("hits").getJSONObject(0).
                         getJSONObject("Recipe").getJSONArray("ingredientLines").length();++i){
 
-                    ingrediants += mJSONObject.getJSONArray("hits").getJSONObject(0).
+                    ingredients += mJSONObject.getJSONArray("hits").getJSONObject(0).
                             getJSONObject("Recipe").getJSONArray("ingredientLines").getString(i) + "\n\n";
                     link = mJSONObject.getJSONArray("hits").getJSONObject(0).getJSONObject("Recipe").getString("url");
                 }
