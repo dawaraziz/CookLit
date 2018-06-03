@@ -1,12 +1,19 @@
 package com.macrohard.cooklit.database.model;
 
-/**
- * Created by qianwu on 2018-05-23.
- */
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+@Entity(tableName = "recipe_table")
 public class Recipe {
 
+    @PrimaryKey
+    @NonNull
     private String name;
+    @NonNull
     private String uri;
 
     public Recipe(String name, String uri){

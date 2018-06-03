@@ -8,13 +8,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-import com.macrohard.cooklit.database.dao.IngredientDao;
+import com.macrohard.cooklit.database.dao.CooklitDao;
 import com.macrohard.cooklit.database.model.Ingredient;
 
 
 @Database(entities = {Ingredient.class}, version =2)
 public abstract class IngredientDatabase extends RoomDatabase {
-    public abstract IngredientDao ingredientDao();
+    public abstract CooklitDao CooklitDao();
 
     private static IngredientDatabase INSTANCE;
 
@@ -43,9 +43,9 @@ public abstract class IngredientDatabase extends RoomDatabase {
     };
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
-        private final IngredientDao mDao;
+        private final CooklitDao mDao;
         PopulateDbAsync(IngredientDatabase db) {
-            mDao = db.ingredientDao();
+            mDao = db.CooklitDao();
         }
 
         @Override

@@ -4,20 +4,20 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
-import com.macrohard.cooklit.database.dao.IngredientDao;
+import com.macrohard.cooklit.database.dao.CooklitDao;
 import com.macrohard.cooklit.database.model.Ingredient;
 
 import java.util.List;
 
 public class IngredientRepository {
 
-    private IngredientDao mIngredientDao;
+    private CooklitDao mCooklitDao;
     private LiveData<List<Ingredient>> mAllIngredients;
 
     public IngredientRepository(Application application){
         IngredientDatabase db = IngredientDatabase.getDatabase(application);
-        mIngredientDao = db.ingredientDao();
-        mAllIngredients = mIngredientDao.getAllIngredients ();
+        mCooklitDao = db.CooklitDao();
+        mAllIngredients = mCooklitDao.getAllIngredients ();
     }
 
     public LiveData<List<Ingredient>> getAllIngredients(){
@@ -25,13 +25,13 @@ public class IngredientRepository {
     }
 
     public void insert (Ingredient ingredient){
-        new insertAsyncTask(mIngredientDao).execute(ingredient);
+        new insertAsyncTask(mCooklitDao).execute(ingredient);
     }
 
     private static class insertAsyncTask extends AsyncTask<Ingredient, Void, Void> {
 
-        private IngredientDao mAsyncTaskDao;
-        insertAsyncTask(IngredientDao dao) {
+        private CooklitDao mAsyncTaskDao;
+        insertAsyncTask(CooklitDao dao) {
             mAsyncTaskDao = dao;
         }
 

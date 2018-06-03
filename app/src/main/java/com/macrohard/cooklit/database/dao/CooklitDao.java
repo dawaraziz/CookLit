@@ -12,7 +12,7 @@ import com.macrohard.cooklit.database.model.Ingredient;
 import java.util.List;
 
 @Dao
-public interface IngredientDao {
+public interface CooklitDao {
     @Insert
     void insert(Ingredient ingredient);
 
