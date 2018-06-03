@@ -84,7 +84,9 @@ public class MyKitchenActivity extends AppCompatActivity{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == NEW_INGREDIENT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Ingredient ingredient = new Ingredient(data.getStringExtra(AddItemActivity.NAME), data.getStringExtra(AddItemActivity.QUANTITY));
+            Ingredient ingredient = new Ingredient(data.getStringExtra(AddItemActivity.NAME),
+                    data.getStringExtra(AddItemActivity.QUANTITY),
+                    data.getStringExtra(AddItemActivity.DATE));
             mIngredientViewModel.insert(ingredient);
         } else {
             Toast.makeText(

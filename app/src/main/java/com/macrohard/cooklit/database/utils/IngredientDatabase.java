@@ -12,7 +12,7 @@ import com.macrohard.cooklit.database.dao.IngredientDao;
 import com.macrohard.cooklit.database.model.Ingredient;
 
 
-@Database(entities = {Ingredient.class}, version =1)
+@Database(entities = {Ingredient.class}, version =2)
 public abstract class IngredientDatabase extends RoomDatabase {
     public abstract IngredientDao ingredientDao();
 
@@ -53,9 +53,9 @@ public abstract class IngredientDatabase extends RoomDatabase {
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
             mDao.deleteAll();
-            Ingredient ingredient = new Ingredient("Hello", "3");
+            Ingredient ingredient = new Ingredient("Hello", "3", "2018-5-7");
             mDao.insert(ingredient);
-            ingredient = new Ingredient("World", "2");
+            ingredient = new Ingredient("World", "2", "2018-5-30");
             mDao.insert(ingredient);
             return null;
         }
