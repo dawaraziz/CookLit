@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="290dp"
+    android:layout_height="380dp"
+    android:layout_gravity="center"
+    android:background="@drawable/curved_button_background"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/txt_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:text="Add to Meal Plan"
+        android:textColor="@android:color/black"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:timePickerMode="spinner" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/monday_roundButton"
+            android:background="@drawable/default_round_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:text="M"
+            android:textColor="@color/cookLitBlue"
+            android:textStyle="bold"
+            android:shadowColor="@color/colorAccent"/>
+
+        <Button
+            android:id="@+id/tuesday_roundButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/default_round_button"
+            android:text="T"
+            android:textColor="@color/cookLitBlue"
+            android:textStyle="bold"
+            android:shadowColor="@color/colorAccent"/>
+
+        <Button
+            android:id="@+id/wednesday_roundButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/default_round_button"
+            android:text="W"
+            android:textColor="@color/cookLitBlue"
+            android:textStyle="bold"
+            android:shadowColor="@color/colorAccent"/>
+
+
+        <Button
+            android:id="@+id/thursday_roundButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/default_round_button"
+            android:text="M"
+            android:textColor="@color/cookLitBlue"
+            android:textStyle="bold"
+            android:shadowColor="@color/colorAccent"/>
+
+        <Button
+            android:id="@+id/friday_roundButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/default_round_button"
+            android:clickable="true"
+            android:text="F"
+            android:textColor="@color/cookLitBlue"
+            android:textStyle="bold"
+            android:shadowColor="@color/colorAccent"/>
+
+        <Button
+            android:id="@+id/saturday_roundButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/default_round_button"
+            android:text="S"
+            android:textColor="@color/cookLitBlue"
+            android:textStyle="bold"
+            android:shadowColor="@color/colorAccent"/>
+
+        <Button
+            android:id="@+id/sunday_roundButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/default_round_button"
+            android:text="Su"
+            android:textColor="@color/cookLitBlue"
+            android:textStyle="bold"
+            android:shadowColor="@color/colorAccent"/>
+
+
+
+    </LinearLayout>
+
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <RadioButton
+            android:id="@+id/radio_pirates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="Once" />
+
+        <RadioButton
+            android:id="@+id/radio_ninjas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="Repeat" />
+    </RadioGroup>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="125dp"
+            android:layout_height="30dp"
+            android:background="@drawable/curved_button_background"
+            android:shadowColor="@color/colorAccent"
+            android:text="Cancel"
+            android:textColor="@color/cookLitBlue"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/confirmAddToMealPlan_button"
+            android:layout_width="125dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/curved_button_background"
+            android:clickable="true"
+            android:text="ADD TO MY PLAN"
+            android:textColor="@color/cookLitBlue"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+</LinearLayout>
