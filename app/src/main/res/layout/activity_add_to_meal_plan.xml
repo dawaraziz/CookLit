@@ -111,8 +111,6 @@
             android:textStyle="bold"
             android:shadowColor="@color/colorAccent"/>
 
-
-
     </LinearLayout>
 
 
