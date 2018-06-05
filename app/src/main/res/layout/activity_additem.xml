@@ -96,11 +96,13 @@
             android:gravity="center_horizontal"
             android:id="@+id/expirytext"
             android:text="Expiry:"/>
+
         <DatePicker
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:datePickerMode="spinner"
-            android:calendarViewShown="false">
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner">
 
         </DatePicker>
 

@@ -15,13 +15,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 
-public class listViewAdapter extends ArrayAdapter<String> {
+public class ListViewAdapter extends ArrayAdapter<String> {
 
     private Context context;
     private ArrayList<String> imageUri;
     private ArrayList<String> titles;
 
-    public listViewAdapter(Context context, int resource, ArrayList<String> titleimageuri, ArrayList<String> title) {
+    public ListViewAdapter(Context context, int resource, ArrayList<String> titleimageuri, ArrayList<String> title) {
         super(context, resource, titleimageuri);
         this.context = context;
         this.imageUri = titleimageuri;

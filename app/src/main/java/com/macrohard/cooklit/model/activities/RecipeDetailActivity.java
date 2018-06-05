@@ -1,5 +1,7 @@
 package com.macrohard.cooklit.model.activities;
 
+import android.app.ActionBar;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -7,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -28,31 +31,41 @@ import okhttp3.Response;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
-    ImageView titleImage;
+
     TextView title;
-    ScrollView scrollView;
     TextView ingredientsText;
-    Button gotoRecipeButton;
+
+    ScrollView scrollView;
+
+    ImageView titleImage;
+
+    Button goToRecipeButton;
+    Button addToMealPlanButton;
+
     JSONObject mJSONObject;
+    String imageUri, titleText,ingredients,link;
+
     Handler mHandler;
-    String imageUri,titletxt,ingredients,link;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
+
         titleImage = findViewById(R.id.recipeImage);
         title = findViewById(R.id.recipeTitle);
         scrollView = findViewById(R.id.scrollView);
         ingredientsText = findViewById(R.id.recipeDetailTextview);
-        gotoRecipeButton = findViewById(R.id.gotoRecipe);
+        goToRecipeButton = findViewById(R.id.gotoRecipe);
+        addToMealPlanButton = findViewById(R.id.addToMealPlanButton);
         mHandler = new Handler();
+
         new Thread(mMessageSender).start();
         ingredients = "";
         ingredientsText.setText("Loading...");
 
-        gotoRecipeButton.setOnClickListener(new View.OnClickListener() {
+        goToRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i2 = new Intent(RecipeDetailActivity.this, RecipeActivity.class);
@@ -61,7 +74,20 @@ public class RecipeDetailActivity extends AppCompatActivity {
             }
         });
 
+        addToMealPlanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog addToMealPlanDialog = new Dialog(RecipeDetailActivity.this,R.style.default_Dialog);
+                addToMealPlanDialog.setContentView(R.layout.activity_add_to_meal_plan);
+                addToMealPlanDialog.show();
+                WindowManager.LayoutParams layoutParams = addToMealPlanDialog.getWindow().getAttributes();
+                layoutParams.dimAmount = 0.3f;
+            }
+        });
+
     }
+
+
     private Handler messageHandler = new Handler() {
 
         public void handleMessage(Message msg) {
@@ -70,7 +96,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
             //ingredientsText.setText();
             if(msg.what == 0){
                 ingredientsText.setText(mJSONObject.toString());
-                title.setText(titletxt);
+                title.setText(titleText);
                 ingredientsText.setText(ingredients);
                 Picasso.with(RecipeDetailActivity.this).load(imageUri).into(titleImage);
             }
@@ -89,7 +115,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
             }
             try{
                 imageUri = mJSONObject.getJSONArray("hits").getJSONObject(0).getJSONObject("Recipe").getString("image");
-                titletxt = mJSONObject.getJSONArray("hits").getJSONObject(0).getJSONObject("Recipe").getString("label");
+                titleText = mJSONObject.getJSONArray("hits").getJSONObject(0).getJSONObject("Recipe").getString("label");
                 for(int i = 0; i < mJSONObject.getJSONArray("hits").getJSONObject(0).
                         getJSONObject("Recipe").getJSONArray("ingredientLines").length();++i){
 

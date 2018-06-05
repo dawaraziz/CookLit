@@ -33,10 +33,13 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
             Ingredient current = mIngredients.get(position);
             holder.ingredientNameView.setText(current.getName());
             holder.ingredientQtyView.setText(current.getQuantity());
+            holder.ingredientDateView.setText(current.getExpiryDate());
         } else {
             // Covers the case of data not being ready yet.
             holder.ingredientNameView.setText("No Ingredient");
-            holder.ingredientNameView.setText("0");
+            holder.ingredientQtyView.setText("0");
+            holder.ingredientDateView.setText("1988");
+
         }
     }
 
@@ -59,11 +62,13 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
 
         private final TextView ingredientNameView;
         private final TextView ingredientQtyView;
+        private final TextView ingredientDateView;
 
         private IngredientViewHolder(View itemView) {
             super(itemView);
             ingredientNameView = itemView.findViewById(R.id.nameView);
             ingredientQtyView = itemView.findViewById(R.id.quantityView);
+            ingredientDateView = itemView.findViewById(R.id.expirydateView);
         }
 
     }
