@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.macrohard.cooklit.R;
-import com.macrohard.cooklit.support.adapter.listViewAdapter;
+import com.macrohard.cooklit.support.adapter.ListViewAdapter;
 
 import java.util.ArrayList;
 
@@ -43,7 +43,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_recipe_result);
         RecipeView1 = (ListView)findViewById(R.id.listView1);
-        listViewAdapter recipeAdapter = new listViewAdapter(RecipeResultListActivity.this,R.layout.elementview,imageuris,urilinks);
+        ListViewAdapter recipeAdapter = new ListViewAdapter(RecipeResultListActivity.this,R.layout.elementview,imageuris,urilinks);
         RecipeView1.setAdapter(recipeAdapter);
 
         RecipeView1.setItemsCanFocus(false);
