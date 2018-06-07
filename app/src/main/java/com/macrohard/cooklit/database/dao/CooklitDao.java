@@ -8,28 +8,43 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.macrohard.cooklit.database.model.Ingredient;
+import com.macrohard.cooklit.database.model.Recipe;
 
 import java.util.List;
 
 @Dao
-public interface CooklitDao {
+public abstract class CooklitDao {
+
+    // Dao for Ingredient
     @Insert
-    void insert(Ingredient ingredient);
+    public abstract void insertIngredient(Ingredient ingredient);
 
     @Query("DELETE FROM ingredient_table")
-    void deleteAll();
+    public abstract void deleteAllIngredient();
 
     @Query("SELECT * FROM ingredient_table ORDER BY name ASC")
-    LiveData<List<Ingredient>> getAllIngredients();
+    public abstract LiveData<List<Ingredient>> getAllIngredients();
 
     @Query("SELECT * FROM ingredient_table WHERE name = :name")
-    Ingredient fetchIngredientbyName(String name);
+    abstract Ingredient fetchIngredientbyName(String name);
 
     @Update
-    void updateIngredient(Ingredient ingredient);
+    abstract void updateIngredient(Ingredient ingredient);
 
     @Delete
-    void deleteIngredient(Ingredient ingredient);
+    abstract void deleteIngredient(Ingredient ingredient);
 
+    // DAO for Recipe
+    @Insert
+    public abstract void insertRecipe(Recipe recipe);
+
+    @Query("DELETE FROM recipe_table")
+    public abstract void deleteAllRecipes();
+
+    @Query("SELECT * FROM recipe_table ORDER BY name ASC")
+    public abstract LiveData<List<Recipe>> getAllRecipes();
+
+    @Query("SELECT * FROM recipe_table WHERE name = :name")
+    public abstract Recipe fetchRecipebyName(String name);
 
 }
