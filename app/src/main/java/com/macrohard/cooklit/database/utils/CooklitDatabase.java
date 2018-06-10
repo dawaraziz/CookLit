@@ -8,23 +8,24 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-import com.macrohard.cooklit.database.dao.IngredientDao;
+import com.macrohard.cooklit.database.dao.CooklitDao;
 import com.macrohard.cooklit.database.model.Ingredient;
+import com.macrohard.cooklit.database.model.Recipe;
 
 
-@Database(entities = {Ingredient.class}, version =2)
-public abstract class IngredientDatabase extends RoomDatabase {
-    public abstract IngredientDao ingredientDao();
+@Database(entities = {Ingredient.class, Recipe.class}, version =1)
+public abstract class CooklitDatabase extends RoomDatabase {
+    public abstract CooklitDao CooklitDao();
 
-    private static IngredientDatabase INSTANCE;
+    private static CooklitDatabase INSTANCE;
 
-    static IngredientDatabase getDatabase(final Context context){
+    static CooklitDatabase getDatabase(final Context context){
         if (INSTANCE == null){
-            synchronized (IngredientDatabase.class){
+            synchronized (CooklitDatabase.class){
                 // if DB does not exist, create DB here
                 if (INSTANCE == null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            IngredientDatabase.class, "ingredient_database")
+                            CooklitDatabase.class, "cooklit_database")
                             .fallbackToDestructiveMigration()
                             .addCallback(sRoomDatabaseCallback)
                             .build();
@@ -43,20 +44,23 @@ public abstract class IngredientDatabase extends RoomDatabase {
     };
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
-        private final IngredientDao mDao;
-        PopulateDbAsync(IngredientDatabase db) {
-            mDao = db.ingredientDao();
+        private final CooklitDao mDao;
+        PopulateDbAsync(CooklitDatabase db) {
+            mDao = db.CooklitDao();
         }
 
         @Override
         protected Void doInBackground(final Void... params) {
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
-            mDao.deleteAll();
-            Ingredient ingredient = new Ingredient("Hello", "3", "2018-5-7");
-            mDao.insert(ingredient);
-            ingredient = new Ingredient("World", "2", "2018-5-30");
-            mDao.insert(ingredient);
+            mDao.deleteAllIngredient();
+            mDao.deleteAllRecipes();
+            Ingredient ingredient = new Ingredient("Chicken", "3", "2018-5-7");
+            mDao.insertIngredient(ingredient);
+            ingredient = new Ingredient("Avocado", "2", "2018-5-30");
+            mDao.insertIngredient(ingredient);
+            Recipe recipe = new Recipe("spagettie", "www.spagettie.com");
+            mDao.insertRecipe(recipe);
             return null;
         }
 

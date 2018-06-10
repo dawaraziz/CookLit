@@ -8,29 +8,29 @@ import com.macrohard.cooklit.database.utils.CooklitRepository;
 
 import java.util.List;
 
-// IngredientViewModel is reponsible for preapring and managing
+// RecipeViewModel is reponsible for preapring and managing
 //  the data for an Activity. It is used by activities
 //  Activities should be able to observe changes in the viewmodel
-public class IngredientViewModel extends AndroidViewModel {
+public class RecipeViewModel extends AndroidViewModel {
 
     private CooklitRepository mRepository;
-    private LiveData<List<Ingredient>> mAllIngredients;
+    private LiveData<List<Recipe>> mAllRecipes;
 
     // AndroidViewModel accpets application as the only param
-    public IngredientViewModel (Application application){
+    public RecipeViewModel(Application application){
         super(application);
         mRepository = new CooklitRepository(application);
-        mAllIngredients = mRepository.getAllIngredients();
+        mAllRecipes = mRepository.getAllRecipes();
     }
 
     // getAllIngreidents is called by acitivites and it returns allingredients
-    public LiveData<List<Ingredient>> getAllIngredients() {
-        return mAllIngredients;
+    public LiveData<List<Recipe>> getmAllRecipes() {
+        return mAllRecipes;
     }
 
-    // insert is called by activites and insert ingredient into repository
-    public void insert(Ingredient ingredient) {
-        mRepository.insert(ingredient);
+    // insert is called by activites and insert recipe into repository
+    public void insert(Recipe recipe) {
+        mRepository.insert(recipe);
     }
 
 }
