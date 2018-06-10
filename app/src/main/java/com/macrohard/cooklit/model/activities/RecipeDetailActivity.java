@@ -2,7 +2,10 @@ package com.macrohard.cooklit.model.activities;
 
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -60,10 +63,17 @@ public class RecipeDetailActivity extends AppCompatActivity {
         goToRecipeButton = findViewById(R.id.gotoRecipe);
         addToMealPlanButton = findViewById(R.id.addToMealPlanButton);
         mHandler = new Handler();
-
-        new Thread(mMessageSender).start();
-        ingredients = "";
-        ingredientsText.setText("Loading...");
+        Intent mintent = getIntent();
+        imageUri = mintent.getStringExtra("imageuri");
+        titleText = mintent.getStringExtra("title");
+        link = mintent.getStringExtra("uri");
+        ingredients = mintent.getStringExtra("ingrediants");
+        ingredientsText.setText(ingredients);
+        //new Thread(mMessageSender).start();
+        //ingredients = "";
+        //ingredientsText.setText("Loading...");
+        Picasso.with(RecipeDetailActivity.this).load(imageUri).into(titleImage);
+        title.setText(titleText);
 
         goToRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,93 +96,11 @@ public class RecipeDetailActivity extends AppCompatActivity {
         });
 
     }
-
-
-    private Handler messageHandler = new Handler() {
-
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            //progressDialog.dismiss();
-            //ingredientsText.setText();
-            if(msg.what == 0){
-                ingredientsText.setText(mJSONObject.toString());
-                title.setText(titleText);
-                ingredientsText.setText(ingredients);
-                Picasso.with(RecipeDetailActivity.this).load(imageUri).into(titleImage);
-            }
-            else{
-                ingredientsText.setText("error");
-            }
-        }
-    };
-
-    private final Runnable mMessageSender = new Runnable() {
-        public void run() {
-            request("https://api.edamam.com/search?q=chicken%20potato&app_id=30a51b67&app_key=4fac35f9506d8806f8cda87646dca06e");
-
-            while(mJSONObject == null){
-
-            }
-            try{
-                imageUri = mJSONObject.getJSONArray("hits").getJSONObject(0).getJSONObject("Recipe").getString("image");
-                titleText = mJSONObject.getJSONArray("hits").getJSONObject(0).getJSONObject("Recipe").getString("label");
-                for(int i = 0; i < mJSONObject.getJSONArray("hits").getJSONObject(0).
-                        getJSONObject("Recipe").getJSONArray("ingredientLines").length();++i){
-
-                    ingredients += mJSONObject.getJSONArray("hits").getJSONObject(0).
-                            getJSONObject("Recipe").getJSONArray("ingredientLines").getString(i) + "\n\n";
-                    link = mJSONObject.getJSONArray("hits").getJSONObject(0).getJSONObject("Recipe").getString("url");
-                }
-            }
-            catch (Exception e){
-
-            }
-            messageHandler.sendEmptyMessage(0);
-            //mHandler.notify();
-        }
-    };
-
-    public void request(String type){
-
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder().url(type).build();
-
-        okhttp3.Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
-                Log.d("FAIL","TRUE");
-
-            }
-            @Override
-            public void onResponse(okhttp3.Call call, Response response) throws IOException {
-
-                try {
-                    String jsonData = response.body().string();
-                    //Response response = call.execute();
-                    if (response.isSuccessful()) {
-                        try{
-                            Log.d("jsonData is",jsonData);
-                            mJSONObject = new JSONObject(jsonData);
-                        }
-                        catch (Exception e){
-                            Log.d("exception caught","1");
-                        }
-                    }
-                    else{
-                        Log.d("jsonData is","not successful");
-                    }
-                }
-                catch (IOException e) {
-
-                    Log.d("exception caught","2");
-                }
-
-            }
-        });
-
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
     }
 
 
