@@ -61,12 +61,12 @@ public class MyKitchenActivity extends AppCompatActivity{
         });
 
         /// Dawar Edithing (BOTTOM)
-        final Button button = (Button) findViewById(R.id.AddMoreFood);
+        final Button buttonB = (Button) findViewById(R.id.bucketlist_button);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonB.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AddItemActivity.class);
+                Intent intent = new Intent(getApplicationContext(), BucketListActivity.class);
                 startActivityForResult(intent, NEW_INGREDIENT_ACTIVITY_REQUEST_CODE);
             }
 
@@ -107,10 +107,21 @@ public class MyKitchenActivity extends AppCompatActivity{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == NEW_INGREDIENT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Ingredient ingredient = new Ingredient(data.getStringExtra(AddItemActivity.NAME),
-                    data.getStringExtra(AddItemActivity.QUANTITY),
-                    data.getStringExtra(AddItemActivity.DATE));
-            mIngredientViewModel.insert(ingredient);
+            int num = data.getExtras().size();
+            System.out.print(num);
+            if (num > 3) {
+                for (int i = 1; i <= (num/3); i++) {
+                    Ingredient ingredient = new Ingredient(data.getStringExtra("name" + String.valueOf(i)),
+                            data.getStringExtra("quantity" + String.valueOf(i)),
+                            data.getStringExtra("date" + String.valueOf(i)));
+                    mIngredientViewModel.insert(ingredient);
+                }
+            } else {
+                Ingredient ingredient = new Ingredient(data.getStringExtra(AddItemActivity.NAME),
+                        data.getStringExtra(AddItemActivity.QUANTITY),
+                        data.getStringExtra(AddItemActivity.DATE));
+                mIngredientViewModel.insert(ingredient);
+            }
         } else {
             Toast.makeText(
                     getApplicationContext(),

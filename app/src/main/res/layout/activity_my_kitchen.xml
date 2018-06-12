@@ -29,6 +29,15 @@
             android:layout_centerHorizontal="true"
             android:text="Cooklit"
             android:textSize="13dp" />
+
+        <Button
+            android:id="@+id/bucketlist_button"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:text="BucketList"
+            android:textSize="13dp" />
     </RelativeLayout>
 
     <android.support.design.widget.CoordinatorLayout
