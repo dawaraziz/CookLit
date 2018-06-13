@@ -41,16 +41,16 @@ public class RecipeResultListActivity extends AppCompatActivity {
     public JSONObject mJSONObject;
     public String query;
     public ArrayList<String> imageuris,linkToRecipes,urilinks;
-    public ArrayList<String> ingrediants;
+    public ArrayList<String> ingredients;
     public Handler mHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_result);
         Intent intent = getIntent();
-        String [] ings = intent.getStringArrayExtra("ingrediants");
+        String [] ings = intent.getStringArrayExtra("ingredients");
         query = ings[0];
-        //Log.d("ing list are",intent.getStringArrayExtra("ingrediants")[1]);
+        //Log.d("ing list are",intent.getStringArrayExtra("ingredients")[1]);
         for(int i = 1; i < ings.length;++i){
             query += "%20";
             query +=ings[i];
@@ -64,7 +64,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
         imageuris = new ArrayList<>();
         urilinks = new ArrayList<>();
         linkToRecipes = new ArrayList<>();
-        ingrediants = new ArrayList<>();
+        ingredients = new ArrayList<>();
     }
     private Handler messageHandler = new Handler() {
 
@@ -84,7 +84,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
                             i2.putExtra("uri",linkToRecipes.get(i));
                             i2.putExtra("imageuri",imageuris.get(i));
                             i2.putExtra("title",urilinks.get(i));
-                            i2.putExtra("ingrediants",ingrediants.get(i));
+                            i2.putExtra("ingredients",ingredients.get(i));
                             startActivity(i2);
                         }
                         else{
@@ -98,6 +98,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
 
         }
     };
+
     private final Runnable mMessageSender = new Runnable() {
         public void run() {
             //request("https://api.edamam.com/search?q=chicken%20potato&app_id=30a51b67&app_key=4fac35f9506d8806f8cda87646dca06e");
@@ -122,7 +123,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
 
 
                     }
-                    ingrediants.add(ings);
+                    ingredients.add(ings);
                 }
 
 
@@ -168,7 +169,6 @@ public class RecipeResultListActivity extends AppCompatActivity {
                     }
                 }
                 catch (IOException e) {
-
                     Log.d("exception caught","2");
                 }
 

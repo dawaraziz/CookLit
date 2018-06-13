@@ -30,7 +30,7 @@ import java.util.List;
 public class MyKitchenActivity extends AppCompatActivity{
     private IngredientViewModel mIngredientViewModel;
     public static final int NEW_INGREDIENT_ACTIVITY_REQUEST_CODE = 1;
-    private String[] ingrediantList;
+    private String[] ingredientList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +60,13 @@ public class MyKitchenActivity extends AppCompatActivity{
             }
         });
 
-        /// Dawar Edithing (BOTTOM)
-        final Button button = (Button) findViewById(R.id.AddMoreFood);
+        final Button button = (Button) findViewById(R.id.openMealPlan);
 
         button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AddItemActivity.class);
-                startActivityForResult(intent, NEW_INGREDIENT_ACTIVITY_REQUEST_CODE);
+                Intent intent = new Intent(getApplicationContext(), MealPlanActivity.class);
+                startActivity(intent);
             }
 
         });
@@ -85,12 +84,12 @@ public class MyKitchenActivity extends AppCompatActivity{
                 i2 = new Intent(MyKitchenActivity.this, RecipeResultListActivity.class);
 
                 Log.d("list", mIngredientViewModel.getAllIngredients().getValue().get(0).getName());
-                ingrediantList = new String[mIngredientViewModel.getAllIngredients().getValue().size()];
+                ingredientList = new String[mIngredientViewModel.getAllIngredients().getValue().size()];
 
                 for(int i = 0; i < mIngredientViewModel.getAllIngredients().getValue().size();++i){
-                    ingrediantList[i] = mIngredientViewModel.getAllIngredients().getValue().get(i).getName();
+                    ingredientList[i] = mIngredientViewModel.getAllIngredients().getValue().get(i).getName();
                 }
-                i2.putExtra("ingrediants",ingrediantList);
+                i2.putExtra("ingredients",ingredientList);
                 startActivity(i2);
             }
                 else{

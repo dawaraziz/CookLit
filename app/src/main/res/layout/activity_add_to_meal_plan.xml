@@ -26,6 +26,7 @@
         android:timePickerMode="spinner" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/weekdays_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -83,7 +84,6 @@
             android:layout_height="32dp"
             android:layout_marginStart="5dp"
             android:background="@drawable/default_round_button"
-            android:clickable="true"
             android:text="F"
             android:textColor="@color/cookLitBlue"
             android:textStyle="bold"
@@ -122,18 +122,20 @@
         android:layout_marginTop="10dp">
 
         <RadioButton
-            android:id="@+id/radio_pirates"
+            android:id="@+id/reminder_once"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
+            android:textColor="@android:color/black"
+            android:textSize="15dp"
             android:text="Once" />
 
         <RadioButton
-            android:id="@+id/radio_ninjas"
+            android:id="@+id/reminder_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:onClick="onRadioButtonClicked"
+            android:layout_marginStart="60dp"
+            android:textColor="@android:color/black"
+            android:textSize="15dp"
             android:text="Repeat" />
     </RadioGroup>
 
@@ -146,7 +148,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/cancel_button"
+            android:id="@+id/cancelAddToMealPlan_button"
             android:layout_width="125dp"
             android:layout_height="30dp"
             android:background="@drawable/curved_button_background"

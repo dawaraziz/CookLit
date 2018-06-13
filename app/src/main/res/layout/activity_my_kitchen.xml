@@ -67,11 +67,11 @@
             android:text="My Recipes" />
 
         <Button
-            android:id="@+id/AddMoreFood"
+            android:id="@+id/openMealPlan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Add more food" />
+            android:text="See my meal plan!" />
 
 
     </LinearLayout>
