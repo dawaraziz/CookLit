@@ -15,10 +15,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.macrohard.cooklit.R;
-import com.macrohard.cooklit.support.adapter.ListViewAdapter;
-import com.squareup.picasso.Picasso;
+import com.macrohard.cooklit.support.adapters.RecipeListViewAdapter;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -72,7 +70,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
             super.handleMessage(msg);
             if(msg.what == 0){
                 Log.d("handler working","1");
-                ListViewAdapter recipeAdapter = new ListViewAdapter(RecipeResultListActivity.this,R.layout.elementview,imageuris,urilinks);
+                RecipeListViewAdapter recipeAdapter = new RecipeListViewAdapter(RecipeResultListActivity.this,R.layout.elementview,imageuris,urilinks);
                 RecipeView1.setAdapter(recipeAdapter);
                 RecipeView1.setItemsCanFocus(false);
                 RecipeView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {

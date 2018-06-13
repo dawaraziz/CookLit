@@ -7,16 +7,14 @@
     <CalendarView
         android:id="@+id/mealPlanCalendar"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:focusable="true"
-        android:theme="@style/Animation.Design.BottomSheetDialog"
-        android:focusedMonthDateColor="@color/colorPrimaryDark"
-        android:selectedDateVerticalBar="@color/colorPrimaryDark" />
+        android:layout_height="310dp"
+        android:background="@drawable/default_bottom_border" />
+
 
     <ListView
         android:id="@+id/mealsForDay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="wrap_content"
+        android:scrollbarTrackVertical="@color/cookLitBlue"/>
 
 </LinearLayout>

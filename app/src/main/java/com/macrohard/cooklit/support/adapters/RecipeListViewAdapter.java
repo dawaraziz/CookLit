@@ -1,4 +1,4 @@
-package com.macrohard.cooklit.support.adapter;
+package com.macrohard.cooklit.support.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -15,13 +15,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 
-public class ListViewAdapter extends ArrayAdapter<String> {
+public class RecipeListViewAdapter extends ArrayAdapter<String> {
 
     private Context context;
     private ArrayList<String> imageUri;
     private ArrayList<String> titles;
 
-    public ListViewAdapter(Context context, int resource, ArrayList<String> titleimageuri, ArrayList<String> title) {
+    public RecipeListViewAdapter(Context context, int resource, ArrayList<String> titleimageuri, ArrayList<String> title) {
         super(context, resource, titleimageuri);
         this.context = context;
         this.imageUri = titleimageuri;
