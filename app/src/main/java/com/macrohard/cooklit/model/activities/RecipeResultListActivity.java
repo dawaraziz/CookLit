@@ -55,7 +55,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
             query += "%20";
             query +=ings[i];
         }
-        query = upperURI+"chicken egg"+lowerURI;
+        query = upperURI+query+lowerURI;
 
         Log.d("query is",query);
         mHandler = new Handler();
