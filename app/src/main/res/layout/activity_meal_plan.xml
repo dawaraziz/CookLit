@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <CalendarView
+        android:id="@+id/mealPlanCalendar"
         android:layout_width="match_parent"
         android:layout_height="320dp"
         android:focusable="true"
@@ -13,7 +14,7 @@
         android:selectedDateVerticalBar="@color/colorPrimaryDark" />
 
     <ListView
-        android:id="@+id/schedule_for_day"
+        android:id="@+id/mealsForDay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </ListView>

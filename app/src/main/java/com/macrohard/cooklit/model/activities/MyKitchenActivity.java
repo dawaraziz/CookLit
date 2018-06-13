@@ -60,23 +60,30 @@ public class MyKitchenActivity extends AppCompatActivity{
             }
         });
 
-        final Button button = (Button) findViewById(R.id.openMealPlan);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        final Button openMealPlanButton = (Button) findViewById(R.id.openMealPlan);
+
+        openMealPlanButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent mealPlanIntent = new Intent(MyKitchenActivity.this, MealPlanActivity.class);
+                startActivity(mealPlanIntent);
+            }
+        });
+
+        final Button bucketListButton = (Button) findViewById(R.id.bucketlist_button);
+
+        bucketListButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MealPlanActivity.class);
-                startActivity(intent);
+                Intent bucketListIntent = new Intent(getApplicationContext(), BucketListActivity.class);
+                startActivityForResult(bucketListIntent, NEW_INGREDIENT_ACTIVITY_REQUEST_CODE);
             }
 
         });
 
+        Button cooklitButton = (Button) findViewById(R.id.cooklit_button);
 
-        // Qian Editing (TOP)
-        Button cooklit_button = (Button) findViewById(R.id.cooklit_button);
-
-
-        cooklit_button.setOnClickListener(new View.OnClickListener() {
+        cooklitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isNetworkAvailable()){
@@ -106,10 +113,21 @@ public class MyKitchenActivity extends AppCompatActivity{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == NEW_INGREDIENT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Ingredient ingredient = new Ingredient(data.getStringExtra(AddItemActivity.NAME),
-                    data.getStringExtra(AddItemActivity.QUANTITY),
-                    data.getStringExtra(AddItemActivity.DATE));
-            mIngredientViewModel.insert(ingredient);
+            int num = data.getExtras().size();
+            System.out.print(num);
+            if (num > 3) {
+                for (int i = 1; i <= (num/3); i++) {
+                    Ingredient ingredient = new Ingredient(data.getStringExtra("name" + String.valueOf(i)),
+                            data.getStringExtra("quantity" + String.valueOf(i)),
+                            data.getStringExtra("date" + String.valueOf(i)));
+                    mIngredientViewModel.insert(ingredient);
+                }
+            } else {
+                Ingredient ingredient = new Ingredient(data.getStringExtra(AddItemActivity.NAME),
+                        data.getStringExtra(AddItemActivity.QUANTITY),
+                        data.getStringExtra(AddItemActivity.DATE));
+                mIngredientViewModel.insert(ingredient);
+            }
         } else {
             Toast.makeText(
                     getApplicationContext(),

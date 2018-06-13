@@ -21,10 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".model.activities.BucketListActivity" />
         <activity android:name=".model.activities.AddItemActivity" />
         <activity android:name=".model.activities.RecipeResultListActivity" />
         <activity android:name=".model.activities.RecipeActivity" />
         <activity android:name=".model.activities.RecipeDetailActivity" />
+        <activity android:name=".model.activities.MealPlanActivity"/>
     </application>
 
 </manifest>

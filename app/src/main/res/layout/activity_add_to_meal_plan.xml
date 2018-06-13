@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="290dp"
-    android:layout_height="380dp"
+    android:layout_height="395dp"
     android:layout_gravity="center"
     android:background="@drawable/curved_button_background"
     android:orientation="vertical">
-
 
     <TextView
         android:id="@+id/txt_dia"
@@ -139,27 +138,38 @@
             android:text="Repeat" />
     </RadioGroup>
 
+    <CheckBox
+        android:id="@+id/openMealPlanCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:textSize="13dp"
+        android:textColor="@android:color/black"
+        android:text="Open my meal plan after completion"
+        />
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/cancelAddToMealPlan_button"
-            android:layout_width="125dp"
+            android:layout_width="130dp"
             android:layout_height="30dp"
             android:background="@drawable/curved_button_background"
             android:shadowColor="@color/colorAccent"
-            android:text="Cancel"
+            android:text="CANCEL"
             android:textColor="@color/cookLitBlue"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/confirmAddToMealPlan_button"
-            android:layout_width="125dp"
+            android:layout_width="130dp"
             android:layout_height="30dp"
             android:layout_marginLeft="15dp"
             android:background="@drawable/curved_button_background"

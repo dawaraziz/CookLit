@@ -23,11 +23,20 @@
 
         <Button
             android:id="@+id/cooklit_button"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="Cooklit"
+            android:text="Let's Cooklit!"
+            android:textSize="13dp" />
+
+        <Button
+            android:id="@+id/bucketlist_button"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:text="My BucketList"
             android:textSize="13dp" />
     </RelativeLayout>
 
@@ -61,7 +70,7 @@
 
         <Button
             android:id="@+id/MyRecipe"
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="My Recipes" />

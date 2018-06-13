@@ -2,12 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"/>
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,12 +40,6 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:layout_below="@id/nametext"/>
-        <!--<Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/enter_name"
-            android:layout_toEndOf="@id/name"
-            android:text="hello"/>-->
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -105,19 +96,6 @@
             android:datePickerMode="spinner">
 
         </DatePicker>
-
-        <!--<EditText
-            android:id="@+id/expiry"
-            android:layout_width="150sp"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:layout_toEndOf="@id/expirytext"/>-->
-        <!--<Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/enter_expiry"
-            android:id="@+id/enter_expiry"
-            android:text="ENTER"/>-->
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"

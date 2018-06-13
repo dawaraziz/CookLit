@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:drawSelectorOnTop="false"
+        android:layout_centerInParent="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@id/itemToAdd"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:id="@+id/item"
+        android:text="Item: "/>
+    <EditText
+        android:id="@+id/itemToAdd"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:layout_above="@id/Add"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:id="@+id/quantitytext1"
+        android:layout_alignParentRight="true"
+        android:layout_above="@id/amount"
+        android:text="Quantity: "/>
+    <EditText
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_alignParentRight="true"
+        android:layout_above="@id/Submit"
+        android:id="@+id/amount"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Add"
+        android:text="Add"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Submit"
+        android:layout_alignParentRight="true"
+        android:text="Submit"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>
