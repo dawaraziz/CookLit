@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,32 +24,26 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
-
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 //TODO::Needs to be given a look at
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
 
-    TextView title;
-    TextView ingredientsText;
+    private TextView title;
+    private TextView ingredientsText;
 
-    ScrollView scrollView;
+    private ScrollView scrollView;
 
-    ImageView titleImage;
+    private ImageView titleImage;
 
-    Button goToRecipeButton;
-    Button addToMealPlanButton;
+    private Button goToRecipeButton;
+    private Button addToMealPlanButton;
 
-    JSONObject mJSONObject;
-    String imageUri, titleText,ingredients,link;
+    private JSONObject mJSONObject;
+    private String imageUri, titleText,ingredients,link;
 
-    Handler mHandler;
+    private Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +64,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         link = mintent.getStringExtra("uri");
         ingredients = mintent.getStringExtra("ingrediants");
         ingredientsText.setText(ingredients);
-        //new Thread(mMessageSender).start();
-        //ingredients = "";
-        //ingredientsText.setText("Loading...");
         Picasso.with(RecipeDetailActivity.this).load(imageUri).into(titleImage);
         title.setText(titleText);
 
@@ -87,14 +79,19 @@ public class RecipeDetailActivity extends AppCompatActivity {
         addToMealPlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog addToMealPlanDialog = new Dialog(RecipeDetailActivity.this,R.style.default_Dialog);
-                addToMealPlanDialog.setContentView(R.layout.activity_add_to_meal_plan);
-                addToMealPlanDialog.show();
-                WindowManager.LayoutParams layoutParams = addToMealPlanDialog.getWindow().getAttributes();
-                layoutParams.dimAmount = 0.3f;
+                if(isNetworkAvailable()){
+                    Dialog addToMealPlanDialog = new Dialog(RecipeDetailActivity.this,R.style.default_Dialog);
+                    addToMealPlanDialog.setContentView(R.layout.activity_add_to_meal_plan);
+                    addToMealPlanDialog.show();
+                    WindowManager.LayoutParams layoutParams = addToMealPlanDialog.getWindow().getAttributes();
+                    layoutParams.dimAmount = 0.3f;
+                }
+                else{
+                    Snackbar.make(view, "Internet is not available, please retry", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
-
     }
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
