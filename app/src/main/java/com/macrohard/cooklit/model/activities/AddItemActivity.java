@@ -29,6 +29,9 @@ public class AddItemActivity extends AppCompatActivity {
 
     Integer idcounter = 1;
 
+
+
+
     private int year;
     private int month;
     private int day;
