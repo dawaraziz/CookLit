@@ -25,12 +25,10 @@ public class AddItemActivity extends AppCompatActivity {
     private EditText mEditQuantityView;
     private DatePicker mDatePickerView;
 
+    private short i;
     Intent replyIntent = new Intent();
 
     Integer idcounter = 1;
-
-
-
 
     private int year;
     private int month;

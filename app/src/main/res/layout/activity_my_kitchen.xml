@@ -23,7 +23,8 @@
 
         <Button
             android:id="@+id/cooklit_button"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
+            android:background="@drawable/white_button"
             android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
@@ -32,11 +33,12 @@
 
         <Button
             android:id="@+id/bucketlist_button"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_centerHorizontal="true"
             android:text="My BucketList"
+            android:background="@drawable/white_button"
             android:textSize="13dp" />
     </RelativeLayout>
 
@@ -70,16 +72,18 @@
 
         <Button
             android:id="@+id/MyRecipe"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
+            android:background="@drawable/white_button"
             android:text="My Recipes" />
 
         <Button
             android:id="@+id/openMealPlan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
+            android:background="@drawable/white_button"
             android:text="See my meal plan!" />
 
 

@@ -109,11 +109,13 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/white_button"
             android:id="@+id/add"
             android:text="Add"/>
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width=""
             android:layout_height="wrap_content"
+            android:background="@drawable/white_button"
             android:id="@+id/add_and_enter_another"
             android:text="Enter another"/>
     </LinearLayout>
