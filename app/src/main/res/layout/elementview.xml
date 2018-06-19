@@ -8,38 +8,33 @@
 
 
     <ImageView
-        android:adjustViewBounds="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/thumbnail"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:maxHeight="50dp"
         android:maxWidth="50dp"
         android:minHeight="50dp"
-        android:scaleType="fitXY"
-        android:maxHeight="50dp"
         android:minWidth="50dp"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:layout_alignParentStart="true"
-        />
+        android:scaleType="fitXY" />
 
     <TextView
+        android:id="@+id/thumbnaildescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/thumbnaildescription"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:layout_toEndOf="@+id/thumbnail"
-        android:layout_marginLeft="3dp"
-        android:layout_marginStart="3dp"
-        android:maxHeight="30dp"
-        android:minHeight="30dp"
+        android:layout_below="@+id/thumbnail"
+        android:layout_centerHorizontal="true"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:textSize="20dp"/>
+        android:maxHeight="30dp"
+        android:minHeight="30dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20dp" />
 
 
 </RelativeLayout>
