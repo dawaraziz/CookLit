@@ -39,7 +39,7 @@ public class MealPlanActivity extends AppCompatActivity {
 
     }
 
-    //TODO::FM::Need to remove variables
+    //TODO::FM::Need to remove variables, this part is a dummy line
     private void getScheduleInfo(int dayOfWeek){
         ArrayList<String> recipes = new ArrayList<>();
         ArrayList<String> timings = new ArrayList<>();
