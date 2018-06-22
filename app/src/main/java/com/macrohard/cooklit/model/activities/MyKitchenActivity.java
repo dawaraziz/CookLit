@@ -1,5 +1,6 @@
 package com.macrohard.cooklit.model.activities;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -23,15 +24,19 @@ import com.macrohard.cooklit.database.model.Ingredient;
 import com.macrohard.cooklit.database.model.IngredientViewModel;
 import com.macrohard.cooklit.R;
 import com.macrohard.cooklit.controller.IngredientListAdapter;
+import com.macrohard.cooklit.database.model.Recipe;
+import com.macrohard.cooklit.database.model.RecipeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyKitchenActivity extends AppCompatActivity{
     private IngredientViewModel mIngredientViewModel;
+    private RecipeViewModel mRecipeViewModel;
     public static final int NEW_INGREDIENT_ACTIVITY_REQUEST_CODE = 1;
     private String[] ingredientList;
-
+    private LiveData<List<Recipe>> mRecipes;
+    //private  String[] recipeList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,8 @@ public class MyKitchenActivity extends AppCompatActivity{
                 adapter.setIngredients(ingredients);
             }
         });
+
+        mRecipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
 
         // We might want to delete it at the end.
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -90,12 +97,17 @@ public class MyKitchenActivity extends AppCompatActivity{
                 Intent i2;
                 i2 = new Intent(MyKitchenActivity.this, RecipeResultListActivity.class);
 
-                Log.d("list", mIngredientViewModel.getAllIngredients().getValue().get(0).getName());
+                //Log.d("list", mRecipeViewModel.getmAllRecipes().getValue().get(0).getName());
                 ingredientList = new String[mIngredientViewModel.getAllIngredients().getValue().size()];
+                //recipeList = new String[mRecipeViewModel.getmAllRecipes().getValue().size()];
 
                 for(int i = 0; i < mIngredientViewModel.getAllIngredients().getValue().size();++i){
                     ingredientList[i] = mIngredientViewModel.getAllIngredients().getValue().get(i).getName();
                 }
+                //recipeList = new String[mRecipeViewModel.getmAllRecipes().getValue().size()];
+                    //TODO::FIX THIS
+                    //mRecipes = mRecipeViewModel.getmAllRecipes();
+                Log.d("recipes",mRecipes.getValue().toString());
                 i2.putExtra("ingredients",ingredientList);
                 startActivity(i2);
             }
@@ -106,6 +118,15 @@ public class MyKitchenActivity extends AppCompatActivity{
                 }
             }
 
+        });
+        Button nutritionButton = findViewById(R.id.nutrition);
+        nutritionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i2;
+                i2 = new Intent(MyKitchenActivity.this, NutritionActivity.class);
+                startActivity(i2);
+            }
         });
 
     }

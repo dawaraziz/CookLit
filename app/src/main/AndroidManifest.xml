@@ -18,6 +18,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,7 +27,8 @@
         <activity android:name=".model.activities.RecipeResultListActivity" />
         <activity android:name=".model.activities.RecipeActivity" />
         <activity android:name=".model.activities.RecipeDetailActivity" />
-        <activity android:name=".model.activities.MealPlanActivity"/>
+        <activity android:name=".model.activities.MealPlanActivity" />
+        <activity android:name=".model.activities.NutritionActivity"></activity>
     </application>
 
 </manifest>

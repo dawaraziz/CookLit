@@ -20,6 +20,7 @@ apply plugin: "org.jetbrains.kotlin.kapt"
 
 allprojects {
     repositories {
+        maven { url 'https://jitpack.io' }
         google()
         jcenter()
     }

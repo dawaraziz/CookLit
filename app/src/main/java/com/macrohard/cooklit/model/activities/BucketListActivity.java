@@ -52,9 +52,6 @@ public class BucketListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //Intent replyIntent = new Intent();
-
-
                 arrayList.add(itemTxt.getText().toString() + "  " + qTxt.getText().toString());
 
                 String name = itemTxt.getText().toString();
@@ -76,13 +73,6 @@ public class BucketListActivity extends AppCompatActivity {
                 String date = stryear + "-" + strmonth + "-" +strday;
 
 
-
-//                itemMap.put("name" + String.valueOf(idcounter),name);
-//                itemMap.put("quantity" + String.valueOf(idcounter),quantity);
-//                itemMap.put("date" + String.valueOf(idcounter),date);
-//
-//                idcounter += 1;
-
                 intent.putExtra("name" + String.valueOf(idcounter),name);
                 intent.putExtra("quantity" + String.valueOf(idcounter),quantity);
                 intent.putExtra("date" + String.valueOf(idcounter),date);
@@ -95,12 +85,6 @@ public class BucketListActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                for (int i = 1; i <= idcounter; i++) {
-//                    intent.putExtra("name" + String.valueOf(i), itemMap.get("name" + String.valueOf(i)));
-//                    intent.putExtra("quantity" + String.valueOf(i), itemMap.get("quantity" + String.valueOf(i)));
-//                    intent.putExtra("date" + String.valueOf(i), itemMap.get("date" + String.valueOf(i)));
-//                }
-//                setResult(RESULT_OK, intent);
                 finish();
             }
         });

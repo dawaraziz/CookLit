@@ -42,4 +42,6 @@ dependencies {
     //kapt "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
 
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
 }
