@@ -55,12 +55,15 @@ public abstract class CooklitDatabase extends RoomDatabase {
             // Not needed if you only populate on creation.
             mDao.deleteAllIngredient();
             mDao.deleteAllRecipes();
-            //Ingredient ingredient = new Ingredient("Chicken", "3", "2018-5-7");
-            //mDao.insertIngredient(ingredient);
-            //ingredient = new Ingredient("Avocado", "2", "2018-5-30");
-            //mDao.insertIngredient(ingredient);
+            Ingredient ingredient = new Ingredient("Chicken", "3", "2018-5-7");
+            mDao.insertIngredient(ingredient);
+            ingredient = new Ingredient("Avocado", "2", "2018-5-30");
+            mDao.insertIngredient(ingredient);
             Recipe recipe = new Recipe("spagettie", "www.spagettie.com");
             mDao.insertRecipe(recipe);
+            recipe = new Recipe("apple", "www.apple.com");
+            mDao.insertRecipe(recipe);
+
             return null;
         }
 

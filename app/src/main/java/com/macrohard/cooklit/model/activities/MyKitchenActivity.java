@@ -32,11 +32,10 @@ import java.util.List;
 
 public class MyKitchenActivity extends AppCompatActivity{
     private IngredientViewModel mIngredientViewModel;
-    private RecipeViewModel mRecipeViewModel;
     public static final int NEW_INGREDIENT_ACTIVITY_REQUEST_CODE = 1;
     private String[] ingredientList;
     private LiveData<List<Recipe>> mRecipes;
-    //private  String[] recipeList;
+    private  String recipeList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +54,8 @@ public class MyKitchenActivity extends AppCompatActivity{
             }
         });
 
-        mRecipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
+
+
 
         // We might want to delete it at the end.
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

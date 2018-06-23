@@ -1,22 +1,42 @@
 package com.macrohard.cooklit.model.activities;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.arch.lifecycle.LiveData;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.CalendarView;
 import android.widget.ListView;
 
 import com.macrohard.cooklit.R;
+import com.macrohard.cooklit.database.model.Ingredient;
+import com.macrohard.cooklit.database.model.IngredientViewModel;
+import com.macrohard.cooklit.database.model.Recipe;
+import com.macrohard.cooklit.database.model.RecipeViewModel;
 import com.macrohard.cooklit.support.adapters.RecipeListViewAdapter;
 import com.macrohard.cooklit.support.adapters.TwoTextListViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MealPlanActivity extends AppCompatActivity {
 
     CalendarView calendarView;
     ListView mealsForDayList;
+    private RecipeViewModel mRecipeViewModel;
+    private String recipeStr;
+
+/*    mRecipeViewModel.getmAllRecipes().observe(this, new Observer<List<Recipe>>() {
+            @Override
+            public void onChanged(@Nullable List<Recipe> recipes) {
+            }
+        });
+*/
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +48,15 @@ public class MealPlanActivity extends AppCompatActivity {
         mealsForDayList = findViewById(R.id.mealsForDay);
 
         getScheduleInfo(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
+        mRecipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
+        mRecipeViewModel.getmAllRecipes().observe(this, new Observer<List<Recipe>>() {
+
+            @Override
+            public void onChanged(@Nullable List<Recipe> recipes) {
+                recipeStr=mRecipeViewModel.getmAllRecipes().getValue().get(1).getName();
+                Log.d("recipe_name",recipeStr);
+            }
+        });
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -38,6 +67,8 @@ public class MealPlanActivity extends AppCompatActivity {
         });
 
     }
+
+
 
     //TODO::FM::Need to remove variables, this part is a dummy line
     private void getScheduleInfo(int dayOfWeek){
