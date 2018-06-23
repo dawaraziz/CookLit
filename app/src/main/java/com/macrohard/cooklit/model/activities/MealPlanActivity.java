@@ -33,16 +33,10 @@ public class MealPlanActivity extends AppCompatActivity {
     ListView mealsForDayList;
     private RecipeViewModel mRecipeViewModel;
     String recipeNameSample;
+    String recipeTimeSample;
     ArrayList<String> recipeDateSample = new ArrayList<>();
     JSONArray dateJsonArray = new JSONArray();
 
-
-/*    mRecipeViewModel.getmAllRecipes().observe(this, new Observer<List<Recipe>>() {
-            @Override
-            public void onChanged(@Nullable List<Recipe> recipes) {
-            }
-        });
-*/
 
 
     @Override
@@ -66,6 +60,7 @@ public class MealPlanActivity extends AppCompatActivity {
             public void onChanged(@Nullable final List<Recipe> recipes){
                 // Update the UI here
                 recipeNameSample= recipes.get(0).getName();
+                recipeTimeSample= recipes.get(0).getTime();
                 Log.d("recipe_name",recipeNameSample);
                 try {
                     JSONObject json = new JSONObject(recipes.get(0).getDate());
@@ -101,10 +96,14 @@ public class MealPlanActivity extends AppCompatActivity {
     //TODO::FM::Need to remove variables, this part is a dummy line
     private void getScheduleInfo(int dayOfWeek){
         ArrayList<String> recipes = new ArrayList<>();
-        ArrayList<String> timings = new ArrayList<>(recipeDateSample);
+        ArrayList<String> timings = new ArrayList<>();
+
+        // using Date example
+        //ArrayList<String> timings = new ArrayList<>(recipeDateSample);
         //TODO::FM::Need to add business logic to get things from db
         if ((dayOfWeek == Calendar.WEDNESDAY || dayOfWeek == Calendar.FRIDAY) ){
             recipes.add(recipeNameSample);
+            timings.add(recipeTimeSample);
         }
         TwoTextListViewAdapter itemsAdapter =  new TwoTextListViewAdapter(MealPlanActivity.this,
                 R.layout.mealplan_schedule_view, recipes,timings);
