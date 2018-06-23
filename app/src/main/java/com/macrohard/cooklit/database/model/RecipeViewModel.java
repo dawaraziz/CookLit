@@ -23,6 +23,7 @@ public class RecipeViewModel extends AndroidViewModel {
         mAllRecipes = mRepository.getAllRecipes();
     }
 
+
     // getAllIngreidents is called by acitivites and it returns allingredients
     public LiveData<List<Recipe>> getmAllRecipes() {
         return mAllRecipes;

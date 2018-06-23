@@ -99,15 +99,11 @@ public class MyKitchenActivity extends AppCompatActivity{
 
                 //Log.d("list", mRecipeViewModel.getmAllRecipes().getValue().get(0).getName());
                 ingredientList = new String[mIngredientViewModel.getAllIngredients().getValue().size()];
-                //recipeList = new String[mRecipeViewModel.getmAllRecipes().getValue().size()];
 
                 for(int i = 0; i < mIngredientViewModel.getAllIngredients().getValue().size();++i){
                     ingredientList[i] = mIngredientViewModel.getAllIngredients().getValue().get(i).getName();
                 }
-                //recipeList = new String[mRecipeViewModel.getmAllRecipes().getValue().size()];
-                    //TODO::FIX THIS
-                    //mRecipes = mRecipeViewModel.getmAllRecipes();
-                Log.d("recipes",mRecipes.getValue().toString());
+
                 i2.putExtra("ingredients",ingredientList);
                 startActivity(i2);
             }

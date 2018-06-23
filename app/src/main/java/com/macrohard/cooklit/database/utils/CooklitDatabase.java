@@ -12,8 +12,15 @@ import com.macrohard.cooklit.database.dao.CooklitDao;
 import com.macrohard.cooklit.database.model.Ingredient;
 import com.macrohard.cooklit.database.model.Recipe;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-@Database(entities = {Ingredient.class, Recipe.class}, version =1)
+import java.util.ArrayList;
+import java.util.List;
+
+
+@Database(entities = {Ingredient.class, Recipe.class}, version =2)
 public abstract class CooklitDatabase extends RoomDatabase {
     public abstract CooklitDao CooklitDao();
 
@@ -53,15 +60,37 @@ public abstract class CooklitDatabase extends RoomDatabase {
         protected Void doInBackground(final Void... params) {
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
+            String monday = "Monday";
+            String friday = "Friday";
+
+            ArrayList<String> dates= new ArrayList<>();
+
             mDao.deleteAllIngredient();
             mDao.deleteAllRecipes();
             Ingredient ingredient = new Ingredient("Chicken", "3", "2018-5-7");
             mDao.insertIngredient(ingredient);
             ingredient = new Ingredient("Avocado", "2", "2018-5-30");
             mDao.insertIngredient(ingredient);
-            Recipe recipe = new Recipe("spagettie", "www.spagettie.com");
+            dates.add(monday);
+            JSONObject json = new JSONObject();
+            try {
+                json.put("date_array", new JSONArray(dates));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            String arrayList = json.toString();
+            Recipe recipe = new Recipe("spagettie", "www.spagettie.com", arrayList, "6pm", false);
             mDao.insertRecipe(recipe);
-            recipe = new Recipe("apple", "www.apple.com");
+            dates.add(friday);
+            JSONObject json2 = new JSONObject();
+            try {
+                json2.put("date_array", new JSONArray(dates));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            arrayList = json2.toString();
+            recipe = new Recipe("apple", "www.apple.com", arrayList, "12pm", false);
             mDao.insertRecipe(recipe);
 
             return null;
