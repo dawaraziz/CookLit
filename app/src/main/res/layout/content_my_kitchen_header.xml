@@ -15,7 +15,7 @@
         style="@style/name_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="4"
+        android:layout_weight="5"
         android:text="Name"/>
 
     <TextView
@@ -23,15 +23,16 @@
         style="@style/name_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:text="Quantity"/>
+        android:layout_weight="4"
+        android:text="Qty"
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/expirydateView_header"
         style="@style/name_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="4"
+        android:layout_weight="6"
         android:text="Expiry Date"/>
 
 </LinearLayout>

@@ -62,7 +62,7 @@
             <include
                 layout="@layout/content_my_kitchen"
                 android:layout_width="match_parent"
-                android:layout_height="357dp" />
+                android:layout_height="wrap_content" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab"
