@@ -5,6 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.macrohard.cooklit.R;
@@ -27,20 +30,37 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         return new IngredientViewHolder(itemView);
     }
 
+
     @Override
-    public void onBindViewHolder(IngredientViewHolder holder, int position) {
-        if (mIngredients != null) {
+    public void onBindViewHolder(final IngredientViewHolder holder, int position) {
+        // if (mIngredients != null) {
             Ingredient current = mIngredients.get(position);
             holder.ingredientNameView.setText(current.getName());
             holder.ingredientQtyView.setText(current.getQuantity());
             holder.ingredientDateView.setText(current.getExpiryDate());
+            //holder.ingredientSelectButton.setChecked(current.getSelected());
+
+        holder.ingredientSelectButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                RadioButton rb = (RadioButton) v;
+                //if already checked . uncheck
+                if (holder.ingredientSelectButton.isChecked()){
+                    holder.ingredientSelectButton.setChecked(false);
+                }
+                else{
+                    holder.ingredientSelectButton.setChecked(true);
+                }
+            }
+        });
+            /*
         } else {
             // Covers the case of data not being ready yet.
             holder.ingredientNameView.setText("No Ingredient");
             holder.ingredientQtyView.setText("0");
             holder.ingredientDateView.setText("1988");
-
         }
+        */
     }
 
     public void setIngredients(List<Ingredient> ingredients){
@@ -60,18 +80,21 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
 
     class IngredientViewHolder extends RecyclerView.ViewHolder {
 
+        private final RadioButton ingredientSelectButton;
         private final TextView ingredientNameView;
         private final TextView ingredientQtyView;
         private final TextView ingredientDateView;
 
         private IngredientViewHolder(View itemView) {
             super(itemView);
+            ingredientSelectButton = itemView.findViewById(R.id.radioButton);
             ingredientNameView = itemView.findViewById(R.id.nameView);
             ingredientQtyView = itemView.findViewById(R.id.quantityView);
             ingredientDateView = itemView.findViewById(R.id.expirydateView);
         }
 
     }
+
 
 
 }

@@ -10,8 +10,8 @@ import android.support.annotation.NonNull;
 
 @Entity(tableName = "recipe_table")
 public class Recipe {
-
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     @NonNull
     private String name;
     @NonNull
@@ -26,12 +26,18 @@ public class Recipe {
 
 
 
-    public Recipe(String name, String uri, String date, String time, boolean repeat){
+    public Recipe(int id, String name, String uri, String date, String time, boolean repeat){
+        this.id = id;
         this.name = name;
         this.uri = uri;
         this.date = date;
         this.time = time;
         this.repeat = repeat;
+    }
+
+    public int getId() {return id;}
+
+    public void setId(int i){
     }
 
     public String getName() {

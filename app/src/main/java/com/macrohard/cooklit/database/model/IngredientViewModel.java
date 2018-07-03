@@ -33,4 +33,6 @@ public class IngredientViewModel extends AndroidViewModel {
         mRepository.insert(ingredient);
     }
 
+    public void deleteIngreident(Ingredient ingredient) {mRepository.deleteIngredient(ingredient);}
+    public void deleteAll() {mRepository.deleteAllIngredients();}
 }

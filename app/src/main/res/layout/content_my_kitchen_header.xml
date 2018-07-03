@@ -8,7 +8,8 @@
     <RadioButton
         android:id="@+id/radioButton_header"
         android:layout_width="wrap_content"
-        android:layout_height="33dp" />
+        android:layout_height="33dp"
+        />
 
     <TextView
         android:id="@+id/nameView_header"

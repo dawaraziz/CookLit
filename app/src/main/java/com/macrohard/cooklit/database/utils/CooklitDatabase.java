@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Database(entities = {Ingredient.class, Recipe.class}, version =2)
+@Database(entities = {Ingredient.class, Recipe.class}, version =1)
 public abstract class CooklitDatabase extends RoomDatabase {
     public abstract CooklitDao CooklitDao();
 
@@ -80,7 +80,7 @@ public abstract class CooklitDatabase extends RoomDatabase {
             }
 
             String arrayList = json.toString();
-            Recipe recipe = new Recipe("spagettie", "www.spagettie.com", arrayList, "6pm", false);
+            Recipe recipe = new Recipe(0,"spagettie", "www.spagettie.com", arrayList, "6pm", false);
             mDao.insertRecipe(recipe);
             dates.add(friday);
             JSONObject json2 = new JSONObject();
@@ -90,7 +90,7 @@ public abstract class CooklitDatabase extends RoomDatabase {
                 e.printStackTrace();
             }
             arrayList = json2.toString();
-            recipe = new Recipe("apple", "www.apple.com", arrayList, "12pm", false);
+            recipe = new Recipe(0,"apple", "www.apple.com", arrayList, "12pm", false);
             mDao.insertRecipe(recipe);
 
             return null;
