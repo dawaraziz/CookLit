@@ -100,10 +100,10 @@ public class MyKitchenActivity extends AppCompatActivity{
                 i2 = new Intent(MyKitchenActivity.this, RecipeResultListActivity.class);
 
                 //Log.d("list", mRecipeViewModel.getmAllRecipes().getValue().get(0).getName());
-                ingredientList = new String[mIngredientViewModel.getAllIngredients().getValue().size()];
+                ingredientList = new String[mIngredientViewModel.getSelectedIngredients().size()];
 
-                for(int i = 0; i < mIngredientViewModel.getAllIngredients().getValue().size();++i){
-                    ingredientList[i] = mIngredientViewModel.getAllIngredients().getValue().get(i).getName();
+                for(int i = 0; i < mIngredientViewModel.getSelectedIngredients().size();++i){
+                    ingredientList[i] = mIngredientViewModel.getSelectedIngredients().get(i).getName();
                 }
 
                 i2.putExtra("ingredients",ingredientList);

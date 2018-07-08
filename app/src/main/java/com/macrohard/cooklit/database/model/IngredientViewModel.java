@@ -6,6 +6,7 @@ import android.arch.lifecycle.LiveData;
 
 import com.macrohard.cooklit.database.utils.CooklitRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // IngredientViewModel is reponsible for preapring and managing
@@ -26,6 +27,18 @@ public class IngredientViewModel extends AndroidViewModel {
     // getAllIngreidents is called by acitivites and it returns allingredients
     public LiveData<List<Ingredient>> getAllIngredients() {
         return mAllIngredients;
+    }
+
+    public List<Ingredient> getSelectedIngredients() {
+        List<Ingredient> selectedIngredients = new ArrayList<Ingredient>();
+        int ingredientSize = mAllIngredients.getValue().size();
+        for (int i=0; i< ingredientSize; i++){
+            //if selected ingredients, add to the list
+            if (mAllIngredients.getValue().get(i).getSelected()){
+                selectedIngredients.add(mAllIngredients.getValue().get(i));
+            }
+        }
+        return selectedIngredients;
     }
 
     // insert is called by activites and insert ingredient into repository
