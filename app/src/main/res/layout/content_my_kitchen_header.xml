@@ -5,10 +5,11 @@
     android:orientation="horizontal"
     android:background="@drawable/my_custom_background">
 
-    <RadioButton
-        android:id="@+id/radioButton_header"
+    <CheckBox
+        android:id="@+id/checkBox_header"
         android:layout_width="wrap_content"
         android:layout_height="33dp"
+        android:onClick="onCheckBoxClicked"
         />
 
     <TextView

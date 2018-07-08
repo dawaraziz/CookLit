@@ -7,11 +7,10 @@
         android:dividerHeight="0dp"
         android:background="@drawable/my_custom_background">
 
-        <RadioButton
-            android:id="@+id/radioButton"
+        <CheckBox
+            android:id="@+id/checkBox"
             android:layout_width="wrap_content"
-            android:layout_height="33dp"
-            android:onClick="onRadioButtonClicked"/>
+            android:layout_height="33dp" />
 
         <TextView
             android:id="@+id/nameView"

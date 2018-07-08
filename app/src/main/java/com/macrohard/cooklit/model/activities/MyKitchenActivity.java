@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -126,7 +127,21 @@ public class MyKitchenActivity extends AppCompatActivity{
             }
         });
 
+        final CheckBox checkBoxHeader = findViewById(R.id.checkBox_header);
+        checkBoxHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // set all check box ture/false
+                for (int i=0; i < mIngredientViewModel.getAllIngredients().getValue().size(); i++){
+                    mIngredientViewModel.getAllIngredients().getValue().get(i).setSelected(checkBoxHeader.isChecked());
+                }
+                //update view
+                adapter.notifyDataSetChanged();
+            }
+        });
+
     }
+
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
