@@ -38,11 +38,14 @@ public class MyKitchenActivity extends AppCompatActivity{
     private String[] ingredientList;
     private LiveData<List<Recipe>> mRecipes;
     private  String recipeList;
+    Button deleteButton;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_kitchen);
-
+        deleteButton = findViewById(R.id.delete_button);
         final RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final IngredientListAdapter adapter = new IngredientListAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -56,10 +59,7 @@ public class MyKitchenActivity extends AppCompatActivity{
             }
         });
 
-
-
-
-        // We might want to delete it at the end.
+        // Add Button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +68,21 @@ public class MyKitchenActivity extends AppCompatActivity{
                 startActivityForResult(intent, NEW_INGREDIENT_ACTIVITY_REQUEST_CODE);
             }
         });
+
+        // Delete Button
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                int ingre_size = mIngredientViewModel.getSelectedIngredients().size();
+
+                for (int i = 0; i<ingre_size; ++i) {
+                    mIngredientViewModel.deleteIngreident(mIngredientViewModel.getSelectedIngredients().get(i));
+                }
+            }
+        });
+
 
 
         final Button openMealPlanButton = (Button) findViewById(R.id.openMealPlan);
@@ -95,20 +110,30 @@ public class MyKitchenActivity extends AppCompatActivity{
         cooklitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(isNetworkAvailable()){
                 Intent i2;
                 i2 = new Intent(MyKitchenActivity.this, RecipeResultListActivity.class);
-
-                //Log.d("list", mRecipeViewModel.getmAllRecipes().getValue().get(0).getName());
-                ingredientList = new String[mIngredientViewModel.getSelectedIngredients().size()];
-
-                for(int i = 0; i < mIngredientViewModel.getSelectedIngredients().size();++i){
-                    ingredientList[i] = mIngredientViewModel.getSelectedIngredients().get(i).getName();
+                int ingre_size = mIngredientViewModel.getSelectedIngredients().size();
+                if (ingre_size==0){
+                    ingredientList = new String[mIngredientViewModel.getAllIngredients().getValue().size()];
+                    for(int i = 0; i <mIngredientViewModel.getAllIngredients().getValue().size()  ;++i){
+                        ingredientList[i] = mIngredientViewModel.getAllIngredients().getValue().get(i).getName();
+                    }
                 }
+
+                else {
+                    ingredientList = new String[ingre_size];
+                    for(int i = 0; i < ingre_size ;++i){
+                        ingredientList[i] = mIngredientViewModel.getSelectedIngredients().get(i).getName();
+                    }
+                }
+
 
                 i2.putExtra("ingredients",ingredientList);
                 startActivity(i2);
-            }
+                }
+
                 else{
 
                     Snackbar.make(recyclerView, "Internet is not available, please retry", Snackbar.LENGTH_LONG)
@@ -127,6 +152,7 @@ public class MyKitchenActivity extends AppCompatActivity{
             }
         });
 
+        // Checkbox Header for select all
         final CheckBox checkBoxHeader = findViewById(R.id.checkBox_header);
         checkBoxHeader.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +167,7 @@ public class MyKitchenActivity extends AppCompatActivity{
         });
 
     }
+
 
 
 

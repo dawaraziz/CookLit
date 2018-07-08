@@ -34,13 +34,13 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         private final TextView ingredientQtyView;
         private final TextView ingredientDateView;
 
+
         private IngredientViewHolder(View itemView) {
             super(itemView);
             ingredientSelectButton = itemView.findViewById(R.id.checkBox);
             ingredientNameView = itemView.findViewById(R.id.nameView);
             ingredientQtyView = itemView.findViewById(R.id.quantityView);
             ingredientDateView = itemView.findViewById(R.id.expirydateView);
-
         }
     }
 
@@ -66,22 +66,25 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
             holder.ingredientSelectButton.setChecked(current.getSelected());
 
             holder.ingredientSelectButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                     //set the ingreident's last status
                     current.setSelected(isChecked);
+
                 }
             });
 
+    }
 
-            /*
-        } else {
-            // Covers the case of data not being ready yet.
-            holder.ingredientNameView.setText("No Ingredient");
-            holder.ingredientQtyView.setText("0");
-            holder.ingredientDateView.setText("1988");
+    public boolean anyChecked() {
+        for (int i=0; i < mIngredients.size(); ++i){
+            if (mIngredients.get(i).getSelected()){
+                return true;
+            }
         }
-        */
+        return false;
     }
 
     public void setIngredients(List<Ingredient> ingredients){
