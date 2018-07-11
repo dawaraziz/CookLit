@@ -17,20 +17,13 @@ import java.util.HashMap;
 
 public class BucketListActivity extends AppCompatActivity {
 
-    public static final String NAME = "com.macrohard.cooklit.NAME";
-    public static final String QUANTITY = "com.macrohard.cooklit.QUANTITY";
-    public static final String DATE = "com.macrohard.cooklit.DATE";
-
     private int year;
     private int month;
     private int day;
 
     Intent intent = new Intent();
-    Bundle extras = new Bundle();
 
     Integer idcounter = 1;
-
-    HashMap<String, String> itemMap=new HashMap<String, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +67,6 @@ public class BucketListActivity extends AppCompatActivity {
                 String strday = String.valueOf(day);
 
                 String date = stryear + "-" + strmonth + "-" +strday;
-
 
 
 //                itemMap.put("name" + String.valueOf(idcounter),name);
