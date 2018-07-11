@@ -8,11 +8,13 @@
 
     <ImageView
         android:id="@+id/recipeImage"
-        android:layout_width="154dp"
-        android:layout_height="110dp"
+        android:layout_width="152dp"
+        android:layout_height="94dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recipeTitle"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/cooklit_logo" />
 
@@ -33,9 +35,10 @@
 
     <Button
         android:id="@+id/gotoRecipe"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
         android:layout_marginBottom="4dp"
+        android:background="@drawable/white_button"
         android:layout_marginEnd="8dp"
         android:text="Go To Recipe"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,8 +48,9 @@
 
     <Button
         android:id="@+id/addToMealPlanButton"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:background="@drawable/white_button"
+        android:layout_height="45dp"
         android:layout_marginBottom="4dp"
         android:layout_marginEnd="2dp"
         android:layout_marginStart="8dp"
@@ -59,7 +63,7 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="349dp"
-        android:layout_height="402dp"
+        android:layout_height="337dp"
         android:layout_marginBottom="28dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -78,19 +82,15 @@
 
     <TextView
         android:id="@+id/recipeTitle"
-        android:layout_width="190dp"
-        android:layout_height="111dp"
+        android:layout_width="159dp"
+        android:layout_height="75dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Chicken Nuggets"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/recipeImage"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

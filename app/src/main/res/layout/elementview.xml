@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/thumbnail"
-        android:layout_width="300dp"
+        android:layout_width="320dp"
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"

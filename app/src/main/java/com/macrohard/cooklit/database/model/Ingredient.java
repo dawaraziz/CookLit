@@ -2,6 +2,7 @@ package com.macrohard.cooklit.database.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -20,6 +21,8 @@ public class Ingredient {
     @ColumnInfo(name = "expirydate")
     private String mExpiryDate;
 
+    @Ignore
+    Boolean selected = false;
 
     public Ingredient (@NonNull String mName, @NonNull String mQuantity, @NonNull String mExpiryDate) {
         this.mName=mName;
@@ -33,5 +36,14 @@ public class Ingredient {
     public void setQuantity(String quantity) {this.mQuantity=quantity;}
     public String getExpiryDate() {return this.mExpiryDate;}
     public void setExpiryDate (String expirydate) {this.mExpiryDate=expirydate;}
+
+    // checkbox
+    public boolean getSelected(){
+        return selected;
+    }
+
+    public void setSelected(boolean select){
+        selected = select;
+    }
 
 }

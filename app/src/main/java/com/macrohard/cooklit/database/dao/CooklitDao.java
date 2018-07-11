@@ -26,13 +26,13 @@ public abstract class CooklitDao {
     public abstract LiveData<List<Ingredient>> getAllIngredients();
 
     @Query("SELECT * FROM ingredient_table WHERE name = :name")
-    abstract Ingredient fetchIngredientbyName(String name);
+    public abstract Ingredient fetchIngredientbyName(String name);
 
     @Update
     abstract void updateIngredient(Ingredient ingredient);
 
     @Delete
-    abstract void deleteIngredient(Ingredient ingredient);
+    public abstract void deleteIngredient(Ingredient ingredient);
 
     // DAO for Recipe
     @Insert

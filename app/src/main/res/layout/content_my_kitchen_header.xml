@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/my_custom_background">
+
+    <CheckBox
+        android:id="@+id/checkBox_header"
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:onClick="onCheckBoxClicked"
+        />
+
+    <TextView
+        android:id="@+id/nameView_header"
+        style="@style/name_style"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:text="Name"/>
+
+    <TextView
+        android:id="@+id/quantityView_header"
+        style="@style/name_style"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:text="Qty"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/expirydateView_header"
+        style="@style/name_style"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="6"
+        android:text="Expiry Date"/>
+
+</LinearLayout>

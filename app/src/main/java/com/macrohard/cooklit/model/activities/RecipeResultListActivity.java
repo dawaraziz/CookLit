@@ -99,10 +99,8 @@ public class RecipeResultListActivity extends AppCompatActivity {
 
     private final Runnable mMessageSender = new Runnable() {
         public void run() {
-            //request("https://api.edamam.com/search?q=chicken%20potato&app_id=30a51b67&app_key=4fac35f9506d8806f8cda87646dca06e");
-            request(query);
-            //Log.d("query is",query);
-            while(mJSONObject == null){
+                request(query);
+                while(mJSONObject == null){
 
             }
             try{
@@ -130,7 +128,6 @@ public class RecipeResultListActivity extends AppCompatActivity {
 
             }
             messageHandler.sendEmptyMessage(0);
-            //mHandler.notify();
         }
     };
 

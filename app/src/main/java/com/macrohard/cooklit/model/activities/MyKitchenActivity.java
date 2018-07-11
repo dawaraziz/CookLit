@@ -1,5 +1,6 @@
 package com.macrohard.cooklit.model.activities;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -16,13 +17,17 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.macrohard.cooklit.database.model.Ingredient;
 import com.macrohard.cooklit.database.model.IngredientViewModel;
 import com.macrohard.cooklit.R;
 import com.macrohard.cooklit.controller.IngredientListAdapter;
+import com.macrohard.cooklit.database.model.Recipe;
+import com.macrohard.cooklit.database.model.RecipeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +36,16 @@ public class MyKitchenActivity extends AppCompatActivity{
     private IngredientViewModel mIngredientViewModel;
     public static final int NEW_INGREDIENT_ACTIVITY_REQUEST_CODE = 1;
     private String[] ingredientList;
+    private LiveData<List<Recipe>> mRecipes;
+    private  String recipeList;
+    Button deleteButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_kitchen);
-
+        deleteButton = findViewById(R.id.delete_button);
         final RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final IngredientListAdapter adapter = new IngredientListAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -50,7 +59,7 @@ public class MyKitchenActivity extends AppCompatActivity{
             }
         });
 
-        // We might want to delete it at the end.
+        // Add Button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +68,21 @@ public class MyKitchenActivity extends AppCompatActivity{
                 startActivityForResult(intent, NEW_INGREDIENT_ACTIVITY_REQUEST_CODE);
             }
         });
+
+        // Delete Button
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                int ingre_size = mIngredientViewModel.getSelectedIngredients().size();
+
+                for (int i = 0; i<ingre_size; ++i) {
+                    mIngredientViewModel.deleteIngreident(mIngredientViewModel.getSelectedIngredients().get(i));
+                }
+            }
+        });
+
 
 
         final Button openMealPlanButton = (Button) findViewById(R.id.openMealPlan);
@@ -86,19 +110,30 @@ public class MyKitchenActivity extends AppCompatActivity{
         cooklitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(isNetworkAvailable()){
                 Intent i2;
                 i2 = new Intent(MyKitchenActivity.this, RecipeResultListActivity.class);
-
-                Log.d("list", mIngredientViewModel.getAllIngredients().getValue().get(0).getName());
-                ingredientList = new String[mIngredientViewModel.getAllIngredients().getValue().size()];
-
-                for(int i = 0; i < mIngredientViewModel.getAllIngredients().getValue().size();++i){
-                    ingredientList[i] = mIngredientViewModel.getAllIngredients().getValue().get(i).getName();
+                int ingre_size = mIngredientViewModel.getSelectedIngredients().size();
+                if (ingre_size==0){
+                    ingredientList = new String[mIngredientViewModel.getAllIngredients().getValue().size()];
+                    for(int i = 0; i <mIngredientViewModel.getAllIngredients().getValue().size()  ;++i){
+                        ingredientList[i] = mIngredientViewModel.getAllIngredients().getValue().get(i).getName();
+                    }
                 }
+
+                else {
+                    ingredientList = new String[ingre_size];
+                    for(int i = 0; i < ingre_size ;++i){
+                        ingredientList[i] = mIngredientViewModel.getSelectedIngredients().get(i).getName();
+                    }
+                }
+
+
                 i2.putExtra("ingredients",ingredientList);
                 startActivity(i2);
-            }
+                }
+
                 else{
 
                     Snackbar.make(recyclerView, "Internet is not available, please retry", Snackbar.LENGTH_LONG)
@@ -107,8 +142,34 @@ public class MyKitchenActivity extends AppCompatActivity{
             }
 
         });
+        Button nutritionButton = findViewById(R.id.nutrition);
+        nutritionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i2;
+                i2 = new Intent(MyKitchenActivity.this, NutritionActivity.class);
+                startActivity(i2);
+            }
+        });
+
+        // Checkbox Header for select all
+        final CheckBox checkBoxHeader = findViewById(R.id.checkBox_header);
+        checkBoxHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // set all check box ture/false
+                for (int i=0; i < mIngredientViewModel.getAllIngredients().getValue().size(); i++){
+                    mIngredientViewModel.getAllIngredients().getValue().get(i).setSelected(checkBoxHeader.isChecked());
+                }
+                //update view
+                adapter.notifyDataSetChanged();
+            }
+        });
 
     }
+
+
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -141,4 +202,5 @@ public class MyKitchenActivity extends AppCompatActivity{
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
+
 }
