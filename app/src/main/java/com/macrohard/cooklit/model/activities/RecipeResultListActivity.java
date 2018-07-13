@@ -40,7 +40,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
     public String lowerURI = "&app_id=30a51b67&app_key=4fac35f9506d8806f8cda87646dca06e&from=0&to=20";
     public JSONObject mJSONObject;
     public String query;
-    public ArrayList<String> imageuris,linkToRecipes,urilinks;
+    public ArrayList<String> imageuris,linkToRecipes,urilinks,tags;
     public ArrayList<String> ingredients;
     public Handler mHandler;
     public ImageButton likeButton;
@@ -91,6 +91,8 @@ public class RecipeResultListActivity extends AppCompatActivity {
         urilinks = new ArrayList<>();
         linkToRecipes = new ArrayList<>();
         ingredients = new ArrayList<>();
+        tags = new ArrayList<>();
+
     }
     private Handler messageHandler = new Handler() {
 
@@ -98,7 +100,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
             super.handleMessage(msg);
             if(msg.what == 0){
                 Log.d("handler working","1");
-                RecipeListViewAdapter recipeAdapter = new RecipeListViewAdapter(RecipeResultListActivity.this,R.layout.elementview,imageuris,urilinks);
+                RecipeListViewAdapter recipeAdapter = new RecipeListViewAdapter(RecipeResultListActivity.this,R.layout.elementview,imageuris,urilinks,tags);
                 RecipeView1.setAdapter(recipeAdapter);
                 RecipeView1.setItemsCanFocus(false);
                 RecipeView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -111,6 +113,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
                             i2.putExtra("imageuri",imageuris.get(i));
                             i2.putExtra("title",urilinks.get(i));
                             i2.putExtra("ingredients",ingredients.get(i));
+                            i2.putExtra("tags",tags.get(i));
                             startActivity(i2);
                         }
                         else{
@@ -138,6 +141,17 @@ public class RecipeResultListActivity extends AppCompatActivity {
                     imageuris.add(mJSONObject.getJSONArray("hits").getJSONObject(i).getJSONObject("recipe").getString("image"));
                     urilinks.add(mJSONObject.getJSONArray("hits").getJSONObject(i).getJSONObject("recipe").getString("label"));
                     linkToRecipes.add(mJSONObject.getJSONArray("hits").getJSONObject(i).getJSONObject("recipe").getString("url"));
+
+                    String tagstring = "";
+                    for(int ii = 0; ii < (mJSONObject.getJSONArray("hits").
+                            getJSONObject(i).getJSONObject("recipe").getJSONArray("dietLabels").length());++ii){
+
+                        tagstring += (mJSONObject.getJSONArray("hits").
+                                getJSONObject(i).getJSONObject("recipe").getJSONArray("dietLabels").getString(ii) + " ");
+
+
+                    }
+                    tags.add(tagstring);
                     String ings = "";
                     for(int ii = 0; ii < (mJSONObject.getJSONArray("hits").
                             getJSONObject(i).getJSONObject("recipe").getJSONArray("ingredientLines").length());++ii){

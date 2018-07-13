@@ -22,13 +22,14 @@ public class RecipeListViewAdapter extends ArrayAdapter<String> {
 
     private Context context;
     private ArrayList<String> imageUri;
-    private ArrayList<String> titles;
+    private ArrayList<String> titles,tags;
 
-    public RecipeListViewAdapter(Context context, int resource, ArrayList<String> titleimageuri, ArrayList<String> title) {
+    public RecipeListViewAdapter(Context context, int resource, ArrayList<String> titleimageuri, ArrayList<String> title,ArrayList<String> tags) {
         super(context, resource, titleimageuri);
         this.context = context;
         this.imageUri = titleimageuri;
         this.titles = title;
+        this.tags = tags;
         Log.d("initialization", "done");
         Log.d("size", "" + imageUri.size());
     }
@@ -49,6 +50,8 @@ public class RecipeListViewAdapter extends ArrayAdapter<String> {
         // Lookup view for data population
         ImageView icon = convertView.findViewById(R.id.thumbnail);
         TextView title =  convertView.findViewById(R.id.thumbnaildescription);
+        TextView tag = convertView.findViewById(R.id.tags);
+
         /*final ImageButton likebutton = convertView.findViewById(R.id.likebutton);
         likebutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +63,7 @@ public class RecipeListViewAdapter extends ArrayAdapter<String> {
         if (position <= imageUri.size() - 1) {
             Log.d("title", titles.get(position));
             title.setText(titles.get(position));
+            tag.setText(tags.get(position));
             Log.d("image uri", imageUri.get(position));
             Picasso.with(context).load(imageUri.get(position)).into(icon);
             //icon.setImageDrawable(objects2.get(position));
