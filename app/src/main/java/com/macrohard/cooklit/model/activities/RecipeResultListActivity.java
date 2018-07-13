@@ -9,9 +9,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.macrohard.cooklit.R;
@@ -35,17 +37,40 @@ public class RecipeResultListActivity extends AppCompatActivity {
 
     public ListView RecipeView1,RecipeView2;
     public String upperURI = "https://api.edamam.com/search?q=";
-    public String lowerURI = "&app_id=30a51b67&app_key=4fac35f9506d8806f8cda87646dca06e";
+    public String lowerURI = "&app_id=30a51b67&app_key=4fac35f9506d8806f8cda87646dca06e&from=0&to=20";
     public JSONObject mJSONObject;
     public String query;
     public ArrayList<String> imageuris,linkToRecipes,urilinks;
     public ArrayList<String> ingredients;
     public Handler mHandler;
+    public ImageButton likeButton;
+    public boolean vsig,asig,psig;
+    public String vtag,atag,ptag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        vtag = "";
+        atag = "";
+        ptag = "";
         setContentView(R.layout.activity_recipe_result);
         Intent intent = getIntent();
+        vsig = intent.getBooleanExtra("v",false);
+        asig = intent.getBooleanExtra("a",false);
+        psig = intent.getBooleanExtra("p",false);
+        if(vsig){
+            vtag = "&vegan";
+        }
+        if(asig){
+            atag = "&health=alcohol-free";
+        }
+        if(psig){
+            ptag = "&health=peanut-free";
+        }
+
+        Log.d("vsig",vsig+"");
+        Log.d("asig",asig+"");
+        Log.d("psig",psig+"");
+
         String [] ings = intent.getStringArrayExtra("ingredients");
         query = ings[0];
         //Log.d("ing list are",intent.getStringArrayExtra("ingredients")[1]);
@@ -53,11 +78,14 @@ public class RecipeResultListActivity extends AppCompatActivity {
             query += "%20";
             query +=ings[i];
         }
-        query = upperURI+query+lowerURI;
-
+        query = upperURI+query+lowerURI+vtag+atag+ptag;
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle("Recipes");
         Log.d("query is",query);
         mHandler = new Handler();
         RecipeView1 = findViewById(R.id.listView1);
+
         new Thread(mMessageSender).start();
         imageuris = new ArrayList<>();
         urilinks = new ArrayList<>();

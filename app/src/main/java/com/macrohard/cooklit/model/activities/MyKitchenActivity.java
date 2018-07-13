@@ -18,8 +18,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.macrohard.cooklit.database.model.Ingredient;
@@ -38,19 +40,26 @@ public class MyKitchenActivity extends AppCompatActivity{
     private String[] ingredientList;
     private LiveData<List<Recipe>> mRecipes;
     private  String recipeList;
+    private Switch peanut,alcohol,vegetarian;
     Button deleteButton;
-
+    boolean p_sig,a_sig,v_sig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        p_sig = false;
+        a_sig = false;
+        v_sig = false;
+
         setContentView(R.layout.activity_my_kitchen);
         deleteButton = findViewById(R.id.delete_button);
         final RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final IngredientListAdapter adapter = new IngredientListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        peanut = findViewById(R.id.switch_p);
+        alcohol = findViewById(R.id.switch_a);
+        vegetarian = findViewById(R.id.switch_v);
         mIngredientViewModel = ViewModelProviders.of(this).get(IngredientViewModel.class);
         mIngredientViewModel.getAllIngredients().observe(this, new Observer<List<Ingredient>>() {
             @Override
@@ -58,7 +67,42 @@ public class MyKitchenActivity extends AppCompatActivity{
                 adapter.setIngredients(ingredients);
             }
         });
-
+        alcohol.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked == true){
+                    a_sig = true;
+                    Log.d("a","true");
+                }
+                else{
+                    a_sig = false;
+                    Log.d("a","false");
+                }
+            }
+        });
+        vegetarian.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked == true){
+                    v_sig = true;
+                    Log.d("v","true");
+                }
+                else{
+                    v_sig = false;
+                    Log.d("v","false");
+                }
+            }
+        });
+        peanut.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked == true){
+                    p_sig = true;
+                    Log.d("p","true");
+                }
+                else{
+                    p_sig = false;
+                    Log.d("p","false");
+                }
+            }
+        });
         // Add Button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +175,9 @@ public class MyKitchenActivity extends AppCompatActivity{
 
 
                 i2.putExtra("ingredients",ingredientList);
+                i2.putExtra("v",v_sig);
+                i2.putExtra("p",p_sig);
+                i2.putExtra("a",a_sig);
                 startActivity(i2);
                 }
 

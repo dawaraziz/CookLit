@@ -33,11 +33,11 @@
 
         <Button
             android:id="@+id/cooklit_button"
-            android:layout_width="150dp"
-            android:background="@drawable/white_button"
-            android:layout_height="35dp"
+            android:layout_width="111dp"
+            android:layout_height="28dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:background="@drawable/white_button"
             android:text="Let's Cooklit!"
             android:textSize="13dp" />
 
@@ -59,6 +59,30 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/healthy"
             android:text="" />
+
+        <Switch
+            android:id="@+id/switch-a"
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="Alcohol-Free" />
+
+        <Switch
+            android:id="@+id/switch-p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/switch-a"
+            android:layout_below="@+id/switch-a"
+            android:text="Peanut-Free " />
+
+        <Switch
+            android:id="@+id/switch-v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/switch-p"
+            android:text="Vegetarian    " />
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
