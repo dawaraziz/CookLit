@@ -49,13 +49,13 @@ public class RecipeListViewAdapter extends ArrayAdapter<String> {
         // Lookup view for data population
         ImageView icon = convertView.findViewById(R.id.thumbnail);
         TextView title =  convertView.findViewById(R.id.thumbnaildescription);
-        final ImageButton likebutton = convertView.findViewById(R.id.likebutton);
+        /*final ImageButton likebutton = convertView.findViewById(R.id.likebutton);
         likebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 likebutton.setImageResource(R.drawable.redheart);
             }
-        });
+        });*/
         // Populate the data into the template view using the data object
         if (position <= imageUri.size() - 1) {
             Log.d("title", titles.get(position));

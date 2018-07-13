@@ -41,14 +41,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="10dp" />
 
-    <ImageButton
-        android:id="@+id/likebutton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/heart" />
+
 
 
 </RelativeLayout>
