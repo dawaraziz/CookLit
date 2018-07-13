@@ -40,9 +40,9 @@ public class MyKitchenActivity extends AppCompatActivity{
     private String[] ingredientList;
     private LiveData<List<Recipe>> mRecipes;
     private  String recipeList;
-    private Switch peanut,alcohol,vegetarian;
+    private Switch peanut,alcohol,vegetarian,lowcalories;
     Button deleteButton;
-    boolean p_sig,a_sig,v_sig;
+    boolean p_sig,a_sig,v_sig,l_sig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class MyKitchenActivity extends AppCompatActivity{
         p_sig = false;
         a_sig = false;
         v_sig = false;
-
+        l_sig = false;
         setContentView(R.layout.activity_my_kitchen);
         deleteButton = findViewById(R.id.delete_button);
         final RecyclerView recyclerView = findViewById(R.id.recyclerview);
@@ -60,11 +60,25 @@ public class MyKitchenActivity extends AppCompatActivity{
         peanut = findViewById(R.id.switch_p);
         alcohol = findViewById(R.id.switch_a);
         vegetarian = findViewById(R.id.switch_v);
+        lowcalories = findViewById(R.id.lc_switch);
         mIngredientViewModel = ViewModelProviders.of(this).get(IngredientViewModel.class);
         mIngredientViewModel.getAllIngredients().observe(this, new Observer<List<Ingredient>>() {
             @Override
             public void onChanged(@Nullable List<Ingredient> ingredients) {
                 adapter.setIngredients(ingredients);
+            }
+        });
+
+        lowcalories.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked == true){
+                    l_sig = true;
+                    Log.d("l","true");
+                }
+                else{
+                    l_sig = false;
+                    Log.d("l","false");
+                }
             }
         });
         alcohol.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -178,6 +192,7 @@ public class MyKitchenActivity extends AppCompatActivity{
                     i2.putExtra("v", v_sig);
                     i2.putExtra("p", p_sig);
                     i2.putExtra("a", a_sig);
+                    i2.putExtra("l",l_sig);
                     startActivity(i2);
                 }
 
@@ -192,7 +207,7 @@ public class MyKitchenActivity extends AppCompatActivity{
             }
 
         });
-        Button nutritionButton = findViewById(R.id.nutrition);
+        /*Button nutritionButton = findViewById(R.id.nutrition);
         nutritionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,7 +215,7 @@ public class MyKitchenActivity extends AppCompatActivity{
                 i2 = new Intent(MyKitchenActivity.this, NutritionActivity.class);
                 startActivity(i2);
             }
-        });
+        });*/
 
         // Checkbox Header for select all
         final CheckBox checkBoxHeader = findViewById(R.id.checkBox_header);

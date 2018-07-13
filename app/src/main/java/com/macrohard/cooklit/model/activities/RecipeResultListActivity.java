@@ -44,19 +44,21 @@ public class RecipeResultListActivity extends AppCompatActivity {
     public ArrayList<String> ingredients;
     public Handler mHandler;
     public ImageButton likeButton;
-    public boolean vsig,asig,psig;
-    public String vtag,atag,ptag;
+    public boolean vsig,asig,psig,lsig;
+    public String vtag,atag,ptag,ltag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         vtag = "";
         atag = "";
         ptag = "";
+        ltag = "";
         setContentView(R.layout.activity_recipe_result);
         Intent intent = getIntent();
         vsig = intent.getBooleanExtra("v",false);
         asig = intent.getBooleanExtra("a",false);
         psig = intent.getBooleanExtra("p",false);
+        lsig = intent.getBooleanExtra("l",false);
         if(vsig){
             vtag = "&vegan";
         }
@@ -66,10 +68,14 @@ public class RecipeResultListActivity extends AppCompatActivity {
         if(psig){
             ptag = "&health=peanut-free";
         }
+        if(lsig){
+            ltag = "&calories=0-1000";
+        }
 
         Log.d("vsig",vsig+"");
         Log.d("asig",asig+"");
         Log.d("psig",psig+"");
+        Log.d("lsig",lsig+"");
 
         String [] ings = intent.getStringArrayExtra("ingredients");
         query = ings[0];
@@ -78,7 +84,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
             query += "%20";
             query +=ings[i];
         }
-        query = upperURI+query+lowerURI+vtag+atag+ptag;
+        query = upperURI+query+lowerURI+vtag+atag+ptag+ltag;
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle("Recipes");
