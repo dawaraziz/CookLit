@@ -155,15 +155,15 @@ public class MyKitchenActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
+
+
                 if(isNetworkAvailable()){
                 Intent i2;
                 i2 = new Intent(MyKitchenActivity.this, RecipeResultListActivity.class);
                 int ingre_size = mIngredientViewModel.getSelectedIngredients().size();
                 if (ingre_size==0){
-                    ingredientList = new String[mIngredientViewModel.getAllIngredients().getValue().size()];
-                    for(int i = 0; i <mIngredientViewModel.getAllIngredients().getValue().size()  ;++i){
-                        ingredientList[i] = mIngredientViewModel.getAllIngredients().getValue().get(i).getName();
-                    }
+                    Snackbar.make(recyclerView, "Please select at least one ingredient", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
 
                 else {
@@ -172,13 +172,16 @@ public class MyKitchenActivity extends AppCompatActivity{
                         ingredientList[i] = mIngredientViewModel.getSelectedIngredients().get(i).getName();
                     }
                 }
+                if(ingre_size != 0) {
+
+                    i2.putExtra("ingredients", ingredientList);
+                    i2.putExtra("v", v_sig);
+                    i2.putExtra("p", p_sig);
+                    i2.putExtra("a", a_sig);
+                    startActivity(i2);
+                }
 
 
-                i2.putExtra("ingredients",ingredientList);
-                i2.putExtra("v",v_sig);
-                i2.putExtra("p",p_sig);
-                i2.putExtra("a",a_sig);
-                startActivity(i2);
                 }
 
                 else{

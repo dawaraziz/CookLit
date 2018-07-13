@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -91,9 +92,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
         goToRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i2 = new Intent(RecipeDetailActivity.this, RecipeActivity.class);
-                i2.putExtra("uri",link);
-                startActivity(i2);
+                if(isNetworkAvailable()){
+                    Intent i2 = new Intent(RecipeDetailActivity.this, RecipeActivity.class);
+                    i2.putExtra("uri",link);
+                    startActivity(i2);
+                }
+                else{
+                    Snackbar.make(scrollView, "Internet is not available, please retry", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
 

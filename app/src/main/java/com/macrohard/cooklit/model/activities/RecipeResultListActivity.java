@@ -100,6 +100,10 @@ public class RecipeResultListActivity extends AppCompatActivity {
             super.handleMessage(msg);
             if(msg.what == 0){
                 Log.d("handler working","1");
+                if(imageuris.size() == 0){
+                    Snackbar.make(RecipeView1, "Sorry We do not have any recipes for your input please retry", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
                 RecipeListViewAdapter recipeAdapter = new RecipeListViewAdapter(RecipeResultListActivity.this,R.layout.elementview,imageuris,urilinks,tags);
                 RecipeView1.setAdapter(recipeAdapter);
                 RecipeView1.setItemsCanFocus(false);
@@ -146,7 +150,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
                     for(int ii = 0; ii < (mJSONObject.getJSONArray("hits").
                             getJSONObject(i).getJSONObject("recipe").getJSONArray("dietLabels").length());++ii){
 
-                        tagstring += (mJSONObject.getJSONArray("hits").
+                        tagstring += "#"+(mJSONObject.getJSONArray("hits").
                                 getJSONObject(i).getJSONObject("recipe").getJSONArray("dietLabels").getString(ii) + " ");
 
 
