@@ -71,6 +71,24 @@ public abstract class CooklitDatabase extends RoomDatabase {
             mDao.insertIngredient(ingredient);
             ingredient = new Ingredient("Avocado", "2", "2018-5-30");
             mDao.insertIngredient(ingredient);
+            ingredient = new Ingredient("Banana", "2", "2018-6-30");
+            mDao.insertIngredient(ingredient);
+            ingredient = new Ingredient("Apple", "3", "2018-7-30");
+            mDao.insertIngredient(ingredient);
+            ingredient = new Ingredient("Kiwi", "100", "2018-7-31");
+            mDao.insertIngredient(ingredient);
+            ingredient = new Ingredient("Pineapple", "2", "2018-8-2");
+            mDao.insertIngredient(ingredient);
+            ingredient = new Ingredient("Meet", "2", "2018-8-3");
+            mDao.insertIngredient(ingredient);
+            ingredient = new Ingredient("Beef", "3", "2018-10-2");
+            mDao.insertIngredient(ingredient);
+            ingredient = new Ingredient("Onion", "2", "2018-1-1");
+            mDao.insertIngredient(ingredient);
+            ingredient = new Ingredient("Ginger", "5", "2018-2-2");
+            mDao.insertIngredient(ingredient);
+            ingredient = new Ingredient("Tofu", "0", "2018-3-3");
+            mDao.insertIngredient(ingredient);
             dates.add(monday);
             JSONObject json = new JSONObject();
             try {
