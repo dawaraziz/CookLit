@@ -37,7 +37,6 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
 
         private final CheckBox ingredientSelectButton;
         private final TextView ingredientNameView;
-        private final TextView ingredientQtyView;
         private final TextView ingredientDateView;
 
 
@@ -45,7 +44,6 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
             super(itemView);
             ingredientSelectButton = itemView.findViewById(R.id.checkBox);
             ingredientNameView = itemView.findViewById(R.id.nameView);
-            ingredientQtyView = itemView.findViewById(R.id.quantityView);
             ingredientDateView = itemView.findViewById(R.id.expirydateView);
         }
     }
@@ -83,12 +81,10 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
 
         // if (mIngredients != null) {
             holder.ingredientNameView.setText(current.getName());
-            holder.ingredientQtyView.setText(current.getQuantity());
             holder.ingredientDateView.setText(current.getExpiryDate());
 
             if (expireDate.compareTo(today)<0){
                 holder.ingredientNameView.setTextColor(Color.RED);
-                holder.ingredientQtyView.setTextColor(Color.RED);
                 holder.ingredientDateView.setTextColor(Color.RED);
             }
 

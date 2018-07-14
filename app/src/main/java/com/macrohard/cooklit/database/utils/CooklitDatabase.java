@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Database(entities = {Ingredient.class, Recipe.class}, version =2)
+@Database(entities = {Ingredient.class, Recipe.class}, version =3)
 public abstract class CooklitDatabase extends RoomDatabase {
     public abstract CooklitDao CooklitDao();
 
@@ -67,27 +67,27 @@ public abstract class CooklitDatabase extends RoomDatabase {
 
             mDao.deleteAllIngredient();
             mDao.deleteAllRecipes();
-            Ingredient ingredient = new Ingredient("Chicken", "3", "2018-05-07");
+            Ingredient ingredient = new Ingredient("Chicken", "2018-05-07");
             mDao.insertIngredient(ingredient);
-            ingredient = new Ingredient("Avocado", "2", "2018-05-30");
+            ingredient = new Ingredient("Avocado", "2018-05-30");
             mDao.insertIngredient(ingredient);
-            ingredient = new Ingredient("Banana", "2", "2018-06-30");
+            ingredient = new Ingredient("Banana", "2018-06-30");
             mDao.insertIngredient(ingredient);
-            ingredient = new Ingredient("Apple", "3", "2018-07-30");
+            ingredient = new Ingredient("Apple", "2018-07-30");
             mDao.insertIngredient(ingredient);
-            ingredient = new Ingredient("Kiwi", "100", "2018-07-31");
+            ingredient = new Ingredient("Kiwi", "2018-07-31");
             mDao.insertIngredient(ingredient);
-            ingredient = new Ingredient("Pineapple", "2", "2018-08-02");
+            ingredient = new Ingredient("Pineapple", "2018-08-02");
             mDao.insertIngredient(ingredient);
-            ingredient = new Ingredient("Meet", "2", "2018-08-03");
+            ingredient = new Ingredient("Meet", "2018-08-03");
             mDao.insertIngredient(ingredient);
-            ingredient = new Ingredient("Beef", "3", "2018-10-02");
+            ingredient = new Ingredient("Beef", "2018-10-02");
             mDao.insertIngredient(ingredient);
-            ingredient = new Ingredient("Onion", "2", "2018-01-01");
+            ingredient = new Ingredient("Onion", "2018-01-01");
             mDao.insertIngredient(ingredient);
-            ingredient = new Ingredient("Ginger", "5", "2018-02-02");
+            ingredient = new Ingredient("Ginger", "2018-02-02");
             mDao.insertIngredient(ingredient);
-            ingredient = new Ingredient("Tofu", "0", "2018-03-03");
+            ingredient = new Ingredient("Tofu", "2018-03-03");
             mDao.insertIngredient(ingredient);
             dates.add(monday);
             JSONObject json = new JSONObject();

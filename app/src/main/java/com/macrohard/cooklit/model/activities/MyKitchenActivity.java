@@ -244,13 +244,11 @@ public class MyKitchenActivity extends AppCompatActivity{
             if (num > 3) {
                 for (int i = 1; i <= (num/3); i++) {
                     Ingredient ingredient = new Ingredient(data.getStringExtra("name" + String.valueOf(i)),
-                            data.getStringExtra("quantity" + String.valueOf(i)),
                             data.getStringExtra("date" + String.valueOf(i)));
                     mIngredientViewModel.insert(ingredient);
                 }
             } else {
                 Ingredient ingredient = new Ingredient(data.getStringExtra(AddItemActivity.NAME),
-                        data.getStringExtra(AddItemActivity.QUANTITY),
                         data.getStringExtra(AddItemActivity.DATE));
                 mIngredientViewModel.insert(ingredient);
             }
