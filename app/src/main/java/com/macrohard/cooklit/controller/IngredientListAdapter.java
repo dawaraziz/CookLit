@@ -2,7 +2,9 @@ package com.macrohard.cooklit.controller;
 
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,10 @@ import android.widget.TextView;
 import com.macrohard.cooklit.R;
 import com.macrohard.cooklit.database.model.Ingredient;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.IngredientViewHolder> {
@@ -53,11 +59,39 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
 
     @Override
     public void onBindViewHolder(final IngredientViewHolder holder, int position) {
+        final Ingredient current = mIngredients.get(position);
+
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH) + 1;
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        String date = Integer.toString(year) + "-"+ Integer.toString(month) + "-"+Integer.toString(day);
+        Log.d("today is: ", date);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date today = null;
+        try {
+            today = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date expireDate = null;
+        try {
+            expireDate = sdf.parse(current.getExpiryDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         // if (mIngredients != null) {
-            final Ingredient current = mIngredients.get(position);
             holder.ingredientNameView.setText(current.getName());
             holder.ingredientQtyView.setText(current.getQuantity());
             holder.ingredientDateView.setText(current.getExpiryDate());
+
+            if (expireDate.compareTo(today)<0){
+                holder.ingredientNameView.setTextColor(Color.RED);
+                holder.ingredientQtyView.setTextColor(Color.RED);
+                holder.ingredientDateView.setTextColor(Color.RED);
+            }
+
             holder.ingredientSelectButton.setChecked(current.getSelected());
 
             holder.ingredientSelectButton.setOnCheckedChangeListener(null);

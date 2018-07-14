@@ -18,7 +18,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:text="Name"/>
+        android:text="Name"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/quantityView_header"
@@ -35,6 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="6"
-        android:text="Expiry Date"/>
+        android:text="Expiry Date"
+        android:textStyle="bold"/>
 
 </LinearLayout>
