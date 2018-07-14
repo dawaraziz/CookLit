@@ -60,7 +60,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
         psig = intent.getBooleanExtra("p",false);
         lsig = intent.getBooleanExtra("l",false);
         if(vsig){
-            vtag = "&vegan";
+            vtag = "&health=vegetarian";
         }
         if(asig){
             atag = "&health=alcohol-free";
