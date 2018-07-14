@@ -22,7 +22,7 @@ public abstract class CooklitDao {
     @Query("DELETE FROM ingredient_table")
     public abstract void deleteAllIngredient();
 
-    @Query("SELECT * FROM ingredient_table ORDER BY name ASC")
+    @Query("SELECT * FROM ingredient_table ORDER BY expirydate ASC")
     public abstract LiveData<List<Ingredient>> getAllIngredients();
 
     @Query("SELECT * FROM ingredient_table WHERE name = :name")
