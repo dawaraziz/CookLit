@@ -59,9 +59,26 @@ public class MealPlanActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final List<Recipe> recipes){
                 // Update the UI here
-                recipeNameSample= recipes.get(0).getName();
-                recipeTimeSample= recipes.get(0).getTime();
-                Log.d("recipe_name",recipeNameSample);
+
+                //recipeNameSample= recipes.get(0).getName();
+                //recipeTimeSample= recipes.get(0).getTime();
+                //Log.d("recipe_name",recipeNameSample);
+
+                try {
+                    List<Recipe> recipeListMonday = mRecipeViewModel.getRecipesByDay("Monday");
+                    recipeNameSample = recipeListMonday.get(1).getName();
+                    recipeTimeSample = recipeListMonday.get(1).getTime();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    List<Recipe> recipeListFriday = mRecipeViewModel.getRecipesByDay("Friday");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 try {
                     JSONObject json = new JSONObject(recipes.get(0).getDate());
                     dateJsonArray=  json.getJSONArray("date_array");
@@ -80,6 +97,8 @@ public class MealPlanActivity extends AppCompatActivity {
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         mRecipeViewModel.getmAllRecipes().observe(this,recipeObserver);
+
+
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
