@@ -56,20 +56,11 @@ public class MealPlanActivity extends AppCompatActivity {
                 //recipeTimeSample= recipes.get(0).getTime();
                 //Log.d("recipe_name",recipeNameSample);
 
-                try {
-                    List<Recipe> recipeListMonday = mRecipeViewModel.getRecipesByDay("Monday");
+                List<Recipe> recipeListMonday = mRecipeViewModel.getRecipesByDay("Monday");
 //                    recipeNameSample = recipeListMonday.get(1).getName();
 //                    recipeTimeSample = recipeListMonday.get(1).getTime();
+                List<Recipe> recipeListFriday = mRecipeViewModel.getRecipesByDay("Friday");
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    List<Recipe> recipeListFriday = mRecipeViewModel.getRecipesByDay("Friday");
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
                 try {
                     JSONObject json = new JSONObject(recipes.get(0).getDate());

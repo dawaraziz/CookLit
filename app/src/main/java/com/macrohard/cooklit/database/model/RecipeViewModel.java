@@ -36,18 +36,22 @@ public class RecipeViewModel extends AndroidViewModel {
     }
 
     // getRecipesbyDate returns List of Recipe that conatins the day
-    public List<Recipe> getRecipesByDay(String day) throws JSONException {
+    public List<Recipe> getRecipesByDay(String day) {
         List<Recipe> recipesByDay = new ArrayList<Recipe>();
         List<Recipe> allRecipes = mAllRecipes.getValue();
         int recipeSize = allRecipes.size();
         for (int i = 0; i < recipeSize; i++) {
             List<String> dateList = new ArrayList<String>();
-            JSONObject dateByJson = new JSONObject(allRecipes.get(i).getDate());
-            JSONArray dateJsonArray = dateByJson.getJSONArray("date_array");
-            Log.d("dateJsonArray", dateJsonArray.getString(0));
-            for (int j = 0; j < dateJsonArray.length(); j++) {
-                dateList.add(dateJsonArray.getString(j));
-                Log.d("Date",dateList.get(0));
+            try {
+                JSONObject dateByJson = new JSONObject(allRecipes.get(i).getDate());
+                JSONArray dateJsonArray = dateByJson.getJSONArray("date_array");
+                Log.d("dateJsonArray", dateJsonArray.getString(0));
+                for (int j = 0; j < dateJsonArray.length(); j++) {
+                    dateList.add(dateJsonArray.getString(j));
+                    Log.d("Date",dateList.get(0));
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
             }
 
             if (dateList.contains(day)) {
