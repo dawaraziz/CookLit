@@ -40,11 +40,10 @@ public class MealPlanActivity extends AppCompatActivity {
         mealPlanCalender = findViewById(R.id.mealPlanCalendar);
         mealsForDayList = findViewById(R.id.mealsForDay);
 
-        getScheduleInfo(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
-
         // Get the ViewModel.
         mRecipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
 
+        getScheduleInfo(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
 
         // Create the observer which updates the UI
         final Observer<List<Recipe>> recipeObserver = new Observer<List<Recipe>>(){
@@ -76,7 +75,7 @@ public class MealPlanActivity extends AppCompatActivity {
         };
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        mRecipeViewModel.getmAllRecipes().observe(this,recipeObserver);
+        //mRecipeViewModel.getmAllRecipes().observe(this,recipeObserver);
 
         mealPlanCalender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -88,22 +87,42 @@ public class MealPlanActivity extends AppCompatActivity {
 
     }
 
-
-
-    //TODO::FM::Need to remove variables, this part is a dummy line
     private void getScheduleInfo(int dayOfWeek){
-        ArrayList<String> recipes = new ArrayList<>();
+        ArrayList<String> recipeNames = new ArrayList<>();
         ArrayList<String> timings = new ArrayList<>();
+        List<Recipe> recipes = null;
 
-        // using Date example
-        //ArrayList<String> timings = new ArrayList<>(recipeDateSample);
-        //TODO::FM::Need to add business logic to get things from db
-        if ((dayOfWeek == Calendar.WEDNESDAY || dayOfWeek == Calendar.FRIDAY) ){
-//            recipes.add(recipeNameSample);
-//            timings.add(recipeTimeSample);
+        //TODO::FM::If the getRecipesByDay Function would work, meal plan would then be all good
+        switch (dayOfWeek){
+            case 1:
+                recipes = mRecipeViewModel.getRecipesByDay("Su");
+            case 2:
+                recipes = mRecipeViewModel.getRecipesByDay("M");
+            case 3:
+                recipes = mRecipeViewModel.getRecipesByDay("T");
+            case 4:
+                recipes = mRecipeViewModel.getRecipesByDay("W");
+            case 5:
+                recipes = mRecipeViewModel.getRecipesByDay("Th");
+            case 6:
+                recipes = mRecipeViewModel.getRecipesByDay("F");
+            case 7:
+                recipes = mRecipeViewModel.getRecipesByDay("S");
         }
+
+        if(recipes != null) {
+            for (Recipe recipe : recipes) {
+                recipeNames.add(recipe.getName());
+                timings.add(recipe.getTime());
+                if(!recipe.getRepeat()){
+                    //TODO::Remember to delete recipe here
+                    //TODO:: An if statement should be here checking if the recipe is saved. If it not, then delete, else just set the Onlysaved flag to true
+                }
+            }
+        }
+
         TwoTextListViewAdapter itemsAdapter =  new TwoTextListViewAdapter(MealPlanActivity.this,
-                R.layout.mealplan_schedule_view, recipes,timings);
+                R.layout.mealplan_schedule_view, recipeNames,timings);
         mealsForDayList.setAdapter(itemsAdapter);
     }
 

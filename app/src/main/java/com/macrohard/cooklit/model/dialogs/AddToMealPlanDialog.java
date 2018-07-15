@@ -170,7 +170,5 @@ public class AddToMealPlanDialog extends Dialog  {
         }
     }
 
-
-
 }
 
