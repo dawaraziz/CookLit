@@ -26,25 +26,10 @@ public class AddToMealPlanDialog extends Dialog implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_add_to_meal_plan);
-//        yes = (Button) findViewById(R.id.btn_yes);
-//        no = (Button) findViewById(R.id.btn_no);
-//        yes.setOnClickListener(this);
-//        no.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.btn_yes:
-//                activity.finish();
-//                break;
-//            case R.id.btn_no:
-//                dismiss();
-//                break;
-//            default:
-//                break;
-//        }
         dismiss();
     }
 

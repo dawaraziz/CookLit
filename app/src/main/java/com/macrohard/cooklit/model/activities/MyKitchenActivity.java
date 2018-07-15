@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -19,19 +20,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.macrohard.cooklit.database.model.Ingredient;
 import com.macrohard.cooklit.database.model.IngredientViewModel;
 import com.macrohard.cooklit.R;
 import com.macrohard.cooklit.controller.IngredientListAdapter;
 import com.macrohard.cooklit.database.model.Recipe;
-import com.macrohard.cooklit.database.model.RecipeViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyKitchenActivity extends AppCompatActivity{
@@ -39,28 +39,65 @@ public class MyKitchenActivity extends AppCompatActivity{
     public static final int NEW_INGREDIENT_ACTIVITY_REQUEST_CODE = 1;
     private String[] ingredientList;
     private LiveData<List<Recipe>> mRecipes;
-    private  String recipeList;
-    private Switch peanut,alcohol,vegetarian,lowcalories;
-    Button deleteButton;
+    private String recipeList;
+    private Switch peanut,alcohol,vegetarian, lowCalories;
+    private Button deleteButton, openMealPlanButton, bucketListButton, cooklitButton;
+    private FloatingActionButton addItemButton;
+
     boolean p_sig,a_sig,v_sig,l_sig;
+
+    private RecyclerView recyclerView;
+    private IngredientListAdapter adapter;
+    private CheckBox checkBoxHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my_kitchen);
+        mapActivityItems();
+        setListeners();
+
+        SharedPreferences basicSharedPreference = getSharedPreferences(FirstTimeActivity.SHARED_PREFERENCE_APP_BASICS,MODE_PRIVATE);
+        if(!basicSharedPreference.getBoolean(FirstTimeActivity.SHARED_PREFERENCE_TUTORIAL_DONE,false)){
+            //TODO::Fahim::add the tutorial stuff here
+        }
+
+        /*Button nutritionButton = findViewById(R.id.nutrition);
+        nutritionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i2;
+                i2 = new Intent(MyKitchenActivity.this, NutritionActivity.class);
+                startActivity(i2);
+            }
+        });*/
+
+    }
+
+    public void mapActivityItems(){
+
         p_sig = false;
         a_sig = false;
         v_sig = false;
         l_sig = false;
-        setContentView(R.layout.activity_my_kitchen);
+
+        addItemButton = (FloatingActionButton) findViewById(R.id.fab);
         deleteButton = findViewById(R.id.delete_button);
-        final RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final IngredientListAdapter adapter = new IngredientListAdapter(this);
+
+        recyclerView = findViewById(R.id.recyclerview);
+        adapter = new IngredientListAdapter(this);
+
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         peanut = findViewById(R.id.switch_p);
         alcohol = findViewById(R.id.switch_a);
         vegetarian = findViewById(R.id.switch_v);
-        lowcalories = findViewById(R.id.lc_switch);
+        lowCalories = findViewById(R.id.lc_switch);
+        openMealPlanButton = (Button) findViewById(R.id.openMealPlan);
+        bucketListButton = (Button) findViewById(R.id.bucketlist_button);
+        cooklitButton = (Button) findViewById(R.id.cooklit_button);
+
         mIngredientViewModel = ViewModelProviders.of(this).get(IngredientViewModel.class);
         mIngredientViewModel.getAllIngredients().observe(this, new Observer<List<Ingredient>>() {
             @Override
@@ -69,7 +106,13 @@ public class MyKitchenActivity extends AppCompatActivity{
             }
         });
 
-        lowcalories.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        // Checkbox Header for select all
+        checkBoxHeader = findViewById(R.id.checkBox_header);
+
+    }
+
+    private void setListeners(){
+        lowCalories.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked == true){
                     l_sig = true;
@@ -118,8 +161,8 @@ public class MyKitchenActivity extends AppCompatActivity{
             }
         });
         // Add Button
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyKitchenActivity.this, AddItemActivity.class);
@@ -141,18 +184,12 @@ public class MyKitchenActivity extends AppCompatActivity{
             }
         });
 
-
-
-        final Button openMealPlanButton = (Button) findViewById(R.id.openMealPlan);
-
         openMealPlanButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent mealPlanIntent = new Intent(MyKitchenActivity.this, MealPlanActivity.class);
                 startActivity(mealPlanIntent);
             }
         });
-
-        final Button bucketListButton = (Button) findViewById(R.id.bucketlist_button);
 
         bucketListButton.setOnClickListener(new View.OnClickListener() {
 
@@ -163,66 +200,42 @@ public class MyKitchenActivity extends AppCompatActivity{
 
         });
 
-        Button cooklitButton = (Button) findViewById(R.id.cooklit_button);
-
         cooklitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                 if(isNetworkAvailable()){
-                Intent i2;
-                i2 = new Intent(MyKitchenActivity.this, RecipeResultListActivity.class);
-                int ingre_size = mIngredientViewModel.getSelectedIngredients().size();
-                if (ingre_size==0){
-                    Snackbar.make(recyclerView, "Please select at least one ingredient", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-
-                else {
-                    ingredientList = new String[ingre_size];
-                    for(int i = 0; i < ingre_size ;++i){
-                        ingredientList[i] = mIngredientViewModel.getSelectedIngredients().get(i).getName();
+                    Intent i2;
+                    i2 = new Intent(MyKitchenActivity.this, RecipeResultListActivity.class);
+                    int ingre_size = mIngredientViewModel.getSelectedIngredients().size();
+                    if (ingre_size==0){
+                        Snackbar.make(recyclerView, "Please select at least one ingredient", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    } else {
+                        ingredientList = new String[ingre_size];
+                        for(int i = 0; i < ingre_size ;++i){
+                            ingredientList[i] = mIngredientViewModel.getSelectedIngredients().get(i).getName();
+                        }
                     }
-                }
-                if(ingre_size != 0) {
-
-                    i2.putExtra("ingredients", ingredientList);
-                    i2.putExtra("v", v_sig);
-                    i2.putExtra("p", p_sig);
-                    i2.putExtra("a", a_sig);
-                    i2.putExtra("l",l_sig);
-                    startActivity(i2);
-                }
-
-
-                }
-
-                else{
-
+                    if(ingre_size != 0) {
+                        i2.putExtra("ingredients", ingredientList);
+                        i2.putExtra("v", v_sig);
+                        i2.putExtra("p", p_sig);
+                        i2.putExtra("a", a_sig);
+                        i2.putExtra("l",l_sig);
+                        startActivity(i2);
+                    }
+                } else {
                     Snackbar.make(recyclerView, "Internet is not available, please retry", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }
 
         });
-        /*Button nutritionButton = findViewById(R.id.nutrition);
-        nutritionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i2;
-                i2 = new Intent(MyKitchenActivity.this, NutritionActivity.class);
-                startActivity(i2);
-            }
-        });*/
 
-        // Checkbox Header for select all
-        final CheckBox checkBoxHeader = findViewById(R.id.checkBox_header);
         checkBoxHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // set all check box ture/false
+                // set all check box true/false
                 for (int i=0; i < mIngredientViewModel.getAllIngredients().getValue().size(); i++){
                     mIngredientViewModel.getAllIngredients().getValue().get(i).setSelected(checkBoxHeader.isChecked());
                 }
@@ -230,10 +243,7 @@ public class MyKitchenActivity extends AppCompatActivity{
                 adapter.notifyDataSetChanged();
             }
         });
-
     }
-
-
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -259,6 +269,8 @@ public class MyKitchenActivity extends AppCompatActivity{
                     Toast.LENGTH_LONG).show();
         }
     }
+
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
