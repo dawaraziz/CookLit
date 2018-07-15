@@ -118,5 +118,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         return activeNetworkInfo != null;
     }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 }

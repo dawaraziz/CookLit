@@ -50,7 +50,6 @@ public class MealPlanActivity extends AppCompatActivity {
         final Observer<List<Recipe>> recipeObserver = new Observer<List<Recipe>>(){
             @Override
             public void onChanged(@Nullable final List<Recipe> recipes){
-<<<<<<< Updated upstream
                 // Update the UI here
 
                 //recipeNameSample= recipes.get(0).getName();
@@ -59,8 +58,8 @@ public class MealPlanActivity extends AppCompatActivity {
 
                 try {
                     List<Recipe> recipeListMonday = mRecipeViewModel.getRecipesByDay("Monday");
-                    recipeNameSample = recipeListMonday.get(1).getName();
-                    recipeTimeSample = recipeListMonday.get(1).getTime();
+//                    recipeNameSample = recipeListMonday.get(1).getName();
+//                    recipeTimeSample = recipeListMonday.get(1).getTime();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -72,8 +71,6 @@ public class MealPlanActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-=======
->>>>>>> Stashed changes
                 try {
                     JSONObject json = new JSONObject(recipes.get(0).getDate());
 //                    dateJsonArray=  json.getJSONArray("date_array");
@@ -93,13 +90,8 @@ public class MealPlanActivity extends AppCompatActivity {
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         mRecipeViewModel.getmAllRecipes().observe(this,recipeObserver);
 
-<<<<<<< Updated upstream
-
-
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-=======
         mealPlanCalender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
->>>>>>> Stashed changes
+
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 int dayOfWeek = getDayOfWeek(i,i1,i2);
