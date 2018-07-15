@@ -4,12 +4,14 @@ package com.macrohard.cooklit.database.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 
 @Entity(tableName = "recipe_table")
 public class Recipe {
+
     @PrimaryKey(autoGenerate = true)
     private int id;
     @NonNull
@@ -25,7 +27,12 @@ public class Recipe {
     private boolean repeat;
 
 
+    public Recipe(String name, String uri){
+        this.name = name;
+        this.uri = uri;
+    }
 
+    @Ignore
     public Recipe(int id, String name, String uri, String date, String time, boolean repeat){
         this.id = id;
         this.name = name;
@@ -35,9 +42,12 @@ public class Recipe {
         this.repeat = repeat;
     }
 
-    public int getId() {return id;}
+    public int getId() {
+        return id;
+    }
 
-    public void setId(int i){
+    public void setId(int id) {
+        this.id= id;
     }
 
     public String getName() {

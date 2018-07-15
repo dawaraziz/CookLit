@@ -15,6 +15,7 @@ public class CooklitRepository {
     private CooklitDao mCooklitDao;
     private LiveData<List<Ingredient>> mAllIngredients;
     private LiveData<List<Recipe>> mAllRecipes;
+    private LiveData<List<Recipe>> mDateRecipes;
 
     public CooklitRepository(Application application){
         CooklitDatabase db = CooklitDatabase.getDatabase(application);
@@ -29,6 +30,10 @@ public class CooklitRepository {
 
     public LiveData<List<Recipe>> getAllRecipes(){
         return mAllRecipes;
+    }
+
+    public LiveData<List<Recipe>> getRecipesByDate(String date){
+        return mCooklitDao.getRecipesByDate(date);
     }
 
     public void insert (Ingredient ingredient){

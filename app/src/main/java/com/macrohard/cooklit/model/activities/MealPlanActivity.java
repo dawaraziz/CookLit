@@ -2,7 +2,6 @@ package com.macrohard.cooklit.model.activities;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.arch.lifecycle.LiveData;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,11 +11,8 @@ import android.widget.CalendarView;
 import android.widget.ListView;
 
 import com.macrohard.cooklit.R;
-import com.macrohard.cooklit.database.model.Ingredient;
-import com.macrohard.cooklit.database.model.IngredientViewModel;
 import com.macrohard.cooklit.database.model.Recipe;
 import com.macrohard.cooklit.database.model.RecipeViewModel;
-import com.macrohard.cooklit.support.adapters.RecipeListViewAdapter;
 import com.macrohard.cooklit.support.adapters.TwoTextListViewAdapter;
 
 import org.json.JSONArray;
@@ -29,14 +25,10 @@ import java.util.List;
 
 public class MealPlanActivity extends AppCompatActivity {
 
-    CalendarView calendarView;
-    ListView mealsForDayList;
+    private CalendarView mealPlanCalender;
+    private ListView mealsForDayList;
     private RecipeViewModel mRecipeViewModel;
-    String recipeNameSample;
-    String recipeTimeSample;
-    ArrayList<String> recipeDateSample = new ArrayList<>();
-    JSONArray dateJsonArray = new JSONArray();
-
+    private JSONArray dates = new JSONArray();
 
 
     @Override
@@ -45,7 +37,7 @@ public class MealPlanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_plan);
 
-        calendarView = findViewById(R.id.mealPlanCalendar);
+        mealPlanCalender = findViewById(R.id.mealPlanCalendar);
         mealsForDayList = findViewById(R.id.mealsForDay);
 
         getScheduleInfo(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
@@ -58,6 +50,7 @@ public class MealPlanActivity extends AppCompatActivity {
         final Observer<List<Recipe>> recipeObserver = new Observer<List<Recipe>>(){
             @Override
             public void onChanged(@Nullable final List<Recipe> recipes){
+<<<<<<< Updated upstream
                 // Update the UI here
 
                 //recipeNameSample= recipes.get(0).getName();
@@ -79,14 +72,16 @@ public class MealPlanActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+=======
+>>>>>>> Stashed changes
                 try {
                     JSONObject json = new JSONObject(recipes.get(0).getDate());
-                    dateJsonArray=  json.getJSONArray("date_array");
-                    if (dateJsonArray != null) {
-                        for (int i=0;i<dateJsonArray.length();i++){
-                            recipeDateSample.add(dateJsonArray.getString(i));
-                        }
-                    }
+//                    dateJsonArray=  json.getJSONArray("date_array");
+//                    if (dateJsonArray != null) {
+//                        for (int i=0;i<dateJsonArray.length();i++){
+//                            recipeDateSample.add(dateJsonArray.getString(i));
+//                        }
+//                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -98,9 +93,13 @@ public class MealPlanActivity extends AppCompatActivity {
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         mRecipeViewModel.getmAllRecipes().observe(this,recipeObserver);
 
+<<<<<<< Updated upstream
 
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+=======
+        mealPlanCalender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+>>>>>>> Stashed changes
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 int dayOfWeek = getDayOfWeek(i,i1,i2);
@@ -121,8 +120,8 @@ public class MealPlanActivity extends AppCompatActivity {
         //ArrayList<String> timings = new ArrayList<>(recipeDateSample);
         //TODO::FM::Need to add business logic to get things from db
         if ((dayOfWeek == Calendar.WEDNESDAY || dayOfWeek == Calendar.FRIDAY) ){
-            recipes.add(recipeNameSample);
-            timings.add(recipeTimeSample);
+//            recipes.add(recipeNameSample);
+//            timings.add(recipeTimeSample);
         }
         TwoTextListViewAdapter itemsAdapter =  new TwoTextListViewAdapter(MealPlanActivity.this,
                 R.layout.mealplan_schedule_view, recipes,timings);

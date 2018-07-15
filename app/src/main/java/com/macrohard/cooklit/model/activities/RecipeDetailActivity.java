@@ -1,6 +1,7 @@
 package com.macrohard.cooklit.model.activities;
 
 import android.app.Dialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -20,6 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.macrohard.cooklit.R;
+import com.macrohard.cooklit.database.model.Recipe;
+import com.macrohard.cooklit.database.model.RecipeViewModel;
+import com.macrohard.cooklit.model.dialogs.AddToMealPlanDialog;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -33,6 +37,7 @@ import java.util.Map;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
+    private Recipe currentRecipe;
 
     private TextView title;
     private TextView ingredientsText;
@@ -41,30 +46,25 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     private ImageView titleImage;
 
-    private Button confirmAddToMealPlanButton;
-    private Button cancelAddToMealPlanButton;
+    private AddToMealPlanDialog addToMealPlanDialog;
+
     private Button goToRecipeButton;
     private Button addToMealPlanButton;
 
     private JSONObject mJSONObject;
-    private String imageUri, titleText,ingredients,link;
+    private String imageUri, ingredients;
 
     private Handler mHandler;
 
-    private Dialog addToMealPlanDialog;
-
-    private CheckBox mealPlanCheckbox;
-
-    Map<Button,Boolean> weekDayButtons;
+    public Recipe getCurrentRecipe(){
+        return currentRecipe;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
-
-        addToMealPlanDialog = createDialog();
-        initializeWeekDayButtons();
 
         title = findViewById(R.id.recipeTitle);
         ingredientsText = findViewById(R.id.recipeDetailTextview);
@@ -80,27 +80,24 @@ public class RecipeDetailActivity extends AppCompatActivity {
         mHandler = new Handler();
         Intent mIntent = getIntent();
 
+        currentRecipe = new Recipe(mIntent.getStringExtra("title"),mIntent.getStringExtra("uri"));
+        RecipeViewModel mRecipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
+
+        addToMealPlanDialog = new AddToMealPlanDialog(this,R.style.default_Dialog, currentRecipe);
+
         imageUri = mIntent.getStringExtra("imageuri");
-        titleText = mIntent.getStringExtra("title");
-        link = mIntent.getStringExtra("uri");
         ingredients = mIntent.getStringExtra("ingredients");
 
         ingredientsText.setText(ingredients);
         Picasso.with(RecipeDetailActivity.this).load(imageUri).into(titleImage);
-        title.setText(titleText);
+        title.setText(currentRecipe.getName());
 
         goToRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNetworkAvailable()){
-                    Intent i2 = new Intent(RecipeDetailActivity.this, RecipeActivity.class);
-                    i2.putExtra("uri",link);
-                    startActivity(i2);
-                }
-                else{
-                    Snackbar.make(scrollView, "Internet is not available, please retry", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
+                Intent i2 = new Intent(RecipeDetailActivity.this, RecipeActivity.class);
+                i2.putExtra("uri",currentRecipe.getUri());
+                startActivity(i2);
             }
         });
 
@@ -108,7 +105,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addToMealPlanDialog.show();
-                resetWeekdayList();
+                //resetWeekdayList();
             }
         });
 
@@ -121,77 +118,5 @@ public class RecipeDetailActivity extends AppCompatActivity {
         return activeNetworkInfo != null;
     }
 
-    private Dialog createDialog(){
-        final Dialog addToMealPlanDialog = new Dialog(this,R.style.default_Dialog);
-
-        addToMealPlanDialog.setContentView(R.layout.activity_add_to_meal_plan);
-
-        confirmAddToMealPlanButton = (Button) addToMealPlanDialog.findViewById(R.id.confirmAddToMealPlan_button);
-        cancelAddToMealPlanButton = (Button) addToMealPlanDialog.findViewById(R.id.cancelAddToMealPlan_button);
-        mealPlanCheckbox = addToMealPlanDialog.findViewById(R.id.openMealPlanCheckbox);
-
-        confirmAddToMealPlanButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addToMealPlanDialog.dismiss();
-                Toast addToMealPlanConfirmationToast = Toast.makeText(getApplicationContext(), "Recipe added to your meal plan", Toast.LENGTH_SHORT);
-                addToMealPlanConfirmationToast.show();
-                if (mealPlanCheckbox.isChecked()) {
-                    Intent mealPlanIntent = new Intent(RecipeDetailActivity.this, MealPlanActivity.class);
-                    startActivity(mealPlanIntent);
-                }
-            }
-        });
-
-        cancelAddToMealPlanButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                addToMealPlanDialog.cancel();
-            }
-        });
-
-        return addToMealPlanDialog;
-    }
-
-    private void initializeWeekDayButtons(){
-        weekDayButtons = new HashMap<>();
-        LinearLayout weekDaysContainer = addToMealPlanDialog.findViewById(R.id.weekdays_container);
-        for(int i = 0 ; i < weekDaysContainer.getChildCount();i++){
-            final Button weekDayButton = addToMealPlanDialog.findViewById(weekDaysContainer.getChildAt(i).getId());
-            weekDayButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(!weekDayButtons.get(weekDayButton)) {
-                        activateWeekDayButton(weekDayButton);
-                    }else{
-                        deActivateWeekDayButton(weekDayButton);
-                    }
-                }
-            });
-            weekDayButtons.put(weekDayButton,false);
-        }
-    }
-
-    private void activateWeekDayButton(Button weekDayButton){
-        final int whiteColorId = getApplication().getResources().getColor(R.color.white);
-        final Drawable circularButtonSelectedDrawable = getResources().getDrawable(R.drawable.default_round_button_selected);
-        weekDayButton.setTextColor(whiteColorId);
-        weekDayButton.setBackground(circularButtonSelectedDrawable);
-        weekDayButtons.put(weekDayButton,true);
-    }
-
-    private void deActivateWeekDayButton(Button weekDayButton){
-        final Drawable circularButtonsDrawable = getResources().getDrawable(R.drawable.default_round_button);
-        final int cyanColorId = getApplication().getResources().getColor(R.color.cookLitBlue);
-        weekDayButton.setTextColor(cyanColorId);
-        weekDayButton.setBackground(circularButtonsDrawable);
-        weekDayButtons.put(weekDayButton,false);
-    }
-
-    private void resetWeekdayList(){
-        for(Button button: weekDayButtons.keySet()){
-            deActivateWeekDayButton(button);
-        }
-    }
 
 }
