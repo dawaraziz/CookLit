@@ -26,6 +26,10 @@ import com.macrohard.cooklit.database.utils.CooklitDatabase;
 import com.macrohard.cooklit.model.activities.MealPlanActivity;
 import com.macrohard.cooklit.model.activities.RecipeDetailActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -84,7 +88,6 @@ public class AddToMealPlanDialog extends Dialog  {
         confirmAddToMealPlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO::FM::Add logic to add recipe to meal plan
                 dismiss();
                 List<Recipe> savedRecipes = getResults();
                 saveToDatabase(savedRecipes);
@@ -151,15 +154,29 @@ public class AddToMealPlanDialog extends Dialog  {
         List<Recipe> savedDates = new ArrayList<>();
         String time = String.valueOf(timePicker.getCurrentHour()) + ":" + String.valueOf(timePicker.getCurrentMinute());
         boolean remindRepeat= remindEverytimeRadioButton.isChecked();
+        ArrayList<String> scheduledDays = new ArrayList<>();
         for(Button weekday: weekDayButtons.keySet()){
+            //TODO::Sean, this is where an item is added, no need to remove stuff from the loop, but if you want to, let me know first
             if(weekDayButtons.get(weekday)){
-                Recipe recipe = new Recipe(currentRecipe.getName(),currentRecipe.getUri());
-                recipe.setDate((String)weekday.getText());
+                scheduledDays.add((String)weekday.getText());
+                Recipe recipe = new Recipe(0, currentRecipe.getName(),currentRecipe.getUri());
+                JSONObject datesJson = new JSONObject();
+                try {
+                    datesJson.put("date_array", new JSONArray(scheduledDays));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast addToMealPlanFailedToast = Toast.makeText(getContext().getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT);
+                    addToMealPlanFailedToast.show();
+                    this.cancel();
+                }
+                recipe.setDate(datesJson.toString());
                 recipe.setTime(time);
                 recipe.setRepeat(remindRepeat);
                 savedDates.add(recipe);
+                scheduledDays.clear();
             }
         }
+
         return savedDates;
     }
 

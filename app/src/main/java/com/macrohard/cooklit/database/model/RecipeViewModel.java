@@ -39,6 +39,10 @@ public class RecipeViewModel extends AndroidViewModel {
     public List<Recipe> getRecipesByDay(String day) {
         List<Recipe> recipesByDay = new ArrayList<Recipe>();
         List<Recipe> allRecipes = mAllRecipes.getValue();
+        //TODO::Sean, remove the next line when you fix it. If it cant find values allRecipes==null and allRecipes.size gives you NPE.
+        if(allRecipes == null){
+            return recipesByDay;
+        }
         int recipeSize = allRecipes.size();
         for (int i = 0; i < recipeSize; i++) {
             List<String> dateList = new ArrayList<String>();

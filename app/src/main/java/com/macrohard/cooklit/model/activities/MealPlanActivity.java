@@ -6,14 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.CalendarView;
 import android.widget.ListView;
 
 import com.macrohard.cooklit.R;
 import com.macrohard.cooklit.database.model.Recipe;
 import com.macrohard.cooklit.database.model.RecipeViewModel;
-import com.macrohard.cooklit.support.adapters.TwoTextListViewAdapter;
+import com.macrohard.cooklit.support.adapters.TextAndItemListViewAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -115,13 +114,13 @@ public class MealPlanActivity extends AppCompatActivity {
                 recipeNames.add(recipe.getName());
                 timings.add(recipe.getTime());
                 if(!recipe.getRepeat()){
-                    //TODO::FM::Remember to delete recipe here
+                    //TODO::FM::Remember to delete recipe here, Sean: I need the deleteRecipefunction here and the flags in the next line
                     //TODO::FM:: An if statement should be here checking if the recipe is saved. If it not, then delete, else just set the Onlysaved flag to true
                 }
             }
         }
 
-        TwoTextListViewAdapter itemsAdapter =  new TwoTextListViewAdapter(MealPlanActivity.this,
+        TextAndItemListViewAdapter itemsAdapter =  new TextAndItemListViewAdapter(MealPlanActivity.this,
                 R.layout.mealplan_schedule_view, recipeNames,timings);
         mealsForDayList.setAdapter(itemsAdapter);
     }

@@ -27,7 +27,8 @@ public class Recipe {
     private boolean repeat;
 
 
-    public Recipe(String name, String uri){
+    public Recipe(int id, String name, String uri){
+        this.id=id;
         this.name = name;
         this.uri = uri;
     }
