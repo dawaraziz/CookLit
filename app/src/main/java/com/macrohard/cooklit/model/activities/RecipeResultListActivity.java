@@ -95,7 +95,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
         Log.d("query is",query);
         mHandler = new Handler();
         RecipeView1 = findViewById(R.id.listView1);
-        asyncDialog.setMessage("One moment");
+        asyncDialog.setMessage("Generating your recipes...");
         asyncDialog.show();
 
         t1 = new Thread(mMessageSender);
@@ -115,7 +115,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
             if(msg.what == 0){
                 Log.d("handler working","1");
                 if(imageuris.size() == 0){
-                    Snackbar.make(RecipeView1, "Sorry We do not have any recipes for your input please retry", Snackbar.LENGTH_LONG)
+                    Snackbar.make(RecipeView1, "Sorry! We do not have any recipes for your input please try again", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
                 RecipeListViewAdapter recipeAdapter = new RecipeListViewAdapter(RecipeResultListActivity.this,R.layout.elementview,imageuris,urilinks,tags);
@@ -135,7 +135,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
                             startActivity(i2);
                         }
                         else{
-                            Snackbar.make(view, "Internet is not available, please retry", Snackbar.LENGTH_LONG)
+                            Snackbar.make(view, "Internet is not available, please try again", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
 
                         }
@@ -149,13 +149,11 @@ public class RecipeResultListActivity extends AppCompatActivity {
     };
 
     private final Runnable mMessageSender = new Runnable() {
+
         public void run() {
-                request(query);
 
-                while(mJSONObject == null){
-
-
-            }
+            request(query);
+            while(mJSONObject == null){}
             try{
                 Log.d("mJsonObject is",mJSONObject.toString());
                 for(int i = 0; i < (mJSONObject.getJSONArray("hits").length());++i){

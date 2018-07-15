@@ -133,7 +133,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         confirmAddToMealPlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO::FM::Add logic to add recipe to meal plan
                 addToMealPlanDialog.dismiss();
                 Toast addToMealPlanConfirmationToast = Toast.makeText(getApplicationContext(), "Recipe added to your meal plan", Toast.LENGTH_SHORT);
                 addToMealPlanConfirmationToast.show();
@@ -167,7 +166,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     }else{
                         deActivateWeekDayButton(weekDayButton);
                     }
-                    //TODO::FM::Add logic to save buttons in adding to meal plan, change the weekDays Button to hashmaps?
                 }
             });
             weekDayButtons.put(weekDayButton,false);
