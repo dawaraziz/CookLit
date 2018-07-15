@@ -51,16 +51,13 @@ public class MealPlanActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final List<Recipe> recipes){
                 // Update the UI here
-
                 //recipeNameSample= recipes.get(0).getName();
                 //recipeTimeSample= recipes.get(0).getTime();
                 //Log.d("recipe_name",recipeNameSample);
-
                 List<Recipe> recipeListMonday = mRecipeViewModel.getRecipesByDay("Monday");
 //                    recipeNameSample = recipeListMonday.get(1).getName();
 //                    recipeTimeSample = recipeListMonday.get(1).getTime();
                 List<Recipe> recipeListFriday = mRecipeViewModel.getRecipesByDay("Friday");
-
 
                 try {
                     JSONObject json = new JSONObject(recipes.get(0).getDate());
@@ -82,7 +79,6 @@ public class MealPlanActivity extends AppCompatActivity {
         mRecipeViewModel.getmAllRecipes().observe(this,recipeObserver);
 
         mealPlanCalender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 int dayOfWeek = getDayOfWeek(i,i1,i2);

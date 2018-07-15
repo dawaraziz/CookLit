@@ -35,6 +35,7 @@ public class RecipeViewModel extends AndroidViewModel {
         return mAllRecipes;
     }
 
+
     // getRecipesbyDate returns List of Recipe that conatins the day
     public List<Recipe> getRecipesByDay(String day) {
         List<Recipe> recipesByDay = new ArrayList<Recipe>();
