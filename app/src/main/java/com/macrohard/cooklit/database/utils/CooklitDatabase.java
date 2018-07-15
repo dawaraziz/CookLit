@@ -62,9 +62,18 @@ public abstract class CooklitDatabase extends RoomDatabase {
     };
 
     private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+
+        /*
+        @Override
+        public void onOpen (@NonNull SupportSQLiteDatabase db){
+            super.onOpen(db);
+            new PopulateDbAsync(INSTANCE).execute();
+        }
+        */
+
         @Override
         public void onCreate (@NonNull SupportSQLiteDatabase db){
-            super.onOpen(db);
+            super.onCreate(db);
             new PopulateDbAsync(INSTANCE).execute();
         }
     };
