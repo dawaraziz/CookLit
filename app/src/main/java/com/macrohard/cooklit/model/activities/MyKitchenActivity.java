@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Switch;
@@ -44,6 +45,7 @@ public class MyKitchenActivity extends AppCompatActivity{
     Button deleteButton;
     boolean p_sig,a_sig,v_sig,l_sig;
 
+    private ImageView cooklitImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,8 @@ public class MyKitchenActivity extends AppCompatActivity{
         a_sig = false;
         v_sig = false;
         l_sig = false;
+        cooklitImage = findViewById(R.id.cooklit_image);
+
         setContentView(R.layout.activity_my_kitchen);
         deleteButton = findViewById(R.id.delete_button);
         final RecyclerView recyclerView = findViewById(R.id.recyclerview);
@@ -164,6 +168,7 @@ public class MyKitchenActivity extends AppCompatActivity{
         });
 
         Button cooklitButton = (Button) findViewById(R.id.cooklit_button);
+
 
         cooklitButton.setOnClickListener(new View.OnClickListener() {
             @Override

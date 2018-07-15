@@ -1,5 +1,6 @@
 package com.macrohard.cooklit.model.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -46,6 +47,8 @@ public class RecipeResultListActivity extends AppCompatActivity {
     public ImageButton likeButton;
     public boolean vsig,asig,psig,lsig;
     public String vtag,atag,ptag,ltag;
+    public ProgressDialog asyncDialog;
+    public Thread t1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,7 @@ public class RecipeResultListActivity extends AppCompatActivity {
         atag = "";
         ptag = "";
         ltag = "";
+        asyncDialog = new ProgressDialog(RecipeResultListActivity.this);
         setContentView(R.layout.activity_recipe_result);
         Intent intent = getIntent();
         vsig = intent.getBooleanExtra("v",false);
@@ -91,13 +95,17 @@ public class RecipeResultListActivity extends AppCompatActivity {
         Log.d("query is",query);
         mHandler = new Handler();
         RecipeView1 = findViewById(R.id.listView1);
+        asyncDialog.setMessage("One moment");
+        asyncDialog.show();
 
-        new Thread(mMessageSender).start();
+        t1 = new Thread(mMessageSender);
+        t1.start();
         imageuris = new ArrayList<>();
         urilinks = new ArrayList<>();
         linkToRecipes = new ArrayList<>();
         ingredients = new ArrayList<>();
         tags = new ArrayList<>();
+
 
     }
     private Handler messageHandler = new Handler() {
@@ -134,14 +142,18 @@ public class RecipeResultListActivity extends AppCompatActivity {
                     }
                 });
             }
+            asyncDialog.dismiss();
 
         }
+
     };
 
     private final Runnable mMessageSender = new Runnable() {
         public void run() {
                 request(query);
+
                 while(mJSONObject == null){
+
 
             }
             try{
@@ -224,6 +236,27 @@ public class RecipeResultListActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(t1.isAlive()){
+            t1.interrupt();
+            Log.d("thread stopped","1");
+        }
+        Log.d("thread dead","1");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(t1.isAlive()){
+            t1.interrupt();
+            Log.d("thread stopped","2");
+        }
+        Log.d("thread dead","2");
+    }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
