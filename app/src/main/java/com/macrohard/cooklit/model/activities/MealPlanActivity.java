@@ -115,8 +115,8 @@ public class MealPlanActivity extends AppCompatActivity {
                 recipeNames.add(recipe.getName());
                 timings.add(recipe.getTime());
                 if(!recipe.getRepeat()){
-                    //TODO::Remember to delete recipe here
-                    //TODO:: An if statement should be here checking if the recipe is saved. If it not, then delete, else just set the Onlysaved flag to true
+                    //TODO::FM::Remember to delete recipe here
+                    //TODO::FM:: An if statement should be here checking if the recipe is saved. If it not, then delete, else just set the Onlysaved flag to true
                 }
             }
         }
