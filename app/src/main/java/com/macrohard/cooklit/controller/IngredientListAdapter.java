@@ -27,6 +27,25 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
 
     private final LayoutInflater mInflater;
     private List<Ingredient> mIngredients; // Cached copy of Ingredients
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    Date mToday = getToday();
+
+    public Date getToday() {
+        Date today = null;
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH) + 1;
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        String date = Integer.toString(year) + "-"+ Integer.toString(month) + "-"+Integer.toString(day);
+        Log.d("today is: ", date);
+        try {
+            today = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return today;
+    }
 
     public IngredientListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -58,20 +77,6 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
     @Override
     public void onBindViewHolder(final IngredientViewHolder holder, int position) {
         final Ingredient current = mIngredients.get(position);
-
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH) + 1;
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        String date = Integer.toString(year) + "-"+ Integer.toString(month) + "-"+Integer.toString(day);
-        Log.d("today is: ", date);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date today = null;
-        try {
-            today = sdf.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         Date expireDate = null;
         try {
             expireDate = sdf.parse(current.getExpiryDate());
@@ -79,11 +84,10 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
             e.printStackTrace();
         }
 
-        // if (mIngredients != null) {
             holder.ingredientNameView.setText(current.getName());
             holder.ingredientDateView.setText(current.getExpiryDate());
 
-            if (expireDate.compareTo(today)<0){
+            if (expireDate.compareTo(mToday)<0){
                 holder.ingredientNameView.setTextColor(Color.RED);
                 holder.ingredientDateView.setTextColor(Color.RED);
             }

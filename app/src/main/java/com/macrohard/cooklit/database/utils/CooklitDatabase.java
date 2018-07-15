@@ -4,6 +4,7 @@ import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Database(entities = {Ingredient.class, Recipe.class}, version =3)
+@Database(entities = {Ingredient.class, Recipe.class}, version =1)
 public abstract class CooklitDatabase extends RoomDatabase {
     public abstract CooklitDao CooklitDao();
 
@@ -34,6 +35,7 @@ public abstract class CooklitDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             CooklitDatabase.class, "cooklit_database")
                             .fallbackToDestructiveMigration()
+                            //.addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                             .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
@@ -42,10 +44,36 @@ public abstract class CooklitDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    static final Migration MIGRATION_1_2 = new Migration(1, 2){
+
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            // didn't alter the table, so empty
+        }
+    };
+
+    static final Migration MIGRATION_2_3 = new Migration(2, 3){
+
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE recipe_table "
+            + " ADD COLUMN saved BOOLEAN" );
+        }
+    };
+
     private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+
+        /*
         @Override
         public void onOpen (@NonNull SupportSQLiteDatabase db){
             super.onOpen(db);
+            new PopulateDbAsync(INSTANCE).execute();
+        }
+        */
+
+        @Override
+        public void onCreate (@NonNull SupportSQLiteDatabase db){
+            super.onCreate(db);
             new PopulateDbAsync(INSTANCE).execute();
         }
     };
