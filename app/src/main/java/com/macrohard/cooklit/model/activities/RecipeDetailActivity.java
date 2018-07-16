@@ -80,7 +80,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         mHandler = new Handler();
         Intent mIntent = getIntent();
 
-        currentRecipe = new Recipe(mIntent.getStringExtra("title"),mIntent.getStringExtra("uri"));
+        currentRecipe = new Recipe(0,mIntent.getStringExtra("title"),mIntent.getStringExtra("uri"));
         RecipeViewModel mRecipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
 
         addToMealPlanDialog = new AddToMealPlanDialog(this,R.style.default_Dialog, currentRecipe);
