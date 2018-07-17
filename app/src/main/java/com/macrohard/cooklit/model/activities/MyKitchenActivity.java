@@ -34,7 +34,7 @@ import com.macrohard.cooklit.model.dialogs.AddItemDialog;
 
 import java.util.List;
 
-import static com.macrohard.cooklit.model.activities.BucketListActivity.NAME;
+//import static com.macrohard.cooklit.model.activities.BucketListActivity.NAME;
 
 public class MyKitchenActivity extends AppCompatActivity{
     private IngredientViewModel mIngredientViewModel;
