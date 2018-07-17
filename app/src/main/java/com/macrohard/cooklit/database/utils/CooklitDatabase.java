@@ -116,6 +116,7 @@ public abstract class CooklitDatabase extends RoomDatabase {
             ingredient = new Ingredient("Ginger", "2018-02-02");
             mDao.insertIngredient(ingredient);
             ingredient = new Ingredient("Tofu", "2018-03-03");
+
             mDao.insertIngredient(ingredient);
             dates.add(monday);
             JSONObject json = new JSONObject();

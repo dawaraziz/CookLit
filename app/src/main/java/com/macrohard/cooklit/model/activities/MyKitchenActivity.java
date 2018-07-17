@@ -264,17 +264,18 @@ public class MyKitchenActivity extends AppCompatActivity{
         if (requestCode == NEW_INGREDIENT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             int num = data.getExtras().size();
             System.out.print(num);
-            if (num > 3) {
-                for (int i = 1; i <= (num/3); i++) {
+
+//            if (num > 3) {
+                for (int i = 1; i <= (num/2); i++) {
                     Ingredient ingredient = new Ingredient(data.getStringExtra("name" + String.valueOf(i)),
                             data.getStringExtra("date" + String.valueOf(i)));
                     mIngredientViewModel.insert(ingredient);
                 }
-            } else {
-                Ingredient ingredient = new Ingredient(data.getStringExtra(AddItemActivity.NAME),
-                        data.getStringExtra(AddItemActivity.DATE));
-                mIngredientViewModel.insert(ingredient);
-            }
+//            } else {
+//                Ingredient ingredient = new Ingredient(data.getStringExtra(AddItemActivity.NAME), "2",
+//                        data.getStringExtra(AddItemActivity.DATE));
+//                mIngredientViewModel.insert(ingredient);
+//            }
         } else {
             Toast.makeText(
                     getApplicationContext(),

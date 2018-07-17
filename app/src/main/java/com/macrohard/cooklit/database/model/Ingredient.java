@@ -20,6 +20,7 @@ public class Ingredient {
     @Ignore
     Boolean selected = false;
 
+
     public Ingredient (@NonNull String mName, @NonNull String mExpiryDate) {
         this.mName=mName;
         this.mExpiryDate=mExpiryDate;
