@@ -50,4 +50,7 @@ public abstract class CooklitDao {
     @Query("SELECT * FROM recipe_table WHERE date = :date")
     public abstract  LiveData<List<Recipe>> getRecipesByDate(String date);
 
+    @Delete
+    public abstract void deleteRecipe(Recipe recipe);
+
 }

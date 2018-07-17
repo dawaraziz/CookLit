@@ -184,6 +184,7 @@ public class MyKitchenActivity extends AppCompatActivity{
 
                 for (int i = 0; i<ingre_size; ++i) {
                     mIngredientViewModel.deleteIngreident(mIngredientViewModel.getSelectedIngredients().get(i));
+
                 }
             }
         });

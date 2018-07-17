@@ -94,6 +94,28 @@ public class CooklitRepository {
 
     }
 
+    // delete a recipe
+    private static class deleteRecipeAsyncTask extends AsyncTask<Recipe, Void, Void> {
+
+        private CooklitDao mAsyncTaskDao;
+
+        deleteRecipeAsyncTask(CooklitDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Recipe... params) {
+            mAsyncTaskDao.deleteRecipe(params[0]);
+            return null;
+        }
+    }
+
+
+    public void deleteRecipe(Recipe recipe) {
+        new deleteRecipeAsyncTask(mCooklitDao).execute(recipe);
+
+    }
+
     // delete allIngredients
     private static class deleteAllIngredientAsyncTask extends AsyncTask<Void, Void, Void> {
         private CooklitDao mAsyncTaskDao;
