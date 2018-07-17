@@ -4,18 +4,32 @@
 
 
     <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/table"
-        android:layout_centerInParent="true">
+        android:layout_alignParentTop="true">
         <TableRow>
             <TextView android:text="Here is your grocery list!"
                 android:layout_width="wrap_content"
                 android:layout_column="0"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
                 android:textSize="25dp"
                 android:layout_centerInParent="true"/>
+        </TableRow>
+        <TableRow>
+            <Button
+                android:layout_width="0dip"
+                android:layout_height="50dp"
+                android:width="50dp"
+                android:height="50dp"
+                android:layout_weight="1"
+                android:id="@+id/Delete"
+                android:text="Delete"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/white_button"/>
         </TableRow>
 
         <ScrollView android:layout_height="wrap_content"

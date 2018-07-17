@@ -30,8 +30,11 @@ import com.macrohard.cooklit.database.model.IngredientViewModel;
 import com.macrohard.cooklit.R;
 import com.macrohard.cooklit.controller.IngredientListAdapter;
 import com.macrohard.cooklit.database.model.Recipe;
+import com.macrohard.cooklit.model.dialogs.AddItemDialog;
 
 import java.util.List;
+
+import static com.macrohard.cooklit.model.activities.BucketListActivity.NAME;
 
 public class MyKitchenActivity extends AppCompatActivity{
     private IngredientViewModel mIngredientViewModel;
@@ -171,8 +174,8 @@ public class MyKitchenActivity extends AppCompatActivity{
         addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MyKitchenActivity.this, AddItemActivity.class);
-                startActivityForResult(intent, NEW_INGREDIENT_ACTIVITY_REQUEST_CODE);
+                AddItemDialog aid = new AddItemDialog(MyKitchenActivity.this, R.style.default_Dialog);
+                aid.show();
             }
         });
 
@@ -264,18 +267,13 @@ public class MyKitchenActivity extends AppCompatActivity{
         if (requestCode == NEW_INGREDIENT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             int num = data.getExtras().size();
             System.out.print(num);
+            for (int i = 1; i <= (num / 2); i++) {
+                Ingredient ingredient = new Ingredient(data.getStringExtra("name" + String.valueOf(i)),
+                        data.getStringExtra("date" + String.valueOf(i)));
+                mIngredientViewModel.insert(ingredient);
+            }
 
-//            if (num > 3) {
-                for (int i = 1; i <= (num/2); i++) {
-                    Ingredient ingredient = new Ingredient(data.getStringExtra("name" + String.valueOf(i)),
-                            data.getStringExtra("date" + String.valueOf(i)));
-                    mIngredientViewModel.insert(ingredient);
-                }
-//            } else {
-//                Ingredient ingredient = new Ingredient(data.getStringExtra(AddItemActivity.NAME), "2",
-//                        data.getStringExtra(AddItemActivity.DATE));
-//                mIngredientViewModel.insert(ingredient);
-//            }
+
         } else {
             Toast.makeText(
                     getApplicationContext(),

@@ -1,22 +1,29 @@
-package com.macrohard.cooklit.model.activities;
+package com.macrohard.cooklit.model.dialogs;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
-import java.util.Calendar;
-
 
 import com.macrohard.cooklit.R;
+import com.macrohard.cooklit.database.model.Ingredient;
+import com.macrohard.cooklit.database.model.IngredientViewModel;
+import com.macrohard.cooklit.database.model.Recipe;
+import com.macrohard.cooklit.database.model.RecipeViewModel;
 
-public class AddItemActivity extends AppCompatActivity {
+import java.util.Calendar;
 
+public class AddItemDialog extends Dialog {
+    Activity a;
     public static final String NAME = "com.macrohard.cooklit.NAME";
     public static final String QUANTITY = "com.macrohard.cooklit.QUANTITY";
     public static final String DATE = "com.macrohard.cooklit.DATE";
@@ -33,19 +40,20 @@ public class AddItemActivity extends AppCompatActivity {
     private int month;
     private int day;
 
-    static final int DATE_DIALOG_ID = 999;
+
+    public AddItemDialog(Activity a, int theme_res_id) {
+        super(a, theme_res_id);
+        this.a = a;
+    }
 
     public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(this.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager =(InputMethodManager)a.getSystemService(a.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_additem);
 
         mEditNameView = findViewById(R.id.name);
@@ -60,7 +68,6 @@ public class AddItemActivity extends AppCompatActivity {
             }
         });
 
-
         setCurrentDateOnView();
 
 
@@ -72,26 +79,23 @@ public class AddItemActivity extends AppCompatActivity {
             public void onClick(View view){
 
                 if (TextUtils.isEmpty(mEditNameView.getText())){
-                    setResult(RESULT_CANCELED, replyIntent);
+                    a.setResult(a.RESULT_CANCELED, replyIntent);
                 } else {
                     String name = mEditNameView.getText().toString();
                     String stryear = String.valueOf(mDatePickerView.getYear());
                     String strmonth = String.valueOf(mDatePickerView.getMonth()+1);
                     String strday = String.valueOf(mDatePickerView.getDayOfMonth());
                     String date = stryear + "-" + strmonth + "-" +strday;
-                    replyIntent.putExtra(NAME, name);
-                    replyIntent.putExtra(DATE, date);
-                    setResult(RESULT_OK, replyIntent);
+                    Ingredient ingredient = new Ingredient(name, date);
+                    IngredientViewModel ingredientViewModel =  ViewModelProviders.of((FragmentActivity) AddItemDialog.this.a).get(IngredientViewModel.class);
+                    ingredientViewModel.insert(ingredient);
                 }
 
-                finish();
+                dismiss();
             }
         });
-
-
     }
 
-    // display current date
     public void setCurrentDateOnView() {
 
         mDatePickerView = (DatePicker) findViewById(R.id.date);
@@ -106,5 +110,4 @@ public class AddItemActivity extends AppCompatActivity {
         mDatePickerView.init(year, month, day, null);
 
     }
-
 }
