@@ -22,6 +22,7 @@ import com.macrohard.cooklit.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -113,12 +114,13 @@ public class BucketListActivity extends AppCompatActivity {
                         year = c.get(Calendar.YEAR);
                         month = c.get(Calendar.MONTH);
                         day = c.get(Calendar.DAY_OF_MONTH);
+                        String d = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
                         String stryear = String.valueOf(year);
                         String strmonth = String.valueOf(month);
                         String strday = String.valueOf(day);
                         String date = stryear + "-" + strmonth + "-" +strday;
                         intent.putExtra("name" + String.valueOf(idcounter),name);
-                        intent.putExtra("date" + String.valueOf(idcounter),date);
+                        intent.putExtra("date" + String.valueOf(idcounter),d);
                         idcounter += 1;
                         setResult(RESULT_OK, intent);
                     }
