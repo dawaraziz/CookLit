@@ -15,15 +15,20 @@ public class Recipe {
     @PrimaryKey(autoGenerate = true)
     private int id;
     @NonNull
+    @ColumnInfo(name = "name")
     private String name;
     @NonNull
+    @ColumnInfo(name = "uri")
     private String uri;
     // in json format string
     @NonNull
-    private String  date;
+    @ColumnInfo(name = "day")
+    private String  day;
     @NonNull
+    @ColumnInfo(name = "time")
     private String time;
     @NonNull
+    @ColumnInfo(name = "repeat")
     private boolean repeat;
 
 
@@ -34,11 +39,11 @@ public class Recipe {
     }
 
     @Ignore
-    public Recipe(int id, String name, String uri, String date, String time, boolean repeat){
+    public Recipe(int id, String name, String uri, String day, String time, boolean repeat){
         this.id = id;
         this.name = name;
         this.uri = uri;
-        this.date = date;
+        this.day = day;
         this.time = time;
         this.repeat = repeat;
     }
@@ -67,12 +72,12 @@ public class Recipe {
         this.uri = uri;
     }
 
-    public String getDate() {
-        return date;
+    public String getDay() {
+        return day;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDay(String date) {
+        this.day = date;
     }
 
     public String getTime() {

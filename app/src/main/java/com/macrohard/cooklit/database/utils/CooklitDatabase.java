@@ -21,13 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Database(entities = {Ingredient.class, Recipe.class}, version =1)
+@Database(entities = {Ingredient.class, Recipe.class}, version =3)
 public abstract class CooklitDatabase extends RoomDatabase {
     public abstract CooklitDao CooklitDao();
 
     private static CooklitDatabase INSTANCE;
 
-    static CooklitDatabase getDatabase(final Context context){
+    public static CooklitDatabase getDatabase(final Context context){
         if (INSTANCE == null){
             synchronized (CooklitDatabase.class){
                 // if DB does not exist, create DB here
@@ -37,6 +37,7 @@ public abstract class CooklitDatabase extends RoomDatabase {
                             .fallbackToDestructiveMigration()
                             //.addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                             .addCallback(sRoomDatabaseCallback)
+                            .allowMainThreadQueries()
                             .build();
                 }
             }

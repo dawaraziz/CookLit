@@ -9,6 +9,7 @@
         android:layout_height="45dp"
         android:text="Your Saved Recipes"
         android:textSize="30sp"
+        android:textColor="@color/black"
         android:layout_gravity="center"
         android:textAlignment="center"/>
 

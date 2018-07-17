@@ -14,13 +14,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class TextAndItemListViewAdapter extends ArrayAdapter<String> {
+public class TwoTextItemListViewAdapter extends ArrayAdapter<String> {
 
     private Context context;
     private ArrayList<String> texts1;
     private ArrayList<String> texts2;
 
-    public TextAndItemListViewAdapter(Context context, int resource, ArrayList<String> texts1, ArrayList<String> texts2) {
+    public TwoTextItemListViewAdapter(Context context, int resource, ArrayList<String> texts1, ArrayList<String> texts2) {
         super(context, resource, texts1);
         this.context = context;
         this.texts1 = texts1;

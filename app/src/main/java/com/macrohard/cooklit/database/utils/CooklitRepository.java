@@ -14,34 +14,19 @@ public class CooklitRepository {
 
     private CooklitDao mCooklitDao;
     private LiveData<List<Ingredient>> mAllIngredients;
-    private LiveData<List<Recipe>> mAllRecipes;
-    private LiveData<List<Recipe>> mDateRecipes;
 
     public CooklitRepository(Application application){
         CooklitDatabase db = CooklitDatabase.getDatabase(application);
         mCooklitDao = db.CooklitDao();
         mAllIngredients = mCooklitDao.getAllIngredients ();
-        mAllRecipes = mCooklitDao.getAllRecipes();
     }
 
     public LiveData<List<Ingredient>> getAllIngredients(){
         return mAllIngredients;
     }
 
-    public LiveData<List<Recipe>> getAllRecipes(){
-        return mAllRecipes;
-    }
-
-    public LiveData<List<Recipe>> getRecipesByDate(String date){
-        return mCooklitDao.getRecipesByDate(date);
-    }
-
     public void insert (Ingredient ingredient){
         new insertIngredient(mCooklitDao).execute(ingredient);
-    }
-
-    public void insert (Recipe recipe){
-        new insertRecipe (mCooklitDao).execute(recipe);
     }
 
     private static class insertIngredient extends AsyncTask<Ingredient, Void, Void> {
@@ -57,20 +42,6 @@ public class CooklitRepository {
             return null;
         }
 
-    }
-
-    private static class insertRecipe extends AsyncTask<Recipe, Void, Void> {
-
-        private CooklitDao mAsyncTaskDao;
-        insertRecipe (CooklitDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Recipe... params) {
-            mAsyncTaskDao.insertRecipe(params[0]);
-            return null;
-        }
     }
 
     // delete a ingredient
@@ -91,28 +62,6 @@ public class CooklitRepository {
 
     public void deleteIngredient(Ingredient ingredient) {
         new deleteIngredientAsyncTask(mCooklitDao).execute(ingredient);
-
-    }
-
-    // delete a recipe
-    private static class deleteRecipeAsyncTask extends AsyncTask<Recipe, Void, Void> {
-
-        private CooklitDao mAsyncTaskDao;
-
-        deleteRecipeAsyncTask(CooklitDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Recipe... params) {
-            mAsyncTaskDao.deleteRecipe(params[0]);
-            return null;
-        }
-    }
-
-
-    public void deleteRecipe(Recipe recipe) {
-        new deleteRecipeAsyncTask(mCooklitDao).execute(recipe);
 
     }
 

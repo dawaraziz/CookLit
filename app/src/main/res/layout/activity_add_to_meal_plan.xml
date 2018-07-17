@@ -73,7 +73,7 @@
             android:layout_height="32dp"
             android:layout_marginStart="5dp"
             android:background="@drawable/default_round_button"
-            android:text="M"
+            android:text="Th"
             android:textColor="@color/cookLitBlue"
             android:textStyle="bold"
             android:shadowColor="@color/colorAccent"/>

@@ -12,7 +12,7 @@ import android.widget.ListView;
 import com.macrohard.cooklit.R;
 import com.macrohard.cooklit.database.model.Recipe;
 import com.macrohard.cooklit.database.model.RecipeViewModel;
-import com.macrohard.cooklit.support.adapters.TextAndItemListViewAdapter;
+import com.macrohard.cooklit.support.adapters.TwoTextItemListViewAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,34 +44,34 @@ public class MealPlanActivity extends AppCompatActivity {
 
         getScheduleInfo(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
 
-        // Create the observer which updates the UI
-        final Observer<List<Recipe>> recipeObserver = new Observer<List<Recipe>>(){
-            @Override
-            public void onChanged(@Nullable final List<Recipe> recipes){
-                // Update the UI here
-                //recipeNameSample= recipes.get(0).getName();
-                //recipeTimeSample= recipes.get(0).getTime();
-                //Log.d("recipe_name",recipeNameSample);
-                List<Recipe> recipeListMonday = mRecipeViewModel.getRecipesByDay("Monday");
-//                    recipeNameSample = recipeListMonday.get(1).getName();
-//                    recipeTimeSample = recipeListMonday.get(1).getTime();
-                List<Recipe> recipeListFriday = mRecipeViewModel.getRecipesByDay("Friday");
-
-                try {
-                    JSONObject json = new JSONObject(recipes.get(0).getDate());
-//                    dateJsonArray=  json.getJSONArray("date_array");
-//                    if (dateJsonArray != null) {
-//                        for (int i=0;i<dateJsonArray.length();i++){
-//                            recipeDateSample.add(dateJsonArray.getString(i));
-//                        }
-//                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        };
+        // Create the observer which updates the UI.  EDIT:: This Does not work as it is always observing and we need a simple query with a fixed value
+//        final Observer<List<Recipe>> recipeObserver = new Observer<List<Recipe>>(){
+//            @Override
+//            public void onChanged(@Nullable final List<Recipe> recipes){
+//                // Update the UI here
+//                //recipeNameSample= recipes.get(0).getName();
+//                //recipeTimeSample= recipes.get(0).getTime();
+//                //Log.d("recipe_name",recipeNameSample);
+//                List<Recipe> recipeListMonday = mRecipeViewModel.getRecipesByDay("Monday");
+////                    recipeNameSample = recipeListMonday.get(1).getName();
+////                    recipeTimeSample = recipeListMonday.get(1).getTime();
+//                List<Recipe> recipeListFriday = mRecipeViewModel.getRecipesByDay("Friday");
+//
+//                try {
+//                    JSONObject json = new JSONObject(recipes.get(0).getDay());
+////                    dateJsonArray=  json.getJSONArray("date_array");
+////                    if (dateJsonArray != null) {
+////                        for (int i=0;i<dateJsonArray.length();i++){
+////                            recipeDateSample.add(dateJsonArray.getString(i));
+////                        }
+////                    }
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        };
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         //mRecipeViewModel.getmAllRecipes().observe(this,recipeObserver);
@@ -95,16 +95,22 @@ public class MealPlanActivity extends AppCompatActivity {
         switch (dayOfWeek){
             case 1:
                 recipes = mRecipeViewModel.getRecipesByDay("Su");
+                break;
             case 2:
                 recipes = mRecipeViewModel.getRecipesByDay("M");
+                break;
             case 3:
                 recipes = mRecipeViewModel.getRecipesByDay("T");
+                break;
             case 4:
                 recipes = mRecipeViewModel.getRecipesByDay("W");
+                break;
             case 5:
                 recipes = mRecipeViewModel.getRecipesByDay("Th");
+                break;
             case 6:
                 recipes = mRecipeViewModel.getRecipesByDay("F");
+                break;
             case 7:
                 recipes = mRecipeViewModel.getRecipesByDay("S");
         }
@@ -122,7 +128,7 @@ public class MealPlanActivity extends AppCompatActivity {
             }
         }
 
-        TextAndItemListViewAdapter itemsAdapter =  new TextAndItemListViewAdapter(MealPlanActivity.this,
+        TwoTextItemListViewAdapter itemsAdapter =  new TwoTextItemListViewAdapter(MealPlanActivity.this,
                 R.layout.mealplan_schedule_view, recipeNames,timings);
         mealsForDayList.setAdapter(itemsAdapter);
     }

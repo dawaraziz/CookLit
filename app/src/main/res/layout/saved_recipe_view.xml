@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@drawable/default_bottom_border"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:id="@+id/savedRecipeNameText"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:gravity="start"
+        android:textSize="20sp"
+        android:layout_marginStart="10dp"
+        />
+
+    <Button
+        android:id="@+id/deleteSavedRecipeButton"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:background="@drawable/curved_button_background"
+        android:textAlignment="center"
+        android:text="-"
+        android:gravity="end"
+        android:textSize="30sp"/>
+
+</LinearLayout>

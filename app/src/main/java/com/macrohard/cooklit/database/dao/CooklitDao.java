@@ -47,8 +47,8 @@ public abstract class CooklitDao {
     @Query("SELECT * FROM recipe_table WHERE name = :name")
     public abstract Recipe fetchRecipebyName(String name);
 
-    @Query("SELECT * FROM recipe_table WHERE date = :date")
-    public abstract  LiveData<List<Recipe>> getRecipesByDate(String date);
+    @Query("SELECT * FROM recipe_table WHERE day = :day")
+    public abstract List<Recipe> getRecipesByDay(String day);
 
     @Delete
     public abstract void deleteRecipe(Recipe recipe);
