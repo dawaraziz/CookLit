@@ -1,89 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:clickable="true"
-    android:focusableInTouchMode="true">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="290dp"
+    android:layout_height="395dp"
+    android:layout_gravity="center"
+    android:background="@drawable/curved_button_background"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/nameblock"
+        android:layout_gravity="center"
         android:layout_marginBottom="50sp"
-        android:layout_centerInParent="true"
         android:id="@+id/intro"
         android:gravity="center"
         android:text="Add an item here"
+        android:textColor="@android:color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
         />
 
-    <RelativeLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/nameblock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/nameblock"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_above="@id/quantityblock"
-        android:layout_marginBottom="20sp">
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:gravity="center"
             android:id="@+id/nametext"
-            android:text="Item: "/>
+            android:text="Item: "
+            android:textColor="@android:color/black"
+            android:textSize="15dp"
+            android:textStyle="bold"/>
         <EditText
             android:id="@+id/name"
             android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:layout_below="@id/nametext"/>
-    </RelativeLayout>
-    <RelativeLayout
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/dateblock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:id="@+id/quantityblock"
-        android:layout_above="@id/expiryblock"
-        android:layout_marginBottom="20sp">
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal"
-            android:id="@+id/quantitytext"
-            android:text="Quantity: "/>
-        <EditText
-            android:layout_width="150sp"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:layout_below="@id/quantitytext"
-            android:id="@+id/quantity"/>
-        <!--<Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/enter_quantity"
-            android:layout_toEndOf="@id/quantity"
-            android:text="yes"/>-->
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/expiryblock"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_above="@id/Buttons">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:gravity="center_horizontal"
             android:id="@+id/expirytext"
             android:text="Expiry:"/>
@@ -93,33 +66,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:calendarViewShown="false"
-            android:datePickerMode="spinner">
+            android:datePickerMode="spinner"/>
 
-        </DatePicker>
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:layout_centerVertical="true"
-        android:id="@+id/Buttons"
-        android:gravity="center"
-        android:layout_marginBottom="30sp">
-        <Button
-            android:layout_width="150dp"
-
-            android:layout_height="30dp"
-            android:background="@drawable/white_button"
-            android:id="@+id/add"
-            android:text="Add"/>
-        <Button
-            android:layout_width="150dp"
-
-            android:layout_height="30dp"
-            android:background="@drawable/white_button"
-            android:id="@+id/add_and_enter_another"
-            android:text="Enter another"/>
     </LinearLayout>
 
-</RelativeLayout>
+    <Button
+        android:layout_width="150dp"
+        android:layout_gravity="center"
+        android:layout_height="30dp"
+        android:background="@drawable/white_button"
+        android:id="@+id/add"
+        android:text="Add"/>
+
+
+</LinearLayout>
