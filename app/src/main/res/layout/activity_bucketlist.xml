@@ -9,14 +9,17 @@
         android:id="@+id/table"
         android:layout_alignParentTop="true">
         <TableRow>
-            <TextView android:text="Here is your grocery list!"
+            <TextView android:text="Grocery List"
                 android:layout_width="wrap_content"
                 android:layout_column="0"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_weight="1"
-                android:fontFamily="sans-serif"
-                android:textSize="25dp"
+                android:fontFamily="casual"
+                android:background="@color/cookLitBlue"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:paddingTop="5dp"
                 android:layout_centerInParent="true"/>
         </TableRow>
         <TableRow>
@@ -29,7 +32,7 @@
                 android:id="@+id/Delete"
                 android:text="Delete"
                 android:layout_alignParentLeft="true"
-                android:background="@drawable/white_button"/>
+                android:background="@drawable/curved_button_background"/>
         </TableRow>
 
         <ScrollView android:layout_height="wrap_content"
@@ -71,14 +74,14 @@
         android:text="Add"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/white_button"/>
+        android:background="@drawable/curved_button_background"/>
     <Button
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:id="@+id/Submit"
         android:layout_alignParentRight="true"
         android:text="Submit"
-        android:background="@drawable/white_button"
+        android:background="@drawable/curved_button_background"
         android:layout_alignParentBottom="true"/>
 
 
