@@ -7,7 +7,7 @@
 
     <string-array name="mealPlan_extraOptions">
         <item>Go To Recipe</item>
-        <item>Delete from MealPlan</item>
+        <item>Delete from my meal plan</item>
     </string-array>
 
 </resources>
