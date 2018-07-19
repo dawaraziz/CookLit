@@ -39,4 +39,11 @@
         <item name="android:backgroundDimAmount">0.9</item>
     </style>
 
+    <style name="tutorial_style" parent="TextAppearance.ShowcaseView.Detail">
+        <item name="sv_backgroundColor">@color/cookLitBlue</item>
+        <item name="sv_showcaseColor">@color/white</item>
+        <item name="sv_buttonText">Hide</item>
+        <item name="sv_tintButtonColor">false</item>
+    </style>
+
 </resources>

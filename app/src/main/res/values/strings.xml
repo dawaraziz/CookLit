@@ -4,4 +4,10 @@
     <string name="empty_field">Some fileds are empty</string>
     <string name="title_activity_recipe_and_nutrition">RecipeAndNutritionActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+
+    <string-array name="mealPlan_extraOptions">
+        <item>Go To Recipe</item>
+        <item>Delete from MealPlan</item>
+    </string-array>
+
 </resources>

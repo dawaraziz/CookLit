@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Database(entities = {Ingredient.class, Recipe.class}, version =3)
+@Database(entities = {Ingredient.class, Recipe.class}, version = 5)
 public abstract class CooklitDatabase extends RoomDatabase {
     public abstract CooklitDao CooklitDao();
 

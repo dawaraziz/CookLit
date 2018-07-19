@@ -35,29 +35,26 @@
 
     <Button
         android:id="@+id/gotoRecipe"
-        android:layout_width="150dp"
+        android:layout_width="205dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/white_button"
-        android:layout_marginEnd="8dp"
+        android:background="@drawable/curved_button_background"
         android:text="Go To Recipe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/addToMealPlanButton"
-        android:layout_width="150dp"
-        android:background="@drawable/white_button"
+        android:layout_width="205dp"
+        android:background="@drawable/curved_button_background"
         android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
         android:layout_marginEnd="2dp"
         android:layout_marginStart="8dp"
         android:text="Add To Meal Plan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent" />
     <!--<android.support.design.widget.TabLayout
         android:layout_width="match_parent"
@@ -100,14 +97,16 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
         android:text="Chicken Nuggets"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/link_blue"
-        android:textSize="@dimen/activity_vertical_margin"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.376" />
 
 </android.support.constraint.ConstraintLayout>

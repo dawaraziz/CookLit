@@ -76,7 +76,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         goToRecipeButton = findViewById(R.id.gotoRecipe);
         addToMealPlanButton = findViewById(R.id.addToMealPlanButton);
 
-        //TODO::Create an object call recipe
         mHandler = new Handler();
         Intent mIntent = getIntent();
 
@@ -105,7 +104,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addToMealPlanDialog.show();
-                //resetWeekdayList();
             }
         });
 

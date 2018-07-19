@@ -45,8 +45,6 @@ public class FirstTimeActivity extends AppCompatActivity {
         });
     }
 
-//TODO::FM::Need to make this activity a one time thing
-
     private void startTour(){
         SharedPreferences.Editor sharedPreferencesEditor = getSharedPreferences(SHARED_PREFERENCE_APP_BASICS, MODE_PRIVATE).edit();
         sharedPreferencesEditor.putBoolean(SHARED_PREFERENCE_FIRST_TIME,false);

@@ -8,6 +8,11 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Formatter;
+
 
 @Entity(tableName = "recipe_table")
 public class Recipe {
@@ -20,13 +25,15 @@ public class Recipe {
     @NonNull
     @ColumnInfo(name = "uri")
     private String uri;
-    // in json format string
     @NonNull
     @ColumnInfo(name = "day")
     private String  day;
     @NonNull
     @ColumnInfo(name = "time")
     private String time;
+    @NonNull
+    @ColumnInfo(name = "date")
+    private String date;
     @NonNull
     @ColumnInfo(name = "repeat")
     private boolean repeat;
@@ -96,5 +103,27 @@ public class Recipe {
         this.repeat = repeat;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(@NonNull String date) {
+        this.date = date;
+    }
+
+    public Date getFormattedDate() {
+        Date answer = null;
+        try {
+            return new SimpleDateFormat("dd/MM/yyyy").parse(date);
+        }catch (ParseException PE){
+            System.err.println("Error when parsing date");
+        }
+        return answer;
+    }
+
+    public void setFormattedDate(@NonNull Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        this.date = formatter.format(date);
+    }
 
 }

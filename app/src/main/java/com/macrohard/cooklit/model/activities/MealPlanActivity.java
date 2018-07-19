@@ -1,11 +1,17 @@
 package com.macrohard.cooklit.model.activities;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CalendarView;
 import android.widget.ListView;
 
@@ -20,6 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class MealPlanActivity extends AppCompatActivity {
@@ -27,8 +34,7 @@ public class MealPlanActivity extends AppCompatActivity {
     private CalendarView mealPlanCalender;
     private ListView mealsForDayList;
     private RecipeViewModel mRecipeViewModel;
-    private JSONArray dates = new JSONArray();
-
+    private List<Recipe> recipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,38 +50,6 @@ public class MealPlanActivity extends AppCompatActivity {
 
         getScheduleInfo(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
 
-        // Create the observer which updates the UI.  EDIT:: This Does not work as it is always observing and we need a simple query with a fixed value
-//        final Observer<List<Recipe>> recipeObserver = new Observer<List<Recipe>>(){
-//            @Override
-//            public void onChanged(@Nullable final List<Recipe> recipes){
-//                // Update the UI here
-//                //recipeNameSample= recipes.get(0).getName();
-//                //recipeTimeSample= recipes.get(0).getTime();
-//                //Log.d("recipe_name",recipeNameSample);
-//                List<Recipe> recipeListMonday = mRecipeViewModel.getRecipesByDay("Monday");
-////                    recipeNameSample = recipeListMonday.get(1).getName();
-////                    recipeTimeSample = recipeListMonday.get(1).getTime();
-//                List<Recipe> recipeListFriday = mRecipeViewModel.getRecipesByDay("Friday");
-//
-//                try {
-//                    JSONObject json = new JSONObject(recipes.get(0).getDay());
-////                    dateJsonArray=  json.getJSONArray("date_array");
-////                    if (dateJsonArray != null) {
-////                        for (int i=0;i<dateJsonArray.length();i++){
-////                            recipeDateSample.add(dateJsonArray.getString(i));
-////                        }
-////                    }
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        };
-
-        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        //mRecipeViewModel.getmAllRecipes().observe(this,recipeObserver);
-
         mealPlanCalender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
@@ -84,14 +58,44 @@ public class MealPlanActivity extends AppCompatActivity {
             }
         });
 
+        mealsForDayList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent recipeIntent = new Intent(MealPlanActivity.this, RecipeActivity.class);
+                recipeIntent.putExtra("uri",recipes.get(i).getUri());
+                startActivity(recipeIntent);
+            }
+        });
+
+        mealsForDayList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                final int index = i;
+                AlertDialog.Builder builder = new AlertDialog.Builder(MealPlanActivity.this);
+                builder.setTitle("Possible Actions")
+                        .setItems(R.array.mealPlan_extraOptions, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(which == 0){
+                                    Intent recipeIntent = new Intent(MealPlanActivity.this, RecipeActivity.class);
+                                    recipeIntent.putExtra("uri",recipes.get(index).getUri());
+                                    startActivity(recipeIntent);
+                                }else{
+                                    mRecipeViewModel.deleteRecipe(recipes.get(index));
+                                    mealsForDayList.refreshDrawableState();
+                                }
+                            }
+                        });
+                builder.create().show();
+                return true;
+            }
+        });
+
     }
 
     private void getScheduleInfo(int dayOfWeek){
-        ArrayList<String> recipeNames = new ArrayList<>();
-        ArrayList<String> timings = new ArrayList<>();
-        List<Recipe> recipes = null;
-
-        //TODO::FM::If the getRecipesByDay Function would work, meal plan would then be all good
+        if(recipes!=null) {
+            recipes.clear();
+        }
         switch (dayOfWeek){
             case 1:
                 recipes = mRecipeViewModel.getRecipesByDay("Su");
@@ -117,19 +121,16 @@ public class MealPlanActivity extends AppCompatActivity {
 
         if(recipes != null) {
             for (Recipe recipe : recipes) {
-                recipeNames.add(recipe.getName());
-                timings.add(recipe.getTime());
-                if(!recipe.getRepeat()){
-                    //TODO::FM::Remember to delete recipe here, Sean: I need the deleteRecipefunction here and the flags in the next line
-                    //mRecipeViewModel.deleteRecipe(recipe);
-
-                    //TODO::FM:: An if statement should be here checking if the recipe is saved. If it not, then delete, else just set the Onlysaved flag to true
+                Date selectedDate = new Date(mealPlanCalender.getDate());
+                if((recipe.getRepeat() && recipe.getFormattedDate().after(selectedDate))
+                        || (!recipe.getRepeat() && !recipe.getFormattedDate().equals(selectedDate)) ) {
+                    recipes.remove(recipe);
                 }
             }
         }
 
         TwoTextItemListViewAdapter itemsAdapter =  new TwoTextItemListViewAdapter(MealPlanActivity.this,
-                R.layout.mealplan_schedule_view, recipeNames,timings);
+                R.layout.mealplan_schedule_view, recipes);
         mealsForDayList.setAdapter(itemsAdapter);
     }
 

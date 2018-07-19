@@ -10,21 +10,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.macrohard.cooklit.R;
+import com.macrohard.cooklit.database.model.Recipe;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class TwoTextItemListViewAdapter extends ArrayAdapter<String> {
+public class TwoTextItemListViewAdapter extends ArrayAdapter<Recipe> {
 
     private Context context;
-    private ArrayList<String> texts1;
-    private ArrayList<String> texts2;
+    private List<Recipe> recipes;
 
-    public TwoTextItemListViewAdapter(Context context, int resource, ArrayList<String> texts1, ArrayList<String> texts2) {
-        super(context, resource, texts1);
+    public TwoTextItemListViewAdapter(Context context, int resource, List<Recipe> recipes) {
+        super(context, resource, recipes);
         this.context = context;
-        this.texts1 = texts1;
-        this.texts2 = texts2;
+        this.recipes= recipes;
     }
 
     @Override
@@ -39,9 +39,9 @@ public class TwoTextItemListViewAdapter extends ArrayAdapter<String> {
         TextView text2 = convertView.findViewById(R.id.viewText2);
 
         // Populate the data into the template view using the data object
-        if (position <= texts1.size() - 1) {
-            text1.setText(texts1.get(position));
-            text2.setText(texts2.get(position));
+        if (position <= recipes.size() - 1) {
+            text1.setText(recipes.get(position).getName());
+            text2.setText(recipes.get(position).getTime());
         }
 
         return convertView;

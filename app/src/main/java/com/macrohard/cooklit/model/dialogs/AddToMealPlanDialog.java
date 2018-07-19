@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -26,7 +28,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +56,6 @@ public class AddToMealPlanDialog extends Dialog  {
 
     public AddToMealPlanDialog(Activity a, int theme_res_id, Recipe currentRecipe) {
         super(a , theme_res_id);
-        // TODO Auto-generated constructor stub
         this.activity = a;
         this.currentRecipe = currentRecipe;
     }
@@ -149,22 +153,37 @@ public class AddToMealPlanDialog extends Dialog  {
 
     private List<Recipe> getResults(){
         List<Recipe> savedDates = new ArrayList<>();
-        String time = String.valueOf(timePicker.getCurrentHour()) + ":" + String.valueOf(timePicker.getCurrentMinute());
+        String time = getFormattedTime();
         boolean remindRepeat= remindEverytimeRadioButton.isChecked();
-        ArrayList<String> scheduledDays = new ArrayList<>();
         for(Button weekday: weekDayButtons.keySet()){
            if(weekDayButtons.get(weekday)){
-                scheduledDays.add((String)weekday.getText());
                 Recipe recipe = new Recipe(0, currentRecipe.getName(),currentRecipe.getUri());
                 recipe.setDay((String)weekday.getText());
                 recipe.setTime(time);
                 recipe.setRepeat(remindRepeat);
+                if(remindRepeat) {
+                    recipe.setFormattedDate(new Date());
+                }else{
+                    //TODO::FM find the next instance of the date
+                    recipe.setFormattedDate(new Date());
+                }
                 savedDates.add(recipe);
-                scheduledDays.clear();
             }
         }
 
         return savedDates;
+    }
+
+    private String getFormattedTime(){
+        String hour = String.valueOf(timePicker.getCurrentHour());
+        String minute = String.valueOf(String.valueOf(timePicker.getCurrentMinute()));
+        if(hour.length() == 1){
+            hour = "0" + hour;
+        }
+        if(minute.length() == 1){
+            minute = "0" + minute;
+        }
+        return hour + ":" + minute;
     }
 
     private void saveToDatabase(List<Recipe> recipesToBeSaved){
