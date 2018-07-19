@@ -24,11 +24,6 @@ import com.macrohard.cooklit.database.model.Recipe;
 import com.macrohard.cooklit.database.model.RecipeViewModel;
 import com.macrohard.cooklit.model.activities.MealPlanActivity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -164,8 +159,7 @@ public class AddToMealPlanDialog extends Dialog  {
                 if(remindRepeat) {
                     recipe.setFormattedDate(new Date());
                 }else{
-                    //TODO::FM find the next instance of the date
-                    recipe.setFormattedDate(new Date());
+                    recipe.setFormattedDate(getNextWeekDayFromDate(recipe.getDay()));
                 }
                 savedDates.add(recipe);
             }
@@ -184,6 +178,52 @@ public class AddToMealPlanDialog extends Dialog  {
             minute = "0" + minute;
         }
         return hour + ":" + minute;
+    }
+
+    private Date getNextWeekDayFromDate(String weekDay){
+        Calendar now = Calendar.getInstance();
+        int today = now.get(Calendar.DAY_OF_WEEK);
+        int requiredDay = 0;
+        switch (weekDay){
+            case "M":
+                requiredDay = Calendar.MONDAY;
+                break;
+            case "T":
+                requiredDay = Calendar.TUESDAY;
+                break;
+            case "W":
+                requiredDay = Calendar.WEDNESDAY;
+                break;
+            case "Th":
+                requiredDay = Calendar.THURSDAY;
+                break;
+            case "F":
+                requiredDay = Calendar.FRIDAY;
+                break;
+            case "S":
+                requiredDay = Calendar.SATURDAY;
+                break;
+            case "Su":
+                requiredDay = Calendar.SUNDAY;
+                break;
+
+        }
+
+        if (today != requiredDay) {
+            int daysToAdd = 7 - today + requiredDay;
+            now.add(Calendar.DAY_OF_YEAR, daysToAdd);
+        }
+
+        Calendar allocatedTime = Calendar.getInstance();
+        allocatedTime.set(Calendar.HOUR, timePicker.getCurrentHour());
+        allocatedTime.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+
+
+        if (today == requiredDay && now.after(allocatedTime)){
+            now.add(Calendar.DAY_OF_YEAR,7);
+        }
+
+        return now.getTime();
     }
 
     private void saveToDatabase(List<Recipe> recipesToBeSaved){

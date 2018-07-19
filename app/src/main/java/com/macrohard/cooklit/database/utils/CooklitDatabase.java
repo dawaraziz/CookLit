@@ -89,10 +89,6 @@ public abstract class CooklitDatabase extends RoomDatabase {
         protected Void doInBackground(final Void... params) {
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
-            String monday = "Monday";
-            String friday = "Friday";
-
-            ArrayList<String> dates= new ArrayList<>();
 
             mDao.deleteAllIngredient();
             mDao.deleteAllRecipes();
@@ -119,27 +115,6 @@ public abstract class CooklitDatabase extends RoomDatabase {
             ingredient = new Ingredient("Tofu", "2018-03-03");
 
             mDao.insertIngredient(ingredient);
-            dates.add(monday);
-            JSONObject json = new JSONObject();
-            try {
-                json.put("date_array", new JSONArray(dates));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            String arrayList = json.toString();
-            Recipe recipe = new Recipe(0,"spagettie", "www.spagettie.com", arrayList, "6pm", false);
-            mDao.insertRecipe(recipe);
-            dates.add(friday);
-            JSONObject json2 = new JSONObject();
-            try {
-                json2.put("date_array", new JSONArray(dates));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            arrayList = json2.toString();
-            recipe = new Recipe(0,"apple", "www.apple.com", arrayList, "12pm", false);
-            mDao.insertRecipe(recipe);
 
             return null;
         }

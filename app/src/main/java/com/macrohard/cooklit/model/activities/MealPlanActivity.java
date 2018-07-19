@@ -24,9 +24,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MealPlanActivity extends AppCompatActivity {
@@ -43,18 +46,18 @@ public class MealPlanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_meal_plan);
 
         mealPlanCalender = findViewById(R.id.mealPlanCalendar);
+        mealPlanCalender.setFirstDayOfWeek(2);
         mealsForDayList = findViewById(R.id.mealsForDay);
 
-        // Get the ViewModel.
         mRecipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
 
-        getScheduleInfo(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
+        getScheduleInfo(Calendar.getInstance().get(Calendar.DAY_OF_WEEK), 0 , 0 ,0);
 
         mealPlanCalender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 int dayOfWeek = getDayOfWeek(i,i1,i2);
-                getScheduleInfo(dayOfWeek);
+                getScheduleInfo(dayOfWeek, i2, i1, i);
             }
         });
 
@@ -81,7 +84,10 @@ public class MealPlanActivity extends AppCompatActivity {
                                     startActivity(recipeIntent);
                                 }else{
                                     mRecipeViewModel.deleteRecipe(recipes.get(index));
-                                    mealsForDayList.refreshDrawableState();
+                                    recipes.remove(index);
+                                    TwoTextItemListViewAdapter itemsAdapter =  new TwoTextItemListViewAdapter(MealPlanActivity.this,
+                                            R.layout.mealplan_schedule_view, recipes);
+                                    mealsForDayList.setAdapter(itemsAdapter);
                                 }
                             }
                         });
@@ -92,7 +98,7 @@ public class MealPlanActivity extends AppCompatActivity {
 
     }
 
-    private void getScheduleInfo(int dayOfWeek){
+    private void getScheduleInfo(int dayOfWeek, int date, int month, int year){
         if(recipes!=null) {
             recipes.clear();
         }
@@ -119,18 +125,35 @@ public class MealPlanActivity extends AppCompatActivity {
                 recipes = mRecipeViewModel.getRecipesByDay("S");
         }
 
+        List<Recipe> finalRecipes = new ArrayList<>();
+
         if(recipes != null) {
+            finalRecipes.addAll(recipes);
             for (Recipe recipe : recipes) {
-                Date selectedDate = new Date(mealPlanCalender.getDate());
-                if((recipe.getRepeat() && recipe.getFormattedDate().after(selectedDate))
+                Date selectedDate = new Date(mealPlanCalender.getDate()); ;
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                if(year != 0) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(year, month, date);
+                    selectedDate = calendar.getTime();
+                }
+                String selectedDateString = formatter.format(selectedDate);
+                try {
+                    selectedDate = formatter.parse(selectedDateString);
+                } catch (ParseException e) {
+                    System.err.println("Could not parse date in MealPlan");
+                }
+                if((recipe.getFormattedDate().after(selectedDate))
                         || (!recipe.getRepeat() && !recipe.getFormattedDate().equals(selectedDate)) ) {
-                    recipes.remove(recipe);
+                    finalRecipes.remove(recipe);
                 }
             }
         }
 
         TwoTextItemListViewAdapter itemsAdapter =  new TwoTextItemListViewAdapter(MealPlanActivity.this,
-                R.layout.mealplan_schedule_view, recipes);
+                R.layout.mealplan_schedule_view, finalRecipes);
+        recipes.clear();
+        recipes.addAll(finalRecipes);
         mealsForDayList.setAdapter(itemsAdapter);
     }
 
