@@ -11,16 +11,16 @@
         android:layout_height="150dp"
         android:layout_weight="0">
 
-        <Button
-            android:id="@+id/delete_button"
-            android:layout_width="70dp"
-            android:background="@drawable/curved_button_background"
-            android:layout_height="35dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="10dp"
-            android:text="Delete"
-            android:textSize="13dp" />
+        <!--<Button-->
+            <!--android:id="@+id/delete_button"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:background="@drawable/curved_button_background"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:text="Delete"-->
+            <!--android:textSize="13dp" />-->
 
         <ImageView
             android:id="@+id/cooklit_image"
@@ -128,12 +128,13 @@
         >
 
         <Button
-            android:id="@+id/MyRecipe"
+            android:id="@+id/delete_button"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@drawable/curved_button_background"
-            android:text="My Recipes" />
+            android:clickable="false"
+            android:text="Delete" />
 
         <Button
             android:id="@+id/openMealPlan"
