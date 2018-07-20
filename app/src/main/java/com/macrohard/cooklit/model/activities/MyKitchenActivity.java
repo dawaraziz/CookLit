@@ -270,27 +270,6 @@ public class MyKitchenActivity extends AppCompatActivity{
     }
 
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == NEW_INGREDIENT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            int num = data.getExtras().size();
-            System.out.print(num);
-            for (int i = 1; i <= (num / 2); i++) {
-                Ingredient ingredient = new Ingredient(data.getStringExtra("name" + String.valueOf(i)),
-                        data.getStringExtra("date" + String.valueOf(i)));
-                mIngredientViewModel.insert(ingredient);
-            }
-
-
-        } else {
-            Toast.makeText(
-                    getApplicationContext(),
-                    R.string.empty_field,
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

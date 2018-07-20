@@ -28,21 +28,23 @@
         android:layout_gravity="center"
         android:background="@color/white"
         android:orientation="horizontal">
+
         <TextView
+            android:id="@+id/nametext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:id="@+id/nametext"
             android:text="Item: "
             android:textColor="@android:color/black"
             android:textSize="15dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/name"
             android:layout_width="150sp"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:layout_below="@id/nametext"/>
+            android:layout_below="@id/nametext"
+            android:inputType="text" />
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

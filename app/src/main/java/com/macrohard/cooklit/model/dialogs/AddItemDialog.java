@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
@@ -81,11 +82,13 @@ public class AddItemDialog extends Dialog {
                 if (TextUtils.isEmpty(mEditNameView.getText())){
                     a.setResult(a.RESULT_CANCELED, replyIntent);
                 } else {
+
                     String name = mEditNameView.getText().toString();
-                    String stryear = String.valueOf(mDatePickerView.getYear());
-                    String strmonth = String.valueOf(mDatePickerView.getMonth()+1);
-                    String strday = String.valueOf(mDatePickerView.getDayOfMonth());
-                    String date = stryear + "-" + strmonth + "-" +strday;
+                    int year = mDatePickerView.getYear();
+                    int month = mDatePickerView.getMonth()+1;
+                    int day = mDatePickerView.getDayOfMonth();
+                    String date = year + "-" + (month<10?("0"+month):(month)) + "-" +day;
+                    Log.d("date", date);
                     Ingredient ingredient = new Ingredient(name, date);
                     IngredientViewModel ingredientViewModel =  ViewModelProviders.of((FragmentActivity) AddItemDialog.this.a).get(IngredientViewModel.class);
                     ingredientViewModel.insert(ingredient);
