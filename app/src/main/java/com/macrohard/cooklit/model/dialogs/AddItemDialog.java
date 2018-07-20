@@ -84,16 +84,13 @@ public class AddItemDialog extends Dialog {
                     a.setResult(a.RESULT_CANCELED, replyIntent);
                 } else {
                     String name = mEditNameView.getText().toString();
-                    IngredientViewModel ingredientViewModel =  ViewModelProviders.of((FragmentActivity) AddItemDialog.this.a).get(IngredientViewModel.class);
-                    a.setResult(a.RESULT_CANCELED, replyIntent);
-                    dismiss();
-
                     int year = mDatePickerView.getYear();
                     int month = mDatePickerView.getMonth()+1;
                     int day = mDatePickerView.getDayOfMonth();
                     String date = year + "-" + (month<10?("0"+month):(month)) + "-" +day;
                     Log.d("date", date);
                     Ingredient ingredient = new Ingredient(name, date);
+                    IngredientViewModel ingredientViewModel =  ViewModelProviders.of((FragmentActivity) AddItemDialog.this.a).get(IngredientViewModel.class);
                     ingredientViewModel.insert(ingredient);
 
                 }
