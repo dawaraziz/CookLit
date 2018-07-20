@@ -91,6 +91,10 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
                 holder.ingredientNameView.setTextColor(Color.RED);
                 holder.ingredientDateView.setTextColor(Color.RED);
             }
+            else {
+                holder.ingredientNameView.setTextColor(Color.parseColor("#808080"));
+                holder.ingredientDateView.setTextColor(Color.parseColor("#808080"));
+            }
 
             holder.ingredientSelectButton.setChecked(current.getSelected());
 
