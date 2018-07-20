@@ -114,7 +114,7 @@ public class BucketListActivity extends AppCompatActivity {
                         year = c.get(Calendar.YEAR);
                         month = c.get(Calendar.MONTH);
                         day = c.get(Calendar.DAY_OF_MONTH);
-                        String d = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+                        String d = new SimpleDateFormat("2018-07-31").format(Calendar.getInstance().getTime());
                         String stryear = String.valueOf(year);
                         String strmonth = String.valueOf(month);
                         String strday = String.valueOf(day);
@@ -125,7 +125,8 @@ public class BucketListActivity extends AppCompatActivity {
                         setResult(RESULT_OK, intent);
                     }
                 }
-                setItemsPersistence(BucketListActivity.this, "1", items);
+                //setItemsPersistence(BucketListActivity.this, "1", items);
+                delete.performClick();
                 finish();
             }
         });
